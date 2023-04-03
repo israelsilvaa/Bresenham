@@ -82,7 +82,7 @@ class Bresenham:
         for linha in range(self.tamanhoMatriz-1, -1, -1):
             for coluna in range(self.tamanhoMatriz):
                 self.matriz[linha][coluna] = " ."
-                if (self.x == linha and coluna == self.y) or (self.y == coluna or self.yf == coluna):
+                if (self.x == linha and coluna == self.y) or (self.xf == coluna and self.yf == coluna):
                     self.matriz[linha][coluna] = str(linha)+str(coluna)
         
         print(self.x, self.y, self.xf,self.yf)
