@@ -1,24 +1,33 @@
 from modulos.bresenham import Bresenham
 
 v = 10
-x = 2 ; y = 0; xf = 5; yf = 3
+x = 0 ; y = 3; xf = 3; yf = 9
 
-teste = Bresenham(x, y, xf, yf , v)
+# na declaração do objeto são iniciadas as variaveis
+# e calculado o M por exemplo
+teste = Bresenham(x, y, xf, yf, v)
+teste.matrizAtual()
 
+
+#essa função do objeto calculas os pontos e despois
+# marca esses pontos na matriz
 teste.reta()
 
-#teste.reta(x, y, xf, yf )
-teste.matrizAtual()   
+# função para printar a matriz atual do objeto
+teste.matrizAtual()
+
+
+
 
 
 """
 passo 1: 
     calcular o M 
 
-    PIV�, levar pra horigem
+    PIVo, levar pra horigem
 
 passo2:
-    (rota��o de -30�)
+    (rotação de -30º)
     Xlinha: x.coss_Ang - y.sen_Ang
     Xlinha: x.sen_Ang + y.coss_Ang
 
