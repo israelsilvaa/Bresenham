@@ -10,27 +10,27 @@ class Bresenham:
 
     def __init__(self, x_ini, y_ini, x_fin, y_fin, tamanhoMatriz):
 
-        global matriz;
-        global x;
-        global y;
-        global xf;
+        global matriz
+        global x
+        global y
+        global xf
         global yf
         global zero_zero
-        self.x = x_ini;
-        self.y = y_ini;
-        self.xf = x_fin;
+        self.x = x_ini
+        self.y = y_ini
+        self.xf = x_fin
         self.yf = y_fin
         self.tamanhoMatriz = tamanhoMatriz
 
         self.m = (self.yf - self.y) / (self.xf - self.x)
         if self.m > 1:
-            self.x = y_ini;
-            self.y = x_ini;
-            self.xf = y_fin;
+            self.x = y_ini
+            self.y = x_ini
+            self.xf = y_fin
             self.yf = x_fin
             self.m = (self.yf - self.y) / (self.xf - self.x)
 
-        print("OK m:" + self.m)
+        print("OK m:" , self.m)
 
         # 2,3 - 3,9
         if self.x > 0:
@@ -104,7 +104,7 @@ class Bresenham:
 
         print(self.x, self.y, self.xf, self.yf)
         for linha in range(len(listaX)):
-            print("Linha:" + linha + "Coluna" + coluna)
+            print("Linha:" , linha , "Coluna" , coluna)
             self.matriz[listaX[linha]][listaY[linha]] = " X"
 
         print("Lista X: ", listaX)
