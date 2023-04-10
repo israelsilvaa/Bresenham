@@ -1,14 +1,23 @@
 from modulos.bresenham import Bresenham
-from modulos.tela import Tela
-
-tela = Tela()
-tela.limparTela()
 
 v = 4
 x = -1 ; y = -1; xf = 1; yf = 1
 
+# na declaração do objeto são iniciadas as variaveis
+# e calculado o M por exemplo
 teste = Bresenham(x, y, xf, yf, v)
 teste.matrizAtual()
+
+
+#essa função do objeto calculas os pontos e despois
+# marca esses pontos na matriz
+teste.reta()
+
+# função para printar a matriz atual do objeto
+teste.matrizAtual()
+
+
+
 
 
 """

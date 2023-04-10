@@ -1,5 +1,7 @@
 import os
+class Tela():
 
-class Tela:
-    def limparTela(self):
-        os.system("clear")
+     def limparTela(self):
+        os.system('cls')
+
+        
