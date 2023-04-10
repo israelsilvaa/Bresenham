@@ -1,33 +1,22 @@
 from modulos.bresenham import Bresenham
+from modulos.tela import Tela
 
-v = 10
-x = 0 ; y = 3; xf = 3; yf = 9
+tela = Tela()
+tela.limparTela()
 
-# na declaração do objeto são iniciadas as variaveis
-# e calculado o M por exemplo
+v = 4
+x = -1 ; y = -1; xf = 1; yf = 1
+
 teste = Bresenham(x, y, xf, yf, v)
 teste.matrizAtual()
 
 
-#essa função do objeto calculas os pontos e despois
-# marca esses pontos na matriz
-teste.reta()
-
-# função para printar a matriz atual do objeto
-teste.matrizAtual()
-
-
-
-
-
 """
 passo 1: 
-    calcular o M 
-
-    PIVo, levar pra horigem
+    PIVÔ, levar pra horigem
 
 passo2:
-    (rotação de -30º)
+    (rotação de -30°)
     Xlinha: x.coss_Ang - y.sen_Ang
     Xlinha: x.sen_Ang + y.coss_Ang
 
