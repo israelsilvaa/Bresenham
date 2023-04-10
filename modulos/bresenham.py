@@ -9,14 +9,14 @@ class Bresenham:
         self.fimM = 0
         
         if self.x <= self.y:
-            self.inicioM = self.x - 1
+            self.inicioM = self.x
         else:
-            self.inicioM = self.y - 1
+            self.inicioM = self.y
         
         if self.xf >= self.yf:
-            self.fimM = self.xf + 2
+            self.fimM = self.xf
         else:
-            self.fimM = self.yf + 2
+            self.fimM = self.yf
             
         # self.m = (self.yf-self.y) / (self.xf-self.x)
         # if self.m > 1:
@@ -24,16 +24,19 @@ class Bresenham:
         #     self.m = (self.yf-self.y) / (self.xf-self.x)
             
     def criarMatriz(self):
-        matriz = []
         for x in range(self.inicioM, self.fimM):
             linha = []
             for y in range(self.inicioM, self.fimM):
                 linha.append(".")  
-            matriz.append(linha)
+            self.matriz.append(linha)
+            self.matriz[0][0] = "xx"
     
     def matrizAtual(self):
-        for x in range(self.fimM, self.inicioM, -1):
+        print("for X in range(", self.fimM,", ", self.inicioM-1, ")\n")
+        
+        for x in range(self.fimM, self.inicioM-1, -1):
             for y in range(self.inicioM, self.fimM):
-                print(y, x, end="       ")             
+                # print(y, x, end="       ")             
+                print(self.matriz[y][x], end="       ")             
             print("\n")
         
