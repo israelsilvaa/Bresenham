@@ -27,16 +27,25 @@ class Bresenham:
         for x in range(self.inicioM, self.fimM):
             linha = []
             for y in range(self.inicioM, self.fimM):
-                linha.append(".")  
+                linha.append(".")   
             self.matriz.append(linha)
-            self.matriz[0][0] = "xx"
+        
     
     def matrizAtual(self):
-        print("for X in range(", self.fimM,", ", self.inicioM-1, ")\n")
         
         for x in range(self.fimM, self.inicioM-1, -1):
-            for y in range(self.inicioM, self.fimM):
-                # print(y, x, end="       ")             
+            for y in range(self.inicioM, self.fimM+1):
+                print(y, x, end="       ")
+                # print(self.matriz[y][x], end="       ")             
+                if y == -1 and x == 0:
+                    self.matriz[-1][-1] = "p"
+            print("\n")
+        
+        print("-------------\n")
+        
+        for x in range(self.fimM, self.inicioM-1, -1):
+            for y in range(self.inicioM, self.fimM+1):
+                # print(y, x, end="       ")
                 print(self.matriz[y][x], end="       ")             
             print("\n")
         
