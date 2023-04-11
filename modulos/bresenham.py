@@ -1,6 +1,7 @@
 class Bresenham:
     def __init__(self, x_ini, y_ini, x_fin, y_fin, tamanhoMatriz):
         self.matriz = []
+        self.matrizDePontos = []
         self.tamanhoMatriz = None
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
         self.inicioMatriz = 0
@@ -24,28 +25,26 @@ class Bresenham:
         #     self.m = (self.yf-self.y) / (self.xf-self.x)
             
     def criarMatriz(self):
-        for x in range(self.inicioM, self.fimM):
+        for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
-            for y in range(self.inicioM, self.fimM):
-                linha.append(".")   
+            for y in range(self.inicioM, self.fimM+1):
+                coordenada = [x, y]   
+                linha.append(coordenada)
             self.matriz.append(linha)
-        
     
     def matrizAtual(self):
-        
-        for x in range(self.fimM, self.inicioM-1, -1):
-            for y in range(self.inicioM, self.fimM+1):
-                print(y, x, end="       ")
-                # print(self.matriz[y][x], end="       ")             
-                if y == -1 and x == 0:
-                    self.matriz[-1][-1] = "p"
+        for x in range(len(self.matriz)):
+            for y in range(len(self.matriz)):
+                
+                #   x , y
+                if  self.matriz[x][y][1] == 0 and self.matriz[x][y][0] == 0: 
+                    print("+0+0", end=" ")
+                elif  self.matriz[x][y][1] == 0 and self.matriz[x][y][0] == -3: 
+                    print("+0-3", end=" ")
+                else:
+                    print("  . ", end=" ")
             print("\n")
+        print("\nprint 2\n\n")
         
-        print("-------------\n")
-        
-        for x in range(self.fimM, self.inicioM-1, -1):
-            for y in range(self.inicioM, self.fimM+1):
-                # print(y, x, end="       ")
-                print(self.matriz[y][x], end="       ")             
-            print("\n")
+     
         

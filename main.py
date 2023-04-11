@@ -5,7 +5,7 @@ tela = Tela()
 tela.limparTela()
 
 v = 4
-x = -1 ; y = -1; xf = 1; yf = 1
+x = -4 ; y = -2; xf = 1; yf = 5
 
 teste = Bresenham(x, y, xf, yf, v)
 teste.criarMatriz()
