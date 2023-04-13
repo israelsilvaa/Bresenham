@@ -2,14 +2,17 @@ from modulos.bresenham import Bresenham
 from modulos.tela import Tela
 
 tela = Tela()
-tela.limparTela()
 
-v = 4
-x = -4 ; y = -2; xf = 1; yf = 5
+x = -2; y = 3; xf = 3; yf = 9
 
-teste = Bresenham(x, y, xf, yf, v)
+teste = Bresenham(x, y, xf, yf)
 teste.criarMatriz()
+tela.limparTela()
 teste.matrizAtual()
+# teste.matrizCoordenada()
+# teste.reta()
+# teste.matrizAtual()
+
 
 
 """
