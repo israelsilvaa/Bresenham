@@ -3,15 +3,16 @@ from modulos.tela import Tela
 
 tela = Tela()
 
-x = 0; y = 3; xf = 3; yf = 9
+x = 0; y = 1; xf = 9; yf = 5
 
-teste = Bresenham(-5, 9)
+teste = Bresenham(0, 10)
 
 tela.limparTela()
 
 teste.reta(x, y, xf, yf)
 
 teste.matrizAtual()
+
 
 #teste.matrizCoordenada()
 
