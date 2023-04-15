@@ -20,18 +20,27 @@ class Bresenham:
             for y in range(self.inicioM, self.fimM+1):
                 coordenada = [x, y]   
                 linha.append(coordenada)
-                linhapontos.append("  .")
+                linhapontos.append("   .")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #print eixo x,y
                 if self.matriz[x][y][0] == 0 and self.matriz[x][y][1] == 0:
-                    self.matrizDePontos[x][y] = " 00"
+                    self.matrizDePontos[x][y] = "  0,0"
+                # X
                 elif self.matriz[x][y][0] == 0:
-                    self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][1])
+                    if self.matriz[x][y][1] > 0:
+                        self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
+                    else:
+                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][1])
                 elif self.matriz[x][y][1] == 0:
                     self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+
+                    if self.matriz[x][y][0] > 0:
+                        self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
+                    else:
+                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
@@ -129,10 +138,10 @@ class Bresenham:
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 if self.matriz[x][y][0] == self.y and self.matriz[x][y][1] == self.x:
-                    self.matrizDePontos[x][y] = "  \033[31mi\033[m"
+                    self.matrizDePontos[x][y] = "  \033[32m i\033[m"
                 elif self.matriz[x][y][0] == self.yf and self.matriz[x][y][1] == self.xf:
                     #print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf)
-                    self.matrizDePontos[x][y] = "  \033[32mX\033[m"
+                    self.matrizDePontos[x][y] = "  \033[32m f\033[m"
 
         #out: branch Quadrante
         self.reflexao(x_ini, y_ini, x_fin, y_fin)
@@ -172,7 +181,7 @@ class Bresenham:
                 for i in range(len(self.listaY)):
 
                     if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
-                        self.matrizDePontos[x][y] = "  \033[31mX\033[m"
+                        self.matrizDePontos[x][y] = "  \033[31m X\033[m"
 
         # print("\n Fim matrz de coordenadas\n\n")
         # for x in range(self.x, self.xf+1):

@@ -3,8 +3,8 @@ from modulos.tela import Tela
 
 tela = Tela()
 
-x = 0; y = 0; xf = 4; yf = 9
-teste = Bresenham(-7, 9)
+x = 0; y = 0; xf = 7; yf = 8
+teste = Bresenham(-3, 9)
 
 tela.limparTela()
 
