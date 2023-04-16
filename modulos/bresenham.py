@@ -5,6 +5,8 @@ class Bresenham:
         self.inicioM = inicioMatriz
         self.fimM = fimMatriz
         self.x=None ; self.y=None; self.xf=None; self.yf=None
+        self.xContadorOrigem = 0
+        self.yContadorOrigem = 0
         self.trocaxy = False
         self.trocax = False
         self.trocay = False
@@ -20,7 +22,7 @@ class Bresenham:
             for y in range(self.inicioM, self.fimM+1):
                 coordenada = [x, y]   
                 linha.append(coordenada)
-                linhapontos.append("   .")
+                linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
@@ -57,27 +59,69 @@ class Bresenham:
                 # print dos pontos vazios(onde não há retas)
                 print(self.matrizDePontos[x][y], end=" ")
             print("\n")
-        print("\nFim matriz atual ------------------\n\n")
+        print("\nFim matriz atual                                    ", end="")
         
     #x = 0; y = 3; xf = 3; yf = 9
-    def paraOrigem(self):
+    def xyParaOrigem(self):
         #leva o X para a origem(x == 0)
-        contador = 0
-        print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
+
+        if self.x > 0:
+            while self.x != 0:
+                self.xContadorOrigem = self.xContadorOrigem + 1
+                self.x = self.x - 1
+                self.xf = self.xf - 1
+        elif self.x < 0:
+            while self.x != 0:
+                self.xContadorOrigem = self.xContadorOrigem - 1
+                self.x = self.x + 1
+                self.xf = self.xf + 1
         
-        while self.x > 0:
-            contador = contador +1
-            self.x = self.x-1
-            self.xf = self.xf-1
-        print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
+        if self.y > 0:
+            while self.y != 0:
+                self.yContadorOrigem = self.yContadorOrigem + 1
+                self.y = self.y - 1
+                self.yf = self.yf - 1
+        elif self.y < 0:
+            while self.y != 0:
+                self.yContadorOrigem = self.yContadorOrigem - 1
+                self.y = self.y + 1
+                self.yf = self.yf + 1
+
+    def xyParaOrigemInversa(self):
+        #levando X para seu lugar original
+            print("xcont:" , self.xContadorOrigem, self.yContadorOrigem)
+
+            if self.xContadorOrigem != 0:
+                print("teste")
+                for i in range(len(self.listaX)):
+                    self.listaX[i] = self.listaX[i] + self.xContadorOrigem
+                self.xContadorOrigem = 0
+         
+            if self.yContadorOrigem != 0:
+                print("teste y")
+
+                for i in range(len(self.listaY)):
+                    self.listaY[i] = self.listaY[i] + self.yContadorOrigem
+                self.yContadorOrigem = 0
             
+            print("origem inversa:")
+            for i in range(len(self.listaY)):
+                print("(", self.listaX[i], " ," , self.listaY[i], ")")
+            
+          
+           
     #out: branch Quadrante       
-    def reflexao(self,  x_ini, y_ini, x_fin, y_fin):
+    def reflexao(self):
         self.m = (self.yf-self.y) / (self.xf-self.x)
-       
+        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
         if self.m > 1 or self.m < -1:
-            self.x=y_ini ; self.y=x_ini; self.xf=y_fin; self.yf=x_fin
+            aux = self.x
+            self.x = self.y; self.y=aux
+            
+            aux = self.xf
+            self.xf=self.yf; self.yf=aux
             self.trocaxy = True
+        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
 
         if self.x > self.xf:
             self.x = self.x - self.x * 2
@@ -89,16 +133,13 @@ class Bresenham:
             self.yf = self.yf - self.yf * 2
             self.trocay = True
 
-        self.m = (self.yf-self.y) / (self.xf-self.x)
+        self.m = round((self.yf-self.y) / (self.xf-self.x), 1)
+        print("(", self.x, self.y,")    (", self.xf, self.yf,")", self.m)
+       
 
     #out: branch Quadrante        
-    def reflexao_inversa(self, x_ini, y_ini, x_fin, y_fin):
+    def reflexao_inversa(self):
         
-        print(self.trocay)
-        print("da inversa\n( x  , y )")
-        for i in range(len(self.listaY)):
-            print("(", self.listaX[i], " ," , self.listaY[i], ")")
-
         if self.trocay == True:
             # receber lista de pontos Y
             for i in range(len(self.listaY)):
@@ -121,18 +162,18 @@ class Bresenham:
             for i in range(len(self.listaY)):
                 self.listaX[i] = lista_y_aux[i]
                 self.listaY[i] = lista_x_aux[i]
-            
-            print("\nself_X:", self.listaX)
-            print("self_Y:", self.listaY)
 
-            self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
+            aux = self.x
+            self.x = self.y; self.y=aux            
+            aux = self.xf
+            self.xf=self.yf; self.yf=aux
             self.trocaxy = False
-
 
     def reta(self, x_ini, y_ini, x_fin, y_fin):
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
+        print("-----retorno para origem-------(", self.x, self.y,")    (", self.xf, self.yf,")")
 
         # print pontos iniciais e finais dados para fazer a reta 
         for x in range(len(self.matriz)):
@@ -142,43 +183,53 @@ class Bresenham:
                 elif self.matriz[x][y][0] == self.yf and self.matriz[x][y][1] == self.xf:
                     #print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf)
                     self.matrizDePontos[x][y] = "  \033[32m f\033[m"
-
+        
         #out: branch Quadrante
-        self.reflexao(x_ini, y_ini, x_fin, y_fin)
+        self.xyParaOrigem()
+        print("-----retorno para origem-------(", self.x, self.y,")    (", self.xf, self.yf,")")
 
-        print("m depois dos quadrantes: ",self.m)     
-        print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
-     
+        self.reflexao()
+
         # calculando pontos da reta
         self.listaY = []
         self.listaX = []
-        anterior = 0
-        for i in range(self.x, self.xf):
+        anterior = self.y
+        for i in range(self.x, self.xf+1):
             if i == 0:
-                self.listaY.append(i)
+                self.listaY.append(self.y)
                 self.listaX.append(i)
-                anterior = i
+                #anterior = i
             else:
                 anterior = anterior + self.m
-                self.listaY.append(round(anterior + 0.4))
+                #print("TESTE: ",anterior)
+                self.listaY.append(round(anterior + 0.1))
                 self.listaX.append(i)
         
-        print("( x  , y )")
-        for i in range(len(self.listaY)):
-            print("(", self.listaX[i], " ,", self.listaY[i], ")")
-
-        self.reflexao_inversa(x_ini, y_ini, x_fin, y_fin)
-
-        print("DEPOIS da inversa\n( x  , y )")
+        print("Pontos calculados:")
         for i in range(len(self.listaY)):
             print("(", self.listaX[i], " ," , self.listaY[i], ")")
+        
+        self.reflexao_inversa()
+        self.xyParaOrigemInversa()
+        
+        
+        # print("passo 2:")
+        # for i in range(len(self.listaY)):
+        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
+
+        # print("tt  x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
+      
+
+        # print("DEPOIS da inversa\n( x  , y )")
+        # for i in range(len(self.listaY)):
+        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
 
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #   x , y
                 #  x = indice_1, y = indice_0
                 
-                for i in range(len(self.listaY)):
+                for i in range(1, len(self.listaY)-1):
 
                     if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                         self.matrizDePontos[x][y] = "  \033[31m X\033[m"
