@@ -33,28 +33,26 @@ print("(", x, y,")    (", xf, yf,")")
 # teste.matrizAtual()
 # print("(", x, y,")    (", xf, yf,")")
 
-x = -4; y = -4; xf = -3; yf = 7
+x = -3; y = 7; xf = 8; yf = 7
+teste.reta(x, y, xf, yf)
+teste.matrizAtual()
+
+x = 8; y = 7; xf = 8; yf = -3
+teste.reta(x, y, xf, yf)
+teste.matrizAtual()
+
+x = -3; y = -3; xf = 8; yf = -3
+teste.reta(x, y, xf, yf)
+teste.matrizAtual()
+
 tela.limparTela()
-teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-print("(", x, y,")    (", xf, yf,")")
-x = -3; y = 7; xf = 9; yf = 7
-# tela.limparTela()
-teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-print("(", x, y,")    (", xf, yf,")")
-x = 9; y = 7; xf = 8; yf = -4
-# tela.limparTela()
-teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = -4; y = -4; xf = 8; yf = -4
-# tela.limparTela()
+x = -3; y = -3; xf = -3; yf = 7
 teste.reta(x, y, xf, yf)
 teste.matrizAtual()
 
 
 
-#teste.matrizCoordenada()
+# teste.matrizCoordenada()
 
 """
 passo 1: 
