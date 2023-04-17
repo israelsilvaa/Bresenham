@@ -4,7 +4,7 @@ from modulos.tela import Tela
 tela = Tela()
 
 x = 0; y = 5; xf = 5; yf = 5
-teste = Bresenham(-4,9)
+teste = Bresenham(-12,12)
 tela.limparTela()
 # teste.reta(x, y, xf, yf)
 # teste.matrizAtual()
@@ -33,20 +33,22 @@ print("(", x, y,")    (", xf, yf,")")
 # teste.matrizAtual()
 # print("(", x, y,")    (", xf, yf,")")
 
-x = -3; y = 7; xf = 8; yf = 7
+x = -8; y = -5; xf = -8; yf = 5
 teste.reta(x, y, xf, yf)
 teste.matrizAtual()
-
-x = 8; y = 7; xf = 8; yf = -3
+x = 8; y = 5; xf = 8; yf = -5
 teste.reta(x, y, xf, yf)
 teste.matrizAtual()
-
-x = -3; y = -3; xf = 8; yf = -3
+x = 0; y = 12; xf = 8; yf = 5
 teste.reta(x, y, xf, yf)
 teste.matrizAtual()
-
-tela.limparTela()
-x = -3; y = -3; xf = -3; yf = 7
+x = -8; y = 5; xf = 0; yf = 12
+teste.reta(x, y, xf, yf)
+teste.matrizAtual()
+x = -8; y = -5; xf = 0; yf = -12
+teste.reta(x, y, xf, yf)
+teste.matrizAtual()
+x = 0; y = -12; xf = 8; yf = -5
 teste.reta(x, y, xf, yf)
 teste.matrizAtual()
 

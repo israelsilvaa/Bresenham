@@ -175,10 +175,10 @@ class Bresenham:
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
        
         # print pontos iniciais e finais dados para fazer a reta 
-        for x in range(len(self.matriz)):
-            for y in range(len(self.matriz)):
-                if self.matriz[x][y][0] == self.y and self.matriz[x][y][1] == self.x:
-                    self.matrizDePontos[x][y] = "  \033[32m i\033[m"
+        # for x in range(len(self.matriz)):
+        #     for y in range(len(self.matriz)):
+        #         if self.matriz[x][y][0] == self.y and self.matriz[x][y][1] == self.x:
+        #             self.matrizDePontos[x][y] = "  \033[32m i\033[m"
                 # elif self.matriz[x][y][0] == self.yf and self.matriz[x][y][1] == self.xf:
                 #     #print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf)
                 #     self.matrizDePontos[x][y] = "  \033[32m f\033[m"
@@ -228,7 +228,7 @@ class Bresenham:
                 for y in range(len(self.matriz)):
                     #   x , y
                     #  x = indice_1, y = indice_0
-                    for i in range(1, len(self.listaY)-1):
+                    for i in range(len(self.listaY)):
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                             self.matrizDePontos[x][y] = "  \033[31m X\033[m"
         else:
