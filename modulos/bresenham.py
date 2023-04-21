@@ -16,12 +16,17 @@ class Bresenham:
             
     def criarMatriz(self):
         #cria matriz de coordenadas e de de pontos
+        """
+        0 == COR DO FUNDO
+        1 == COR DA BORDA(VERMELHO)
+        2 == COR DO PREENCEMENTO
+        """
         for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
             linhapontos = []
             for y in range(self.inicioM, self.fimM+1):
-                coordenada = [x, y]   
-                linha.append(coordenada)
+                x_y_cor = [x, y, 0]   
+                linha.append(x_y_cor)
                 linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
@@ -49,9 +54,9 @@ class Bresenham:
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #   x , y
-                print("(",self.matriz[x][y][0],self.matriz[x][y][1],") ", end=" ")
+                print("(",self.matriz[x][y][0],self.matriz[x][y][1],self.matriz[x][y][2],") ", end=" ")
             print("\n")
-        print("\n Fim matrz de coordenadas\n\n")
+        print("\n Fim matrz de coordenadas (X, Y, cor)\n\n")
     
     def matrizAtual(self):
         for x in range(len(self.matriz)):
@@ -231,6 +236,13 @@ class Bresenham:
                     for i in range(len(self.listaY)):
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                             self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                            self.matriz[x][y][2] = 1
+
+                            """
+                            0 == COR DO FUNDO
+                            1 == COR DA BORDA(VERMELHO)
+                            2 == COR DO PREENCEMENTO
+                            """
         else:
             lista = []
            

@@ -4,57 +4,39 @@ from modulos.tela import Tela
 tela = Tela()
 
 x = 0; y = 5; xf = 5; yf = 5
-teste = Bresenham(-13,13)
+teste = Bresenham(-7,7)
 tela.limparTela()
 # teste.reta(x, y, xf, yf)
 # teste.matrizAtual()
 print("(", x, y,")    (", xf, yf,")")
 
+x = -4; y = -3; xf = -4; yf = 3 # |
+teste.reta(x, y, xf, yf)
 
+x = -4; y = 3; xf = 0; yf = 7 # /
+teste.reta(x, y, xf, yf)
 
-# x = 0; y = 0; xf = 6; yf = 8
-# tela.limparTela()
-# teste.reta(x, y, xf, yf)
-# teste.matrizAtual()
-# print("(", x, y,")    (", xf, yf,")")
-# x = 0; y = 0; xf = -4; yf = -4
-# # tela.limparTela()
-# teste.reta(x, y, xf, yf)
-# teste.matrizAtual()
-# print("(", x, y,")    (", xf, yf,")")
-# x = 0; y = 0; xf = 4; yf = -4
-# # tela.limparTela()
-# teste.reta(x, y, xf, yf)
-# teste.matrizAtual()
-# print("(", x, y,")    (", xf, yf,")")
-# x = 0; y = 0; xf = -4; yf = 4
-# # tela.limparTela()
-# teste.reta(x, y, xf, yf)
-# teste.matrizAtual()
-# print("(", x, y,")    (", xf, yf,")")
+x = 0; y = 7; xf = 4; yf = 3 # \
+teste.reta(x, y, xf, yf)
 
-x = -8; y = -5; xf = -8; yf = 5
+x = 4; y = -3; xf = 4; yf = 3 # |
 teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = 8; y = 5; xf = 8; yf = -5
+
+x = 4; y = -3; xf = 4; yf = 3# /
 teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = 0; y = 13; xf = 8; yf = 5
+
+x = -4; y = -3; xf = 0; yf = -7 #\
 teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = -8; y = 5; xf = 0; yf = 13
+
+x = 4; y = -3; xf = 0; yf = -7 # /
 teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = -8; y = -5; xf = 0; yf = -13
-teste.reta(x, y, xf, yf)
-teste.matrizAtual()
-x = 0; y = -13; xf = 8; yf = -5
-teste.reta(x, y, xf, yf)
+
+tela.limparTela()
 teste.matrizAtual()
 
 
 
-# teste.matrizCoordenada()
+teste.matrizCoordenada()
 
 """
 passo 1: 
