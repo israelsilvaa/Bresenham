@@ -12,6 +12,7 @@ class Bresenham:
         self.trocay = False
         self.listaY = []
         self.listaX = []
+        self.listaDeRetas = []
         self.criarMatriz()
             
     def criarMatriz(self):
@@ -178,6 +179,9 @@ class Bresenham:
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
+
+        reta = [x_ini, y_ini, x_fin, y_fin]
+        self.listaDeRetas.append(reta)
        
         # print pontos iniciais e finais dados para fazer a reta 
         # for x in range(len(self.matriz)):
@@ -269,18 +273,10 @@ class Bresenham:
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = "  \033[31m X\033[m"
 
-                            
-
-
-        # print("\n Fim matrz de coordenadas\n\n")
-        # for x in range(self.x, self.xf+1):
-        #     for y in range(self.x, self.xf+1):
-        #         var_x = self.matriz[x][y][0]
-        #         var_y = self.matriz[x][y][1]
-
-        #         #print("comparando com", var_x, var_y)
-        #         for i in range(len(listaY)):
-        #             if var_x == listaX[i] and var_y == listaY[i]:
-        #                 self.matrizDePontos[x][y] = " x"
+    def tabelaVarredura(self):
+        print("Lista de retas do poligono acima:\n", self.listaDeRetas, "\n")
                 
-            
+        print("          Min_x  |  Min_y  |  Max_X  |  Max_Y")
+        for i in range(len(self.listaDeRetas)):
+            print("Reta ", i,"     ", self.listaDeRetas[i][0], "      ",self.listaDeRetas[i][1],"      ", self.listaDeRetas[i][2],"      ", self.listaDeRetas[i][3])
+            # print[self.listaDeRetas[i][0], self.listaDeRetas[i][1], self.listaDeRetas[i][2], self.listaDeRetas[i][3]]

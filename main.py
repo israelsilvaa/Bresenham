@@ -34,9 +34,9 @@ teste.reta(x, y, xf, yf)
 tela.limparTela()
 teste.matrizAtual()
 
+teste.tabelaVarredura()
 
-
-teste.matrizCoordenada()
+# teste.matrizCoordenada()
 
 """
 passo 1: 
