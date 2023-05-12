@@ -1,0 +1,53 @@
+-Bresenham [0.25] __ok__
+Entrada: especificar dois pontos quaisquer (X,Y ) na
+área de configurações, ou diretamente na área de
+desenho, no escopo do sistema de coordenadas da
+grade.
+
+-Círculos [0.25]
+Entrada: especificar raio e centro (X,Y) na área de
+configuração, ou diretamente na área de desenho,
+no escopo do sistema de coordenadas da grade.
+
+-Curvas [0.25]
+Entrada: parâmetros para calcular uma curva
+Bezier , pontos inicial, final e controles rasterizar
+resultados com bresenham
+
+-Polilinha [0,0] __ok__
+Entrada: especificar na área de configuração um
+conjunto de N>3 pontos (X,Y) quaisquer no escopo
+do sistema de coordenadas da grades.
+
+-Transformações (3 básicas [3x0.25])
+Entrada: um polígono de vértices quaisquer dentro do
+sistema de coordenadas da grade
+Rotação entrada ângulo de rotação e ponto de pivô
+Translação entrada deslocamento na direção X e Y
+Escala entrada fator de escala para X e Y e ponto
+fixo
+
+-----------------------------------
+
+-Recorte de linha [0.34]
+Entrada: especificar uma janela de recorte menor
+que área de desenho.
+Saída: qualquer linha desenhada que esteja fora
+da janela ou tenha parte fora, será recortada.
+
+-Preencimento Recursivo [0.25] e Varredura [0.25]
+Entrada 1: especificar um ponto aleatório qualquer
+(X,Y) no interior de polígono qualquer.
+Entrada 2: Especificar um polígono não regular e
+aplicar o algoritmo de varredura para preenchimento
+
+-Recorte de polígono [0.25]
+Entrada: especificar uma janela de recorte menor
+que área de desenho.
+Saída: qualquer polígono desenhado que esteja
+fora da janela ou tenha parte fora, será recortado.
+
+-Projeções Orto . [0.25] e Perspec . [0.25]).
+Entrada: especificar(vértices) um sólido (3D)
+qualquer, especificar a projeção a ser utilizada,
+rasterizar o resultado com bresenham
