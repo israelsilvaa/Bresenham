@@ -12,6 +12,7 @@ class Bresenham:
         self.trocay = False
         self.listaY = []
         self.listaX = []
+        self.listaDeRetas = []
         self.criarMatriz()
             
     def criarMatriz(self):
@@ -27,7 +28,7 @@ class Bresenham:
             for y in range(self.inicioM, self.fimM+1):
                 x_y_cor = [x, y, 0]   
                 linha.append(x_y_cor)
-                linhapontos.append("    ")
+                linhapontos.append("   .")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
@@ -94,31 +95,25 @@ class Bresenham:
 
     def xyParaOrigemInversa(self):
         #levando X para seu lugar original
-            print("xcont:" , self.xContadorOrigem, self.yContadorOrigem)
-
+           
             if self.xContadorOrigem != 0:
-                print("teste")
                 for i in range(len(self.listaX)):
                     self.listaX[i] = self.listaX[i] + self.xContadorOrigem
                 self.xContadorOrigem = 0
          
             if self.yContadorOrigem != 0:
-                print("teste y")
-
+           
                 for i in range(len(self.listaY)):
                     self.listaY[i] = self.listaY[i] + self.yContadorOrigem
                 self.yContadorOrigem = 0
             
-            print("origem inversa:")
-            for i in range(len(self.listaY)):
-                print("(", self.listaX[i], " ," , self.listaY[i], ")")
+         
             
           
            
     #out: branch Quadrante       
     def reflexao(self):
         self.m = (self.yf-self.y) / (self.xf-self.x)
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
         if self.m > 1 or self.m < -1:
             aux = self.x
             self.x = self.y; self.y=aux
@@ -126,7 +121,6 @@ class Bresenham:
             aux = self.xf
             self.xf=self.yf; self.yf=aux
             self.trocaxy = True
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
 
         if self.x > self.xf:
             self.x = self.x - self.x * 2
@@ -139,7 +133,6 @@ class Bresenham:
             self.trocay = True
 
         self.m = round((self.yf-self.y) / (self.xf-self.x), 1)
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")", self.m)
        
 
     #out: branch Quadrante        
@@ -178,21 +171,15 @@ class Bresenham:
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
+
+        #out varredura
+        reta = [x_ini, x_fin, y_ini, y_fin, 0, 0, 0]
+        self.listaDeRetas.append(reta)
        
-        # print pontos iniciais e finais dados para fazer a reta 
-        # for x in range(len(self.matriz)):
-        #     for y in range(len(self.matriz)):
-        #         if self.matriz[x][y][0] == self.y and self.matriz[x][y][1] == self.x:
-        #             self.matrizDePontos[x][y] = "  \033[32m i\033[m"
-                # elif self.matriz[x][y][0] == self.yf and self.matriz[x][y][1] == self.xf:
-                #     #print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf)
-                #     self.matrizDePontos[x][y] = "  \033[32m f\033[m"
-        
         if self.x != self.xf: 
             #out: branch Quadrante
             self.xyParaOrigem()
-            print("-----retorno para origem-------(", self.x, self.y,")    (", self.xf, self.yf,")")
-
+            
             self.reflexao()
 
             # calculando pontos da reta
@@ -209,10 +196,6 @@ class Bresenham:
                     #print("TESTE: ",anterior)
                     self.listaY.append(round(anterior + 0.1))
                     self.listaX.append(i)
-            
-            print("Pontos calculados:")
-            for i in range(len(self.listaY)):
-                print("(", self.listaX[i], " ," , self.listaY[i], ")")
             
             self.reflexao_inversa()
             self.xyParaOrigemInversa()
@@ -249,8 +232,6 @@ class Bresenham:
             if self.y < self.yf:
                 for i in range(self.y, self.yf+1):
                     lista.append(i)
-                print("Pontos calculados:", lista)
-                
             
                 for x in range(len(self.matriz)):
                     for y in range(len(self.matriz)):
@@ -260,27 +241,17 @@ class Bresenham:
             else:
                 for i in range(self.y, self.yf-1, -1):
                     lista.append(i)
-                print("Pontos calculados:", lista)
 
-                
                 for x in range(len(self.matriz)):
                     for y in range(len(self.matriz)):
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = "  \033[31m X\033[m"
 
-                            
-
-
-        # print("\n Fim matrz de coordenadas\n\n")
-        # for x in range(self.x, self.xf+1):
-        #     for y in range(self.x, self.xf+1):
-        #         var_x = self.matriz[x][y][0]
-        #         var_y = self.matriz[x][y][1]
-
-        #         #print("comparando com", var_x, var_y)
-        #         for i in range(len(listaY)):
-        #             if var_x == listaX[i] and var_y == listaY[i]:
-        #                 self.matrizDePontos[x][y] = " x"
+    def tabelaVarredura(self):
+        print("Lista de retas do poligono acima:\n", self.listaDeRetas, "\n")
                 
-            
+        print("          Min_x  |  Max_y  |  Min_X  |  Max_Y | Delta_Y | Delta_X | M ")
+        for i in range(len(self.listaDeRetas)):
+            print("Reta ", i,"     ", self.listaDeRetas[i][0], "      ",self.listaDeRetas[i][1],"      ", self.listaDeRetas[i][2],"      ", self.listaDeRetas[i][3],"      ", self.listaDeRetas[i][4],"      ", self.listaDeRetas[i][5],"      ", self.listaDeRetas[i][6])
+            # print[self.listaDeRetas[i][0], self.listaDeRetas[i][1], self.listaDeRetas[i][2], self.listaDeRetas[i][3]]
