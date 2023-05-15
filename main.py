@@ -1,12 +1,13 @@
 import random
 from modulos.bresenham import Bresenham
 from modulos.tela import Tela
+from modulos.circulo import Circulo
 import time
 
 tela = Tela()
 
-inicioMatriz = -4
-fimMatriz = 4
+inicioMatriz = -7
+fimMatriz = 7
 teste = Bresenham(inicioMatriz,fimMatriz)
 tela.limparTela()
 
@@ -54,10 +55,16 @@ while opc != 10:
     elif opc == 3:
         tela.painelConfigRapida()
         
-        listaPedidos = []
-        novoPontoPartida = int(input("\nPizzaria:"))
-        if not(novoPontoPartida in listaPedidos):
-            enderecoPizzaHut = novoPontoPartida
+        # xc = int(input("\nXc inicial:"))
+        # yc = int(input("\nYc inicial:"))
+        # raio = int(input("\nRaio:"))
+        
+        circulo = Circulo(0, 0, 6, teste)
+        circulo.calcPontosCirculo()
+        circulo.desenhaCirculo()
+        teste.matrizAtual()
+        
+        sair = input("aperte enter para sair.")
 
     elif opc == 2:
         teste = Bresenham(inicioMatriz,fimMatriz)
@@ -76,7 +83,7 @@ while opc != 10:
             if len(listaParesOrdenados) > 3:
                 tela.painelConfigRapida()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
-                print("[1]adicionar nova Reta         [2]Sair")
+                print("[1]adicionar nova Reta         [2]Sair e plotar grafico")
                 adicionarReta = int(input("opção:"))
             
                 if adicionarReta == 2:

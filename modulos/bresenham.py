@@ -28,7 +28,7 @@ class Bresenham:
             for y in range(self.inicioM, self.fimM+1):
                 x_y_cor = [x, y, 0]   
                 linha.append(x_y_cor)
-                linhapontos.append("   .")
+                linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
@@ -67,10 +67,8 @@ class Bresenham:
             print("\n")
         print("\nFim matriz atual                                   \n", end="")
         
-    #x = 0; y = 3; xf = 3; yf = 9
     def xyParaOrigem(self):
         #leva o X para a origem(x == 0)
-
         if self.x > 0:
             while self.x != 0:
                 self.xContadorOrigem = self.xContadorOrigem + 1
@@ -107,10 +105,6 @@ class Bresenham:
                     self.listaY[i] = self.listaY[i] + self.yContadorOrigem
                 self.yContadorOrigem = 0
             
-         
-            
-          
-           
     #out: branch Quadrante       
     def reflexao(self):
         self.m = (self.yf-self.y) / (self.xf-self.x)
@@ -199,18 +193,6 @@ class Bresenham:
             
             self.reflexao_inversa()
             self.xyParaOrigemInversa()
-            
-        
-        # print("passo 2:")
-        # for i in range(len(self.listaY)):
-        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
-
-        # print("tt  x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
-      
-
-        # print("DEPOIS da inversa\n( x  , y )")
-        # for i in range(len(self.listaY)):
-        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
 
             for x in range(len(self.matriz)):
                 for y in range(len(self.matriz)):
@@ -220,7 +202,6 @@ class Bresenham:
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                             self.matrizDePontos[x][y] = "  \033[31m X\033[m"
                             self.matriz[x][y][2] = 1
-
                             """
                             0 == COR DO FUNDO
                             1 == COR DA BORDA(VERMELHO)
@@ -255,3 +236,5 @@ class Bresenham:
         for i in range(len(self.listaDeRetas)):
             print("Reta ", i,"     ", self.listaDeRetas[i][0], "      ",self.listaDeRetas[i][1],"      ", self.listaDeRetas[i][2],"      ", self.listaDeRetas[i][3],"      ", self.listaDeRetas[i][4],"      ", self.listaDeRetas[i][5],"      ", self.listaDeRetas[i][6])
             # print[self.listaDeRetas[i][0], self.listaDeRetas[i][1], self.listaDeRetas[i][2], self.listaDeRetas[i][3]]
+
+    

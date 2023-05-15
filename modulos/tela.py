@@ -13,7 +13,7 @@ class Tela():
       print("[6] - -:")
       print("[5] - -:")
       print("[4] - -")
-      print("[3] - -")
+      print("[3] - Circulo")
       print("[2] - Polilinhas")
       print("[1] - Bresenham")
       print("[0] - tamanho do plano cartesiano")
