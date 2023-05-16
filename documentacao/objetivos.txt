@@ -4,7 +4,7 @@ Entrada: especificar dois pontos quaisquer (X,Y ) na
 desenho, no escopo do sistema de coordenadas da
 grade.
 
--Círculos [0.25]
+-Círculos [0.25] __ok__
 Entrada: especificar raio e centro (X,Y) na área de
 configuração, ou diretamente na área de desenho,
 no escopo do sistema de coordenadas da grade.
@@ -14,7 +14,7 @@ Entrada: parâmetros para calcular uma curva
 Bezier , pontos inicial, final e controles rasterizar
 resultados com bresenham
 
--Polilinha [0,0] __ok__
+-Polilinha [0,25] __ok__
 Entrada: especificar na área de configuração um
 conjunto de N>3 pontos (X,Y) quaisquer no escopo
 do sistema de coordenadas da grades.
