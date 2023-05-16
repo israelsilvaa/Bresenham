@@ -1,13 +1,15 @@
 import random
 from modulos.bresenham import Bresenham
 from modulos.tela import Tela
+from modulos.circulo import Circulo
 import time
 
 tela = Tela()
 
-inicioMatriz = -4
-fimMatriz = 4
+inicioMatriz = -7
+fimMatriz = 7
 teste = Bresenham(inicioMatriz,fimMatriz)
+
 tela.limparTela()
 
 listaParesOrdenados = []
@@ -52,12 +54,23 @@ while opc != 10:
         
         quantidateEntregas = int(input("\nQuantidade de entregas:"))
     elif opc == 3:
+        tela.limparTela()
+        teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
+
+        teste.matrizAtual()
         
-        listaPedidos = []
-        novoPontoPartida = int(input("\nPizzaria:"))
-        if not(novoPontoPartida in listaPedidos):
-            enderecoPizzaHut = novoPontoPartida
+        xc = int(input("\nXc inicial:"))
+        yc = int(input("\nYc inicial:"))
+        raio = int(input("\nRaio(R>1):"))
+        
+        circulo = Circulo(xc, yc, raio, teste)
+        circulo.calcPontosCirculo()
+        circulo.desenhaCirculo()
+        
+        tela.limparTela()
+        teste.matrizAtual()
+        sair = input("aperte enter para sair.")
 
     elif opc == 2:
         teste = Bresenham(inicioMatriz,fimMatriz)
@@ -65,7 +78,9 @@ while opc != 10:
 
         adicionarReta = 0
         while adicionarReta != 999:
+            tela.limparTela()
             tela.painelConfigRapida()
+            teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("Serão traçadas retas de ponto a ponto considerando a lista acima")
             x = int(input("\nX:"))
@@ -75,8 +90,9 @@ while opc != 10:
             
             if len(listaParesOrdenados) > 3:
                 tela.painelConfigRapida()
+                teste.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
-                print("[1]adicionar nova Reta         [2]Sair")
+                print("[1]adicionar nova Reta         [2]Sair e plotar grafico")
                 adicionarReta = int(input("opção:"))
             
                 if adicionarReta == 2:
@@ -91,14 +107,16 @@ while opc != 10:
                 yFinal = listaParesOrdenados[i+1][1]
                 teste.reta(xInicial, yInicial, xFinal, yFinal)
         teste.reta(listaParesOrdenados[-1][0], listaParesOrdenados[-1][1], listaParesOrdenados[0][0], listaParesOrdenados[0][1])
+        tela.limparTela()
         teste.matrizAtual()
         sair = input("aperte enter para sair.")
 
     elif opc == 1:
+        teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
         adicionarReta = 0
         listaParesOrdenados = []
-        while adicionarReta != 999:
+        while True:
             tela.painelConfigRapida()
             if len(listaParesOrdenados) > 0:
                 for i in range(0, len(listaParesOrdenados), 2):
@@ -108,11 +126,12 @@ while opc != 10:
                     yFinal = listaParesOrdenados[i+1][1]
                     teste.reta(xInicial, yInicial, xFinal, yFinal)
                 teste.matrizAtual()
+            tela.limparTela()
+            teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("[1]adicionar nova Reta         [2]Sair")
             adicionarReta = int(input("opção:"))
             if adicionarReta == 2:
-                adicionarReta = 999
                 break
             else:
                 x = int(input("\nX Inicial:"))
@@ -124,27 +143,25 @@ while opc != 10:
                 listaParesOrdenados.append(parInicial)
                 listaParesOrdenados.append(parFinal)
 
-
-    elif opc == 0:        
-        print(".    .    |    .    "+str(fimMatriz)+str(fimMatriz))
-        print(".    .    |    .    .")
-        print("--------- 0 ---------")
-        print(".    .    |    .    .")
-        print(str(inicioMatriz)+str(inicioMatriz)+" .    |    .    .")
-        print("\nRecomendado:")
-        print("X menor que X2")
-        inicioMatriz = int(input("\nX:"))
-        fimMatriz = int(input("\nX2:"))
-        teste = Bresenham(inicioMatriz,fimMatriz)
+    elif opc == 0:       
+        tamanhoMatriz = 0
+        while True:
+            tela.limparTela()
+            teste = Bresenham(inicioMatriz,fimMatriz)
+            teste.matrizAtual()
+            print("[1]Novo enquadramento         [2]Sair")
+            tamanhoMatriz = int(input("opção:"))
+            if tamanhoMatriz == 1:
+                inicioMatriz = int(input("\nX(negativo):"))
+                fimMatriz = int(input("\nX2(positivo):"))
+            elif tamanhoMatriz == 2:
+                break
         opc = 1
-
+    
+           
 tela.limparTela()
-print("       Obrigado por usar nosso simulador <3\n\n\n\n\n\n")
+print("       Obrigado por usar paint <3\n\n\n\n\n\n")
 time.sleep(3)
-
-
-
-
 
 # teste.tabelaVarredura()
 # teste.matrizCoordenada()
