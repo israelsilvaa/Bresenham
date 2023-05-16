@@ -89,9 +89,15 @@ while opc != 10:
                 
             elif adicionarReta == 3:
                 print("rotação")
-                sair = input("saiindo")
+                
             elif adicionarReta == 4:
                 print("Escala")
+                Ex = float(input("fator de escala para X:"))
+                Ey = float(input("fator de escala para Y:"))
+                for i in range(len(listaParesOrdenados)):
+                    listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
+                    listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
+                teste = Bresenham(inicioMatriz,fimMatriz)
                 sair = input("saiindo")
             else:
                 break
