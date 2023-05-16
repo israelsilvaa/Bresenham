@@ -50,9 +50,52 @@ while opc != 10:
        
         velociadeAtualizacao = float(input("\nVelocidade da simulação:"))
     elif opc == 4:
+        teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
-        
-        quantidateEntregas = int(input("\nQuantidade de entregas:"))
+        adicionarReta = 0
+        listaParesOrdenados = []
+        while True:
+            tela.painelConfigRapida()
+            if len(listaParesOrdenados) > 0:
+                for i in range(0, len(listaParesOrdenados), 2):
+                    xInicial = listaParesOrdenados[i][0]
+                    yInicial = listaParesOrdenados[i][1]
+                    xFinal = listaParesOrdenados[i+1][0]
+                    yFinal = listaParesOrdenados[i+1][1]
+                    teste.reta(xInicial, yInicial, xFinal, yFinal)
+                teste.matrizAtual()
+            tela.limparTela()
+            teste.matrizAtual()
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("[1]adicionar nova Reta - [2]translação - [3]Rotação - [4]Escala - [5]Sair")
+            adicionarReta = int(input("opção:"))
+            if adicionarReta == 1:
+                x = int(input("\nX Inicial:"))
+                y = int(input("\nY Inicial:"))
+                x_f = int(input("\nX Final:"))
+                y_f = int(input("\nY Final:"))
+                parInicial = [x, y]        
+                parFinal = [x_f, y_f]        
+                listaParesOrdenados.append(parInicial)
+                listaParesOrdenados.append(parFinal)
+            elif adicionarReta == 2:
+                print("translação")
+                eixoX = int(input("translação em X:"))
+                eixoY = int(input("translação em y:"))
+                for i in range(len(listaParesOrdenados)):
+                    listaParesOrdenados[i][0] = listaParesOrdenados[i][0] + eixoX 
+                    listaParesOrdenados[i][1] = listaParesOrdenados[i][1] + eixoY 
+                teste = Bresenham(inicioMatriz,fimMatriz)
+                
+            elif adicionarReta == 3:
+                print("rotação")
+                sair = input("saiindo")
+            elif adicionarReta == 4:
+                print("Escala")
+                sair = input("saiindo")
+            else:
+                break
+
     elif opc == 3:
         tela.limparTela()
         teste = Bresenham(inicioMatriz,fimMatriz)

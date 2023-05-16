@@ -22,10 +22,9 @@ do sistema de coordenadas da grades.
 -Transformações (3 básicas [3x0.25])
 Entrada: um polígono de vértices quaisquer dentro do
 sistema de coordenadas da grade
-Rotação entrada ângulo de rotação e ponto de pivô
-Translação entrada deslocamento na direção X e Y
-Escala entrada fator de escala para X e Y e ponto
-fixo
+Rotação: entrada ângulo de rotação e ponto de pivô
+Translação: entrada deslocamento na direção X e Y
+Escala: entrada fator de escala para X e Y e ponto fixo
 
 -----------------------------------
 
