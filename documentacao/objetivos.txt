@@ -19,12 +19,13 @@ Entrada: especificar na área de configuração um
 conjunto de N>3 pontos (X,Y) quaisquer no escopo
 do sistema de coordenadas da grades.
 
--Transformações (3 básicas [3x0.25])
+-Transformações (3 básicas [3x0.25]) 1/3 __ok__
 Entrada: um polígono de vértices quaisquer dentro do
 sistema de coordenadas da grade
-Rotação: entrada ângulo de rotação e ponto de pivô
-Translação: entrada deslocamento na direção X e Y
-Escala: entrada fator de escala para X e Y e ponto fixo
+
+    Rotação: entrada ângulo de rotação e ponto de pivô
+    Translação: entrada deslocamento na direção X e Y       __ok__
+    Escala: entrada fator de escala para X e Y e ponto fixo
 
 -----------------------------------
 
