@@ -160,7 +160,7 @@ while opc != 10:
     
            
 tela.limparTela()
-print("       Obrigado por usar paint <3\n\n\n\n\n\n")
+print("       Obrigado por usar nosso paint <3\n\n\n\n\n\n")
 time.sleep(3)
 
 # teste.tabelaVarredura()
