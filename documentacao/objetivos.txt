@@ -25,7 +25,7 @@ sistema de coordenadas da grade
 
     Rotação: entrada ângulo de rotação e ponto de pivô
     Translação: entrada deslocamento na direção X e Y       __ok__
-    Escala: entrada fator de escala para X e Y e ponto fixo
+    Escala: entrada fator de escala para X e Y e ponto fixo __ok__
 
 -----------------------------------
 

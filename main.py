@@ -89,7 +89,40 @@ while opc != 10:
                 
             elif adicionarReta == 3:
                 print("rotação")
-                
+                senAng = 0
+                cosAng = 0
+                angulo = int(input("Angulo:"))
+                if angulo == 30:
+                    senAng = 0.5 
+                    cosAng = 0.86
+                elif angulo == 45:
+                    senAng = 0.70
+                    cosAng = 0.70
+                elif angulo == 60:
+                    senAng = 0.86
+                    cosAng = 0.5
+                elif angulo == -60:
+                    senAng = 0.30
+                    cosAng = -0.95
+                else:
+                    senAng = 0.70
+                    cosAng = 0.70
+
+                for i in range(len(listaParesOrdenados)):
+                    listaParesOrdenados[i][0] = round(listaParesOrdenados[i][0]*cosAng - listaParesOrdenados[i][1]*senAng)
+                    # listaParesOrdenados[i][1] = round(listaParesOrdenados[i][0]*senAng + listaParesOrdenados[i][1]*cosAng)
+                teste = Bresenham(inicioMatriz,fimMatriz)
+
+                #x´= x.cos ‐ y.sen
+                #y´= x.sen + y.cos
+
+                print("Sen:", senAng, "Cos:", cosAng)
+                sair = input("sdsdsdsds")
+
+
+
+
+
             elif adicionarReta == 4:
                 print("Escala")
                 Ex = float(input("fator de escala para X:"))
