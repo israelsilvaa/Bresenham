@@ -1,13 +1,15 @@
-import random
+# import random
 from modulos.bresenham import Bresenham
 from modulos.tela import Tela
+from enums.icone import Icone
+from modulos.rotacao import Rotacao
 from modulos.circulo import Circulo
 import time
 
 tela = Tela()
 
-inicioMatriz = -7
-fimMatriz = 7
+inicioMatriz = -5
+fimMatriz = 5
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -57,27 +59,33 @@ while opc != 10:
         while True:
             tela.painelConfigRapida()
             if len(listaParesOrdenados) > 0:
-                for i in range(0, len(listaParesOrdenados), 2):
+                for i in range(0, len(listaParesOrdenados)-1):
                     xInicial = listaParesOrdenados[i][0]
                     yInicial = listaParesOrdenados[i][1]
                     xFinal = listaParesOrdenados[i+1][0]
                     yFinal = listaParesOrdenados[i+1][1]
                     teste.reta(xInicial, yInicial, xFinal, yFinal)
                 teste.matrizAtual()
+
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("[1]adicionar nova Reta - [2]translação - [3]Rotação - [4]Escala - [5]Sair")
             adicionarReta = int(input("opção:"))
             if adicionarReta == 1:
-                x = int(input("\nX Inicial:"))
-                y = int(input("\nY Inicial:"))
-                x_f = int(input("\nX Final:"))
-                y_f = int(input("\nY Final:"))
-                parInicial = [x, y]        
-                parFinal = [x_f, y_f]        
-                listaParesOrdenados.append(parInicial)
-                listaParesOrdenados.append(parFinal)
+                while True:
+                    tela.limparTela()
+                    teste.matrizAtual()
+                    print("\nLista de pares Ordenados:", listaParesOrdenados)
+                    print("Adicionar pares ordenados")
+                    print("!!!!    para cancelar apenas de ENTER no X ou no Y     !!!!")
+                    x = input("\nX:")
+                    y = input("\nY:")
+                    if x == "" or y == "":
+                        break
+                    par = [int(x), int(y)]        
+                    listaParesOrdenados.append(par)
+            
             elif adicionarReta == 2:
                 print("translação")
                 eixoX = int(input("translação em X:"))
@@ -88,45 +96,17 @@ while opc != 10:
                 teste = Bresenham(inicioMatriz,fimMatriz)
                 
             elif adicionarReta == 3:
-                print("rotação")
-                senAng = 0
-                cosAng = 0
+                objRotacao = Rotacao()
                 angulo = int(input("Angulo:"))
-
-                if angulo == 30:
-                    senAng = 0.50 
-                    cosAng = 0.87
-                elif angulo == -30:
-                    senAng = -0.50
-                    cosAng = 0.87
-
-                elif angulo == 45:
-                    senAng = 0.70
-                    cosAng = 0.70
-                elif angulo == -45:
-                    senAng = -0.70
-                    cosAng = 0.70
-
-                elif angulo == 60:
-                    senAng = 0.87
-                    cosAng = 0.50
-                elif angulo == -60:
-                    senAng = -0.87
-                    cosAng = 0.50
-                    
-                listaParesOrdenados[1][0] = int(listaParesOrdenados[1][0]*cosAng - listaParesOrdenados[1][1]*senAng)
-                # listaParesOrdenados[i][1] = round(listaParesOrdenados[i][0]*senAng + listaParesOrdenados[i][1]*cosAng)
+                indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
+                angulo = objRotacao.getSenCos(angulo)
+                objRotacao.criarMatrizAnguloPonto(listaParesOrdenados, indicePivo)
+                
                 teste = Bresenham(inicioMatriz,fimMatriz)
-
-                #x´= x.cos ‐ y.sen
-                #y´= x.sen + y.cos
-
-                print("Angulo:",angulo ,"    Sen:", senAng, "Cos:", cosAng)
-                sair = input("sdsdsdsds")
-
-
-
-
+                
+                objRotacao.printMatrizAnguloPonto()
+                
+                sair = input("pausa depois de informar angulo(enter para continuar)")
 
             elif adicionarReta == 4:
                 print("Escala")
@@ -136,7 +116,7 @@ while opc != 10:
                     listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
                     listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
                 teste = Bresenham(inicioMatriz,fimMatriz)
-                sair = input("saiindo")
+                sair = input("(enter para continuar)")
             else:
                 break
 
