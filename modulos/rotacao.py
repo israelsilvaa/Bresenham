@@ -62,13 +62,13 @@ class Rotacao():
         for linha in range(m):
             for coluna in range(p):
                 for k in range(3):
-                    self.matrizPivoVezesPontos[linha][coluna] = round((self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])-0.1) 
+                    self.matrizPivoVezesPontos[linha][coluna] = (self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])
                     # self.matrizPivoVezesPontos[linha][coluna] = round(float(self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])) 
 
         print("\n   Angulos x Pontos")
         for linha in range(3):
             for coluna in range(self.quantidadePontos):
-                print(self.matrizPivoVezesPontos[linha][coluna], end="  ")
+                print(round(self.matrizPivoVezesPontos[linha][coluna]), end="  ")
             print("")
 
     def pegarPontosMultiplicados(self):
