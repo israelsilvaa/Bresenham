@@ -8,8 +8,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -7
-fimMatriz = 7
+inicioMatriz = -20
+fimMatriz = 20
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -189,7 +189,7 @@ while opc != 10:
         listaParesOrdenados = []
         while True:
             tela.painelConfigRapida()
-            if len(listaParesOrdenados) > 0:
+            if len(listaParesOrdenados) > 1:
                 for i in range(0, len(listaParesOrdenados), 2):
                     xInicial = listaParesOrdenados[i][0]
                     yInicial = listaParesOrdenados[i][1]
@@ -200,9 +200,11 @@ while opc != 10:
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("[1]adicionar nova Reta         [2]Sair")
+            print("[1]adicionar nova Reta      [2]Sair    [3]remover")
             adicionarReta = int(input("opção:"))
-            if adicionarReta == 2:
+            if adicionarReta == 3:
+                listaParesOrdenados.pop(-1)
+            elif adicionarReta == 2:
                 break
             else:
                 x = int(input("\nX Inicial:"))
