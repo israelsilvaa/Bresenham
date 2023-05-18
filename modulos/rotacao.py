@@ -1,8 +1,9 @@
+import math
 from enums.icone import Icone
 
 class Rotacao():
 
-    def __init__(self) -> None:
+    def __init__(self, listaParesOrdenados):
         self.senAng = None
         self.cosAng = None
         self.angulo = None
@@ -10,10 +11,11 @@ class Rotacao():
         self.matrizAngulo = []
         self.matrizPontos = []
         self.matrizPontosRotacionada = []
-        self.quantidadePontos = None
+        self.quantidadePontos = len(listaParesOrdenados)
+        self.matrizPivoVezesPontos = []
+        self.matrizAnguloVezesPontos = []
 
     def criarMatrizAnguloPonto(self, listaParesOrdenados, indicePivo):
-        self.quantidadePontos = len(listaParesOrdenados)
         
         #cria matriz de Pivo
         linhaPivo = [1, 0, listaParesOrdenados[indicePivo][0]]
@@ -24,7 +26,7 @@ class Rotacao():
         self.matrizPivo.append(linhaPivo)
         
         #cria matriz de angulos seno e cosseno
-        linhaMatriz = [float(self.cosAng), float(self.senAng), 0]
+        linhaMatriz = [float(self.cosAng), float(self.senAng)*(-1), 0]
         self.matrizAngulo.append(linhaMatriz)
         linhaMatriz = [float(self.senAng), float(self.cosAng), 0]
         self.matrizAngulo.append(linhaMatriz)
@@ -41,10 +43,45 @@ class Rotacao():
                     linhaPontos.append(1)
             self.matrizPontos.append(linhaPontos)
 
-        # multiplicação de matriz
-        # for linha in range(self.quantidadePontos):
-        #     print(self.matrizAngulo[linha][0]*self.matrizPontos[linha][0])
+    def multiplicarMatrizes(self):
 
+        # multiplicação de matriz
+        # matriz resultante de MatPivo x MatPontos
+        m = 3
+        p = self.quantidadePontos
+        for linha in range(m):
+            linhaPivoPontos = []
+            linhaAnguloPontos = []
+            for coluna in range(p):
+                linhaPivoPontos.append(0)
+                linhaAnguloPontos.append(0)
+            self.matrizPivoVezesPontos.append(linhaPivoPontos)
+            self.matrizAnguloVezesPontos.append(linhaAnguloPontos)
+
+        # matrizPivo x matrizPontos        
+        for linha in range(m):
+            for coluna in range(p):
+                for k in range(3):
+                    self.matrizPivoVezesPontos[linha][coluna] = round((self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])-0.1) 
+                    # self.matrizPivoVezesPontos[linha][coluna] = round(float(self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])) 
+
+        print("\n   Angulos x Pontos")
+        for linha in range(3):
+            for coluna in range(self.quantidadePontos):
+                print(self.matrizPivoVezesPontos[linha][coluna], end="  ")
+            print("")
+
+    def pegarPontosMultiplicados(self):
+        listaPontos = []
+
+        for linha in range(self.quantidadePontos):
+            linhaLista = []
+            for coluna in range(2):
+                linhaLista = [round(self.matrizPivoVezesPontos[0][linha]+0.5), round(self.matrizPivoVezesPontos[1][linha]-0.5)]
+            listaPontos.append(linhaLista)
+
+        return listaPontos
+    
     def printMatrizAnguloPonto(self):
 
         print("\nAngulo:"+str(self.angulo)+"°" ," ____  Sen:", self.senAng, "     Cos:", self.cosAng)

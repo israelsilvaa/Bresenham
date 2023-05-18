@@ -8,8 +8,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -5
-fimMatriz = 5
+inicioMatriz = -15
+fimMatriz = 15
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -65,6 +65,7 @@ while opc != 10:
                     xFinal = listaParesOrdenados[i+1][0]
                     yFinal = listaParesOrdenados[i+1][1]
                     teste.reta(xInicial, yInicial, xFinal, yFinal)
+                teste.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], listaParesOrdenados[-1][0], listaParesOrdenados[-1][1])
                 teste.matrizAtual()
 
             tela.limparTela()
@@ -96,7 +97,7 @@ while opc != 10:
                 teste = Bresenham(inicioMatriz,fimMatriz)
                 
             elif adicionarReta == 3:
-                objRotacao = Rotacao()
+                objRotacao = Rotacao(listaParesOrdenados)
                 angulo = int(input("Angulo:"))
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
                 angulo = objRotacao.getSenCos(angulo)
@@ -105,6 +106,9 @@ while opc != 10:
                 teste = Bresenham(inicioMatriz,fimMatriz)
                 
                 objRotacao.printMatrizAnguloPonto()
+                objRotacao.multiplicarMatrizes()
+                
+                listaParesOrdenados = objRotacao.pegarPontosMultiplicados()
                 
                 sair = input("pausa depois de informar angulo(enter para continuar)")
 

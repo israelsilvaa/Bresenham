@@ -22,6 +22,7 @@ class Bresenham:
         1 == COR DA BORDA(VERMELHO)
         2 == COR DO PREENCEMENTO
         """
+        eixo = "."
         for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
             linhapontos = []
@@ -41,14 +42,16 @@ class Bresenham:
                     if self.matriz[x][y][1] > 0:
                         self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][1])
+                        # self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1))
+                        self.matrizDePontos[x][y] = "   "+ str(eixo)
                 elif self.matriz[x][y][1] == 0:
                     self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
 
                     if self.matriz[x][y][0] > 0:
                         self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                        # self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                        self.matrizDePontos[x][y] = "  "+ str(eixo)
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
