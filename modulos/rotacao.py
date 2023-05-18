@@ -77,7 +77,7 @@ class Rotacao():
         for linha in range(self.quantidadePontos):
             linhaLista = []
             for coluna in range(2):
-                linhaLista = [round(self.matrizPivoVezesPontos[0][linha]+0.5), round(self.matrizPivoVezesPontos[1][linha]-0.5)]
+                linhaLista = [round(self.matrizPivoVezesPontos[0][linha]), round(self.matrizPivoVezesPontos[1][linha])]
             listaPontos.append(linhaLista)
 
         return listaPontos
