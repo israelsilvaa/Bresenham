@@ -1,9 +1,9 @@
 # import random
 from modulos.bresenham import Bresenham
-from modulos.tela import Tela
-from enums.icone import Icone
 from modulos.rotacao import Rotacao
 from modulos.circulo import Circulo
+from modulos.recorte import Recorte
+from modulos.tela import Tela
 import time
 
 tela = Tela()
@@ -48,63 +48,75 @@ while opc != 10:
             #         quantidateEntregas = 1
 
     elif opc == 5:
-        tela.limparTela()
-        teste = Bresenham(inicioMatriz,fimMatriz)
-        listaParesOrdenados = []
-
-        print("Recorde de linha e poligonos\n")
-        teste.matrizAtual()
-
-        print("\nLista de pares Ordenados:", listaParesOrdenados)
-        print("[1]linha - [2]Poligono - [3]Sair")
-        adicionarReta = int(input("opção:"))
+        
         while True:
+            adicionarReta = 0
+            tela.limparTela()
+            teste = Bresenham(inicioMatriz,fimMatriz)
+            listaParesOrdenados = []
+
+            print("Recorde de linha e poligonos\n")
+            teste.matrizAtual()
+
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("[1]linha - [2]Poligono - [3]Sair")
+            adicionarReta = int(input("opção:"))
+            
             if adicionarReta == 1:
                 while True:
                     tela.limparTela()
+                    recorte = Recorte(teste)
                     print("Recorde de linha\n")
-                    teste.matrizAtual()
-                    print("\nLista de pares Ordenados:", listaParesOrdenados)
-                    print("Adicionar pares ordenados")
-                    print("!!!!    para cancelar apenas de ENTER no X e Y     !!!!")
-                    x = input("\nX:")
-                    y = input("\nY:")
-                    if x == "" or y == "":
-                        break
-                    par = [int(x), int(y)]        
-                    listaParesOrdenados.append(par)
+                    # pegar linhas                  
+                    listaParesOrdenados = recorte.pegarPontos(listaParesOrdenados)
+                    break
 
-                    if len(listaParesOrdenados) % 2 == 0:
-                        for i in range(0, len(listaParesOrdenados), 2):
-                            xInicial = listaParesOrdenados[i][0]
-                            yInicial = listaParesOrdenados[i][1]
-                            xFinal = listaParesOrdenados[i+1][0]
-                            yFinal = listaParesOrdenados[i+1][1]
-                            teste.reta(xInicial, yInicial, xFinal, yFinal)
-                        teste.matrizAtual()
-
-                tela.limparTela()
-                print("Recorde de linha\n")
-                teste.matrizAtual()
-                print("\nLista de pares Ordenados:", listaParesOrdenados)
                 while True:
                     tela.limparTela()
+                    teste = recorte.escreverLinhas(listaParesOrdenados)
+
                     teste.matrizAtual()
-                    print("-enquadramento atual: X1:", inicioMatriz, "  X2:", fimMatriz)
+                    print("\nLista de pares Ordenados:", listaParesOrdenados)
                     tela.miniEnquandramento(inicioMatriz,fimMatriz)
-                    print("[1]Novo enquadramento         [2]Sair")
+                    print("\n[1]Novo enquadramento         [2]Sair")
                     tamanhoMatriz = int(input("opção:"))
                     if tamanhoMatriz == 1:
                         inicioMatriz = int(input("\nX1(negativo):"))
                         fimMatriz = int(input("\nX2(positivo):"))
+                        teste = Bresenham(inicioMatriz, fimMatriz)
+                        recorte = Recorte(teste)
                     elif tamanhoMatriz == 2:
+                        adicionarReta = 0
                         break
 
             elif adicionarReta == 2:
-                print("Recorde de poligono\n")
-            
-            else:
-                break
+                while True:
+                    tela.limparTela()
+                    recorte = Recorte(teste)
+                    print("Recorde de linha\n")
+                    # pegar linhas                  
+                    listaParesOrdenados = recorte.pegarPontos(listaParesOrdenados)
+                    break
+
+                while True:
+                    tela.limparTela()
+                    teste = recorte.escreverLinhas(listaParesOrdenados)
+
+                    teste.matrizAtual()
+                    print("\nLista de pares Ordenados:", listaParesOrdenados)
+                    tela.miniEnquandramento(inicioMatriz,fimMatriz)
+                    print("\n[1]Novo enquadramento         [2]Sair")
+                    tamanhoMatriz = int(input("opção:"))
+                    if tamanhoMatriz == 1:
+                        inicioMatriz = int(input("\nX1(negativo):"))
+                        fimMatriz = int(input("\nX2(positivo):"))
+                        teste = Bresenham(inicioMatriz, fimMatriz)
+                        recorte = Recorte(teste)
+                    elif tamanhoMatriz == 2:
+                        adicionarReta = 0
+                        break            
+                    else:
+                        break
        
     elif opc == 4:
         teste = Bresenham(inicioMatriz,fimMatriz)

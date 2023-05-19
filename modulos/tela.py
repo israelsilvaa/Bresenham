@@ -19,7 +19,8 @@ class Tela():
       print("[0] - tamanho do plano cartesiano")
    
    def miniEnquandramento(self, inicioMatriz, fimMatriz):
-      print("                            <--------X2  ")
+      print("-enquadramento atual: X1:", inicioMatriz, "  X2:", fimMatriz)
+      print("\n                            <--------X2  ")
       print("   .    .    .    |    .    .    "+str(fimMatriz)+str(fimMatriz)+"  |")
       print("   .    .    .    |    .    .    .   |")
       print("   .    .    .    |    .    .    .   |")
