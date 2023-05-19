@@ -18,12 +18,21 @@ class Rotacao():
     def criarMatrizAnguloPonto(self, listaParesOrdenados, indicePivo):
         
         #cria matriz de Pivo
-        linhaPivo = [1, 0, listaParesOrdenados[indicePivo][0]]
-        self.matrizPivo.append(linhaPivo)
-        linhaPivo = [0, 1, listaParesOrdenados[indicePivo][1]]
-        self.matrizPivo.append(linhaPivo)
-        linhaPivo = [0, 0, 1]
-        self.matrizPivo.append(linhaPivo)
+        if self.angulo > 0:
+            linhaPivo = [1, 0, listaParesOrdenados[indicePivo][0]]
+            self.matrizPivo.append(linhaPivo)
+            linhaPivo = [0, 1, listaParesOrdenados[indicePivo][1]]
+            self.matrizPivo.append(linhaPivo)
+            linhaPivo = [0, 0, 1]
+            self.matrizPivo.append(linhaPivo)
+        else:
+            linhaPivo = [1, 0, listaParesOrdenados[indicePivo][0]*(-1)]
+            self.matrizPivo.append(linhaPivo)
+            linhaPivo = [0, 1, listaParesOrdenados[indicePivo][1]*(-1)]
+            self.matrizPivo.append(linhaPivo)
+            linhaPivo = [0, 0, 1]
+            self.matrizPivo.append(linhaPivo)
+            
         
         #cria matriz de angulos seno e cosseno
         linhaMatriz = [float(self.cosAng), float(self.senAng)*(-1), 0]

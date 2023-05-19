@@ -8,8 +8,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -20
-fimMatriz = 20
+inicioMatriz = -7
+fimMatriz = 7
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
