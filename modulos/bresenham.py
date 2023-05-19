@@ -22,33 +22,36 @@ class Bresenham:
         1 == COR DA BORDA(VERMELHO)
         2 == COR DO PREENCEMENTO
         """
+        eixo = "."
         for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
             linhapontos = []
             for y in range(self.inicioM, self.fimM+1):
                 x_y_cor = [x, y, 0]   
                 linha.append(x_y_cor)
-                linhapontos.append("    ")
+                linhapontos.append("     ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #print eixo x,y
                 if self.matriz[x][y][0] == 0 and self.matriz[x][y][1] == 0:
-                    self.matrizDePontos[x][y] = "  0,0"
+                    self.matrizDePontos[x][y] = "   0"
                 # X
                 elif self.matriz[x][y][0] == 0:
                     if self.matriz[x][y][1] > 0:
                         self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][1])
+                        # self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1))
+                        self.matrizDePontos[x][y] = "    "+ str(eixo)
                 elif self.matriz[x][y][1] == 0:
                     self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
 
                     if self.matriz[x][y][0] > 0:
                         self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                        # self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                        self.matrizDePontos[x][y] = "  "+ str(eixo)
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
@@ -65,8 +68,7 @@ class Bresenham:
                 # print dos pontos vazios(onde não há retas)
                 print(self.matrizDePontos[x][y], end=" ")
             print("\n")
-        print("\nFim matriz atual                                   \n", end="")
-        
+       
     def xyParaOrigem(self):
         #leva o X para a origem(x == 0)
         if self.x > 0:
@@ -188,7 +190,7 @@ class Bresenham:
                 else:
                     anterior = anterior + self.m
                     #print("TESTE: ",anterior)
-                    self.listaY.append(round(anterior + 0.1))
+                    self.listaY.append(round(anterior))
                     self.listaX.append(i)
             
             self.reflexao_inversa()
