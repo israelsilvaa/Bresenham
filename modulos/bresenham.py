@@ -68,8 +68,7 @@ class Bresenham:
                 # print dos pontos vazios(onde não há retas)
                 print(self.matrizDePontos[x][y], end=" ")
             print("\n")
-        print("\nFim matriz atual                                   \n", end="")
-        
+       
     def xyParaOrigem(self):
         #leva o X para a origem(x == 0)
         if self.x > 0:

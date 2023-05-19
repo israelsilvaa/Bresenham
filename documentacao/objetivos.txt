@@ -27,11 +27,20 @@ sistema de coordenadas da grade
     Translação: entrada deslocamento na direção X e Y       __ok__
     Escala: entrada fator de escala para X e Y e ponto fixo __ok__
 
--Recorte de linha [0.34]
-Entrada: especificar uma janela de recorte menor
-que área de desenho.
-Saída: qualquer linha desenhada que esteja fora
-da janela ou tenha parte fora, será recortada.
+recorte 
+{
+    -Recorte de linha [0.34]
+    Entrada: especificar uma janela de recorte menor
+    que área de desenho.
+    Saída: qualquer linha desenhada que esteja fora
+    da janela ou tenha parte fora, será recortada.
+
+    -Recorte de polígono [0.25]
+    Entrada: especificar uma janela de recorte menor
+    que área de desenho.
+    Saída: qualquer polígono desenhado que esteja
+    fora da janela ou tenha parte fora, será recortado.
+}
 
 -----------------------------------
 
@@ -40,12 +49,6 @@ Entrada 1: especificar um ponto aleatório qualquer
 (X,Y) no interior de polígono qualquer.
 Entrada 2: Especificar um polígono não regular e
 aplicar o algoritmo de varredura para preenchimento
-
--Recorte de polígono [0.25]
-Entrada: especificar uma janela de recorte menor
-que área de desenho.
-Saída: qualquer polígono desenhado que esteja
-fora da janela ou tenha parte fora, será recortado.
 
 -Projeções Orto . [0.25] e Perspec . [0.25]).
 Entrada: especificar(vértices) um sólido (3D)
