@@ -32,11 +32,12 @@ class Transformacoes:
         return self.planoCartesiano
     
 
-    def atualizarEscala(self, listaParesOrdenados: list,Ex, Ey):
+    def atualizarEscala(self, listaParesOrdenados: list,Ex, Ey, pontoFixo):
 
         for i in range(len(listaParesOrdenados)):
-            listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
-            listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
+            if i != pontoFixo:
+                listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
+                listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
         
         self.escreverPontos(listaParesOrdenados)
     

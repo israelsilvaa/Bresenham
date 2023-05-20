@@ -156,8 +156,9 @@ while opc != 10:
                 print("Escala")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
+                pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
-                teste = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey)
+                teste = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey, pontoFixo)
 
             else:
                 break
