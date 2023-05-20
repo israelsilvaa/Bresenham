@@ -1,9 +1,15 @@
-import math
 from enums.icone import Icone
+from modulos.bresenham import Bresenham
+from modulos.tela import Tela
 
-class Rotacao():
+class Transformacoes:
 
-    def __init__(self, listaParesOrdenados):
+    def __init__(self, inicioMatriz, fimMatriz):
+        self.planoCartesiano = Bresenham(inicioMatriz, fimMatriz)
+        self.inicioMatriz = inicioMatriz
+        self.fimMatriz = fimMatriz
+
+        # rotação -----------------
         self.senAng = None
         self.cosAng = None
         self.angulo = None
@@ -11,10 +17,97 @@ class Rotacao():
         self.matrizAngulo = []
         self.matrizPontos = []
         self.matrizPontosRotacionada = []
-        self.quantidadePontos = len(listaParesOrdenados)
+        self.quantidadePontos = None
         self.matrizPivoVezesPontos = []
         self.matrizAnguloVezesPontos = []
+        self.listaParesOrdenados = None
 
+    def fazerTranslacao(self, listaParesOrdenados:list, eixoX, eixoY):
+        for i in range(len(listaParesOrdenados)):
+            listaParesOrdenados[i][0] = listaParesOrdenados[i][0] + eixoX 
+            listaParesOrdenados[i][1] = listaParesOrdenados[i][1] + eixoY 
+
+        self.escreverPontos(listaParesOrdenados)
+        
+        return self.planoCartesiano
+    
+
+    def atualizarEscala(self, listaParesOrdenados: list,Ex, Ey):
+
+        for i in range(len(listaParesOrdenados)):
+            listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
+            listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
+        
+        self.escreverPontos(listaParesOrdenados)
+    
+        return self.planoCartesiano
+                
+    def escreverPontos(self, listaParesOrdenados: list):
+        if len(listaParesOrdenados) > 1:
+            for i in range(0, len(listaParesOrdenados)-1):
+                if i < len(listaParesOrdenados):
+                    xInicial = listaParesOrdenados[i][0]
+                    yInicial = listaParesOrdenados[i][1]
+                    xFinal = listaParesOrdenados[i+1][0]
+                    yFinal = listaParesOrdenados[i+1][1]
+                    self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+
+            xFinal = listaParesOrdenados[-1][0]
+            yFinal = listaParesOrdenados[-1][1]
+            self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
+    
+    def pegarPontos(self):
+        tela = Tela()
+        listaParesOrdenados = []
+
+        while True:
+            tela.limparTela()
+            self.planoCartesiano.matrizAtual()
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("Adicionar pares ordenados")
+            print("!!!!    para cancelar apenas de ENTER no X e Y     !!!!")
+            x = input("\nX:")
+            y = input("\nY:")
+            if x == "" or y == "":
+                break
+            par = [int(x), int(y)]        
+            listaParesOrdenados.append(par)
+
+            self.planoCartesiano = Bresenham(self.inicioMatriz, self.fimMatriz)
+
+            if len(listaParesOrdenados) > 1:
+                for i in range(0, len(listaParesOrdenados)-1):
+                    if i < len(listaParesOrdenados):
+                        xInicial = listaParesOrdenados[i][0]
+                        yInicial = listaParesOrdenados[i][1]
+                        xFinal = listaParesOrdenados[i+1][0]
+                        yFinal = listaParesOrdenados[i+1][1]
+                        self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+                xFinal = listaParesOrdenados[-1][0]
+                yFinal = listaParesOrdenados[-1][1]
+                self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
+        return listaParesOrdenados
+    
+
+    #-----------------ROTAÇÂO------------------------#
+
+    def fazerRotacao(self, angulo, indicePivo, listaParesOrdenados):
+        self.quantidadePontos = len(listaParesOrdenados)
+
+        angulo = self.getSenCos(angulo)
+        
+        self.criarMatrizAnguloPonto(listaParesOrdenados, indicePivo)
+        
+        self.printMatrizAnguloPonto()
+
+        self.multiplicarMatrizes()
+        
+        self.listaParesOrdenados = self.pegarPontosMultiplicados()
+        self.escreverPontos(self.listaParesOrdenados)
+
+        return self.planoCartesiano
+
+    
     def criarMatrizAnguloPonto(self, listaParesOrdenados, indicePivo):
         
         #cria matriz de Pivo
@@ -71,7 +164,7 @@ class Rotacao():
         for linha in range(m):
             for coluna in range(p):
                 for k in range(3):
-                    self.matrizPivoVezesPontos[linha][coluna] = (self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])
+                    self.matrizAnguloVezesPontos[linha][coluna] = (self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])
                     # self.matrizPivoVezesPontos[linha][coluna] = round(float(self.matrizPivoVezesPontos[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPontos[k][coluna])) 
 
         print("\n   Angulos x Pontos")
@@ -86,7 +179,7 @@ class Rotacao():
         for linha in range(self.quantidadePontos):
             linhaLista = []
             for coluna in range(2):
-                linhaLista = [round(self.matrizPivoVezesPontos[0][linha]), round(self.matrizPivoVezesPontos[1][linha])]
+                linhaLista = [round(self.matrizAnguloVezesPontos[0][linha]), round(self.matrizAnguloVezesPontos[1][linha])]
             listaPontos.append(linhaLista)
 
         return listaPontos
