@@ -9,14 +9,14 @@ class Tela():
       print("------------"*4)
       print("              Opções\n")
       print("[10] - Sair")
-      print("[7] - ")
+      print("[7] - Projeções(Ortografica, Persquectiva)")
       print("[6] - ")
       print("[5] - Recorde de linha e poligonos")
       print("[4] - Transformações(Rotação, Translação, Escala)")
       print("[3] - Circulo")
       print("[2] - Polilinhas")
       print("[1] - Bresenham")
-      print("[0] - tamanho do plano cartesiano")
+      print("[0] - Tamanho do plano cartesiano")
    
    def miniEnquandramento(self, inicioMatriz, fimMatriz):
       print("-enquadramento atual: X1:", inicioMatriz, "  X2:", fimMatriz)

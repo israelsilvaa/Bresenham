@@ -1,15 +1,16 @@
 # import random
+from modulos.transformacoes import Transformacoes
 from modulos.bresenham import Bresenham
 from modulos.circulo import Circulo
+from modulos.projecao import Projecao
 from modulos.recorte import Recorte
-from modulos.transformacoes import Transformacoes
 from modulos.tela import Tela
 import time
 
 tela = Tela()
 
-inicioMatriz = -7
-fimMatriz = 7
+inicioMatriz = -10
+fimMatriz = 10
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -26,26 +27,30 @@ while opc != 10:
         opc = int(input("\nOpção:"))
 
     if opc == 7:
-        tela.sobre()
-        sair = str(input())
+        teste = Bresenham(inicioMatriz,fimMatriz)
+        tela.painelConfigRapida()
+        listaParesOrdenados = []
 
-    elif opc == 6:
-        NovoPedido = 99
-        while NovoPedido != -1:
+        while True:
             tela.painelConfigRapida()
-            
-            print("\n[-1]cancelar   [-2]Remover ultimo:")
+            tela.limparTela()
+            teste.matrizAtual()
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("[1]adicionar Solido 3D - [2]Ortografica - [3]Perspectiva - [5]Sair")
+            adicionarReta = int(input("opção:"))
 
-            NovoPedido = int(input("\nAdicionar pedido:"))
-
-            # if NovoPedido >= 0 and not(NovoPedido in listaPedidos) and NovoPedido != enderecoPizzaHut and NovoPedido <= tamanhoGrid * tamanhoGrid - 1:
-            #     listaPedidos.append(NovoPedido)
-            #     quantidateEntregas = len(listaPedidos)
-            # elif NovoPedido == -2 and len(listaPedidos) >= 1:
-            #     listaPedidos.pop()
-            #     quantidateEntregas = len(listaPedidos)
-            #     if quantidateEntregas == 0:
-            #         quantidateEntregas = 1
+            if adicionarReta == 1:
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                listaParesOrdenados = projecao.pegarSolido3d()
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
+                
+            elif adicionarReta == 2:
+                print("translação")
+                
+            elif adicionarReta == 3:
+                tela.limparTela()
+            else:
+                break
 
     elif opc == 5:
         
