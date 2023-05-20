@@ -146,6 +146,9 @@ while opc != 10:
                 teste = transfor.fazerTranslacao(listaParesOrdenados, eixoX, eixoY)
                 
             elif adicionarReta == 3:
+                tela.limparTela()
+                teste.matrizAtual()
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
                 angulo = int(input("Angulo:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
@@ -156,8 +159,9 @@ while opc != 10:
                 print("Escala")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
+                pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
-                teste = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey)
+                teste = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey, pontoFixo)
 
             else:
                 break

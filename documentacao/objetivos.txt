@@ -9,18 +9,20 @@ Entrada: especificar raio e centro (X,Y) na área de
 configuração, ou diretamente na área de desenho,
 no escopo do sistema de coordenadas da grade.
 
--Polilinha [0,25] __ok__
+-Polilinha [0,0] __ok__
 Entrada: especificar na área de configuração um
 conjunto de N>3 pontos (X,Y) quaisquer no escopo
 do sistema de coordenadas da grades.
 
--Transformações (3 básicas [3x0.25]) 2/3 __ok__
-Entrada: um polígono de vértices quaisquer dentro do
-sistema de coordenadas da grade
+-Transformações (3 básicas [3x0.25]) 3/3 __ok__
+{
+    Entrada: um polígono de vértices quaisquer dentro do
+    sistema de coordenadas da grade
 
-    Rotação: entrada ângulo de rotação e ponto de pivô      
-    Translação: entrada deslocamento na direção X e Y       !!!
-    Escala: entrada fator de escala para X e Y e ponto fixo 
+        -Rotação: entrada ângulo de rotação e ponto de pivô      
+        -Translação: entrada deslocamento na direção X e Y      
+        -Escala: entrada fator de escala para X e Y e ponto fixo 
+}
 
 recorte 2/2 __ok__
 {
