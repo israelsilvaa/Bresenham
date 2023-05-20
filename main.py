@@ -146,6 +146,9 @@ while opc != 10:
                 teste = transfor.fazerTranslacao(listaParesOrdenados, eixoX, eixoY)
                 
             elif adicionarReta == 3:
+                tela.limparTela()
+                teste.matrizAtual()
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
                 angulo = int(input("Angulo:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
