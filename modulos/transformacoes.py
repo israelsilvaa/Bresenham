@@ -103,10 +103,6 @@ class Transformacoes:
         self.quantidadePontos = len(listaParesOrdenados)
 
         angulo = self.getSenCos(angulo)
-
-        # levar PIVO pra origem
-
-        # retornar Lista de pontos  
         
         self.criarMatrizAnguloPonto(listaParesOrdenados, indicePivo)
         
@@ -114,9 +110,6 @@ class Transformacoes:
 
         self.listaParesOrdenados = self.pegarPontosMultiplicados()
         
-        self.printMatrizAnguloPonto()
-        s = input("DEBUG")
-
         self.escreverPontos(self.listaParesOrdenados)
 
         return self.planoCartesiano
