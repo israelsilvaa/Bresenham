@@ -137,8 +137,17 @@ class Transformacoes:
 
         self.criarMatrizPonto(listaParesOrdenados)
         
-        # self.multiplicaMatriz(self.ma)
-        self.multiplicarMatrizes()
+        # matrizPivo x matrizPontos 
+        self.multiplicaMatriz(self.matrizPivo, self.matrizPontos, self.matrizPivoVezesPontos)
+
+        # matrizAngulo x matrizPontos 
+        self.multiplicaMatriz(self.matrizAngulo, self.matrizPivoVezesPontos, self.matrizPontosRotacionada)
+        
+        # Pivo inverso
+        self.matrizPivo[0][2] = self.pivo[0] 
+        self.matrizPivo[1][2] = self.pivo[1] 
+        # matrizPivoInverso x matrizPontosRotacionados 
+        self.multiplicaMatriz(self.matrizPivo, self.matrizPontosRotacionada, self.matrizFinal)
 
         self.listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizFinal)
         
@@ -158,7 +167,7 @@ class Transformacoes:
         self.matrizPivo.append(linhaPivo)
 
     def criaMatrizAngulo(self, angulo): 
-        angulo = self.getSenCos(angulo)
+        self.getSenCos(angulo)
         
         #cria matriz de angulos seno e cosseno
         linhaMatriz = [float(self.cosAng), float(self.senAng)*(-1), 0]
@@ -179,57 +188,13 @@ class Transformacoes:
                     linhaPontos.append(1)
             self.matrizPontos.append(linhaPontos)
 
-    def multiplicarMatrizes(self):
-
-        # multiplicação de matriz
-        # matriz resultante de MatPivo x MatPontos
-        m = 3
-        p = self.quantidadePontos
-        for linha in range(m):
-            linhaPivoPontos = []
-            linhaAnguloPontos = []
-            linhaPontosRotacionados = []
-            linhaFinal = []
-            for coluna in range(p):
-                linhaPivoPontos.append(0)
-                linhaAnguloPontos.append(0)
-                linhaPontosRotacionados.append(0)
-                linhaFinal.append(0)
-
-            self.matrizPivoVezesPontos.append(linhaPivoPontos)
-            self.matrizAnguloVezesPontos.append(linhaAnguloPontos)
-            self.matrizPontosRotacionada.append(linhaPontosRotacionados)
-            self.matrizFinal.append(linhaFinal)
-       
-        # matrizPivo x matrizPontos        
-        for linha in range(m):
-            for coluna in range(p):
-                for k in range(3):
-                    self.matrizPivoVezesPontos[linha][coluna] = round(self.matrizPivoVezesPontos[linha][coluna] + self.matrizPivo[linha][k]*self.matrizPontos[k][coluna])
-                    
-        # matrizAngulo x matrizPontos        
-        for linha in range(m):
-            for coluna in range(p):
-                for k in range(3):
-                    self.matrizPontosRotacionada[linha][coluna] = round(self.matrizPontosRotacionada[linha][coluna] + self.matrizAngulo[linha][k]*self.matrizPivoVezesPontos[k][coluna])
-                   
-        # Pivo inverso
-        self.matrizPivo[0][2] = self.pivo[0] 
-        self.matrizPivo[1][2] = self.pivo[1] 
-
-        # matrizPivoInverso x matrizPontosRotacionados        
-        for linha in range(m):
-            for coluna in range(p):
-                for k in range(3):
-                    self.matrizFinal[linha][coluna] = round(self.matrizFinal[linha][coluna] + self.matrizPivo[linha][k]*self.matrizPontosRotacionada[k][coluna])
-        
     def pegarPontosMultiplicados(self, matriz):
         listaPontos = []
 
         for linha in range(self.quantidadePontos):
             linhaLista = []
             for coluna in range(2):
-                linhaLista = [round(matriz[0][linha]), round(matriz[1][linha])]
+                linhaLista = [round(matriz[0][linha] + 0.1), round(matriz[1][linha] + 0.1)]
             listaPontos.append(linhaLista)
 
         return listaPontos
@@ -301,6 +266,13 @@ class Transformacoes:
         elif angulo == -60:
             self.senAng = -0.87
             self.cosAng = 0.50
+
+        elif angulo == 90:
+            self.senAng = 1
+            self.cosAng = 0
+        elif angulo == -90:
+            self.senAng = -0.89
+            self.cosAng = -1
 
         senCos = [self.senAng,  self.cosAng, self.angulo]
         return senCos
