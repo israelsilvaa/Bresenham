@@ -9,8 +9,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -10
-fimMatriz = 10
+inicioMatriz = -20
+fimMatriz = 20
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -29,14 +29,30 @@ while opc != 10:
     if opc == 7:
         teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
-        listaParesOrdenados = []
+        # listaParesOrdenados = []
+        # listaParesOrdenados = [[0,0,2],
+        #                        [2,0,2],
+        #                        [2,2,2],
+        #                        [0,2,2],
+        #                        [0,0,0],
+        #                        [2,0,0],
+        #                        [2,2,0],
+        #                        [0,2,0]]
+        listaParesOrdenados = [[0,0,10],
+                               [10,0,10],
+                               [10,10,10],
+                               [0,10,10],
+                               [0,0,0],
+                               [10,0,0],
+                               [10,10,0],
+                               [0,10,0]]
 
         while True:
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("[1]adicionar Solido 3D - [2]Ortografica - [3]Perspectiva - [5]Sair")
+            print("[1]adicionar Solido 3D - [2]Ortografica - [3]Perspectiva(cabinet) - [5]Sair")
             adicionarReta = int(input("opção:"))
 
             if adicionarReta == 1:
@@ -45,10 +61,15 @@ while opc != 10:
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 
             elif adicionarReta == 2:
-                print("translação")
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                teste = projecao.cabinet(listaParesOrdenados)
+                listaParesOrdenados = projecao.listaParesOrdenados
                 
             elif adicionarReta == 3:
-                tela.limparTela()
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                teste = projecao.cabinet(listaParesOrdenados)
+                listaParesOrdenados = projecao.listaParesOrdenados
+                
             else:
                 break
 

@@ -29,7 +29,7 @@ class Bresenham:
             for y in range(self.inicioM, self.fimM+1):
                 x_y_cor = [x, y, 0]   
                 linha.append(x_y_cor)
-                linhapontos.append("     ")
+                linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
         for x in range(len(self.matriz)):
@@ -66,7 +66,7 @@ class Bresenham:
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 # print dos pontos vazios(onde não há retas)
-                print(self.matrizDePontos[x][y], end=" ")
+                print(self.matrizDePontos[x][y], end="  ")
             print("\n")
        
     def xyParaOrigem(self):

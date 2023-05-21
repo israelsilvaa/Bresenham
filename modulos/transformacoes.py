@@ -119,34 +119,13 @@ class Transformacoes:
         self.pivo = [listaParesOrdenados[indicePivo][0], listaParesOrdenados[indicePivo][1]]
         
         #cria matriz de Pivo
-        if self.pivo[0] >= 0 and self.pivo[1] >= 0 : #  + +
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] > 0 and self.pivo[1] < 0 :#  + -
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] < 0 and self.pivo[1] < 0 :#  - -
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] < 0 and self.pivo[1] > 0 :#  + +
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
+        linhaPivo = [1, 0, self.pivo[0]*(-1)]
+        self.matrizPivo.append(linhaPivo)
+        linhaPivo = [0, 1, self.pivo[1]*(-1)]
+        self.matrizPivo.append(linhaPivo)
+        linhaPivo = [0, 0, 1]
+        self.matrizPivo.append(linhaPivo)
+        
       
         #cria matriz de angulos seno e cosseno
         linhaMatriz = [float(self.cosAng), float(self.senAng)*(-1), 0]
