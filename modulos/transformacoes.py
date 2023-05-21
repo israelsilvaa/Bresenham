@@ -17,13 +17,9 @@ class Transformacoes:
         self.matrizPivo = []
         self.matrizAngulo = []
         self.matrizPontos = []
-
         self.matrizPivoVezesPontos = []
-
         self.matrizAnguloVezesPontos = []
-
         self.matrizPontosRotacionada = []
-
         self.matrizFinal = []
         
         self.quantidadePontos = None
@@ -35,21 +31,55 @@ class Transformacoes:
             listaParesOrdenados[i][1] = listaParesOrdenados[i][1] + eixoY 
 
         self.escreverPontos(listaParesOrdenados)
+        self.listaParesOrdenados = listaParesOrdenados
         
         return self.planoCartesiano
     
 
-    def atualizarEscala(self, listaParesOrdenados: list,Ex, Ey, pontoFixo):
+    def atualizarEscala(self, listaParesOrdenados: list, Ex, Ey, pontoFixo):
+        self.quantidadePontos = len(listaParesOrdenados)
+
+        self.criarMatrizPivo(listaParesOrdenados, pontoFixo)
+
+        self.criarMatrizPonto(listaParesOrdenados)
+
+        self.matrizPivoVezesPontos = self.multiplicaMatriz(self.matrizPivo, self.matrizPontos, self.matrizPivoVezesPontos)
+
+        listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizPivoVezesPontos)
 
         for i in range(len(listaParesOrdenados)):
-            if i != pontoFixo:
-                listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
-                listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
-        
+            listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
+            listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
+
+        for i in range(len(listaParesOrdenados)):
+            listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] + self.pivo[0]) 
+            listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] + self.pivo[1])
+
+        for i in range(len(self.matrizPivo)):
+            print(self.matrizPivo[i])
+
+        self.listaParesOrdenados = listaParesOrdenados
         self.escreverPontos(listaParesOrdenados)
-    
         return self.planoCartesiano
-                
+    
+    def multiplicaMatriz(self, matrizA, matrizB, matrizR):
+        m = 3
+        p = self.quantidadePontos
+        for linha in range(m):
+            linhaCabinetPontos = []
+            for coluna in range(p):
+                linhaCabinetPontos.append(0)
+
+            matrizR.append(linhaCabinetPontos)
+        
+        # matrizCabinet x matrizPontos        
+        for linha in range(m):
+            for coluna in range(p):
+                for k in range(3):
+                    matrizR[linha][coluna] = round(matrizR[linha][coluna] + matrizA[linha][k]*matrizB[k][coluna] + 0.1)
+        
+        return matrizR
+       
     def escreverPontos(self, listaParesOrdenados: list):
         if len(listaParesOrdenados) > 1:
             for i in range(0, len(listaParesOrdenados)-1):
@@ -98,56 +128,38 @@ class Transformacoes:
     
 
     #-----------------ROTAÇÂO------------------------#
-
     def fazerRotacao(self, angulo, indicePivo, listaParesOrdenados):
         self.quantidadePontos = len(listaParesOrdenados)
+        
+        self.criarMatrizPivo(listaParesOrdenados, indicePivo)
 
-        angulo = self.getSenCos(angulo)
+        self.criaMatrizAngulo(angulo)
+
+        self.criarMatrizPonto(listaParesOrdenados)
         
-        self.criarMatrizAnguloPonto(listaParesOrdenados, indicePivo)
-        
+        # self.multiplicaMatriz(self.ma)
         self.multiplicarMatrizes()
 
-        self.listaParesOrdenados = self.pegarPontosMultiplicados()
+        self.listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizFinal)
         
         self.escreverPontos(self.listaParesOrdenados)
 
         return self.planoCartesiano
-
     
-    def criarMatrizAnguloPonto(self, listaParesOrdenados, indicePivo):
-        self.pivo = [listaParesOrdenados[indicePivo][0], listaParesOrdenados[indicePivo][1]]
+    def criarMatrizPivo(self, listaParesOrdenados, pontoFixo):
+        self.pivo = listaParesOrdenados[pontoFixo].copy()
         
         #cria matriz de Pivo
-        if self.pivo[0] >= 0 and self.pivo[1] >= 0 : #  + +
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] > 0 and self.pivo[1] < 0 :#  + -
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] < 0 and self.pivo[1] < 0 :#  - -
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-        elif self.pivo[0] < 0 and self.pivo[1] > 0 :#  + +
-            linhaPivo = [1, 0, self.pivo[0]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 1, self.pivo[1]*(-1)]
-            self.matrizPivo.append(linhaPivo)
-            linhaPivo = [0, 0, 1]
-            self.matrizPivo.append(linhaPivo)
-      
+        linhaPivo = [1, 0, self.pivo[0]*(-1)]
+        self.matrizPivo.append(linhaPivo)
+        linhaPivo = [0, 1, self.pivo[1]*(-1)]
+        self.matrizPivo.append(linhaPivo)
+        linhaPivo = [0, 0, 1]
+        self.matrizPivo.append(linhaPivo)
+
+    def criaMatrizAngulo(self, angulo): 
+        angulo = self.getSenCos(angulo)
+        
         #cria matriz de angulos seno e cosseno
         linhaMatriz = [float(self.cosAng), float(self.senAng)*(-1), 0]
         self.matrizAngulo.append(linhaMatriz)
@@ -156,6 +168,7 @@ class Transformacoes:
         linhaMatriz = [0, 0, 1]
         self.matrizAngulo.append(linhaMatriz)
 
+    def criarMatrizPonto(self, listaParesOrdenados): 
         #cria matriz de Pontos X e Y
         for linha in range(3):
             linhaPontos = []
@@ -210,13 +223,13 @@ class Transformacoes:
                 for k in range(3):
                     self.matrizFinal[linha][coluna] = round(self.matrizFinal[linha][coluna] + self.matrizPivo[linha][k]*self.matrizPontosRotacionada[k][coluna])
         
-    def pegarPontosMultiplicados(self):
+    def pegarPontosMultiplicados(self, matriz):
         listaPontos = []
 
         for linha in range(self.quantidadePontos):
             linhaLista = []
             for coluna in range(2):
-                linhaLista = [round(self.matrizFinal[0][linha]), round(self.matrizFinal[1][linha])]
+                linhaLista = [round(matriz[0][linha]), round(matriz[1][linha])]
             listaPontos.append(linhaLista)
 
         return listaPontos

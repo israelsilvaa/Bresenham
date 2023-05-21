@@ -1,15 +1,16 @@
 # import random
+from modulos.transformacoes import Transformacoes
 from modulos.bresenham import Bresenham
 from modulos.circulo import Circulo
+from modulos.projecao import Projecao
 from modulos.recorte import Recorte
-from modulos.transformacoes import Transformacoes
 from modulos.tela import Tela
 import time
 
 tela = Tela()
 
-inicioMatriz = -7
-fimMatriz = 7
+inicioMatriz = -10
+fimMatriz = 10
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -26,26 +27,72 @@ while opc != 10:
         opc = int(input("\nOpção:"))
 
     if opc == 7:
-        tela.sobre()
-        sair = str(input())
-
-    elif opc == 6:
-        NovoPedido = 99
-        while NovoPedido != -1:
+        teste = Bresenham(inicioMatriz,fimMatriz)
+        tela.painelConfigRapida()
+        listaParesOrdenados = []
+        listaArestas = []
+        listaPontosOriginais = listaParesOrdenados
+        
+        # listaParesOrdenados = [[-5,-7,0],
+        #                        [5,-7,0],
+        #                        [5,3,0],
+        #                        [-5,3,0],
+        #                        [-5,-7,-10], 
+        #                        [5,-7,-10],
+        #                        [5,3,-10],
+        #                        [-5,3,-10]]
+        
+        # listaArestas = [ [0,1],[0,3],[0,4],[1,2],[1,5],[2,3],[2,6],[3,7],[7,4],[7,6],[5,6],[5,4]]
+        
+        
+        while True:
             tela.painelConfigRapida()
+            tela.limparTela()
+            teste.matrizAtual()
+            print("Pontos:", listaParesOrdenados)
+            print("ARESTAS:", listaArestas)
+            print("[1]adic. Solido 3D      [2]Adic. Arestas      [3]Ortogonal      [4]Perspectiva(cabinet 30°)      [5]Sair")
+            adicionarReta = int(input("opção:"))
+
+            if adicionarReta == 1:
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                listaParesOrdenados = projecao.pegarSolido3d(listaParesOrdenados)
+                listaPontosOriginais = listaParesOrdenados
             
-            print("\n[-1]cancelar   [-2]Remover ultimo:")
+            elif adicionarReta == 2:
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                listaArestas = projecao.criarArestas(listaParesOrdenados)
+                
+            elif adicionarReta == 3:
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                teste = projecao.ortogonal(listaParesOrdenados, listaArestas)
+                listaParesOrdenados = projecao.listaParesOrdenados
 
-            NovoPedido = int(input("\nAdicionar pedido:"))
+                tela.limparTela()
+                teste.matrizAtual()
+                print("Pontos:", listaParesOrdenados)
+                print("ARESTAS:", listaArestas)
+                sair = input("sair")
 
-            # if NovoPedido >= 0 and not(NovoPedido in listaPedidos) and NovoPedido != enderecoPizzaHut and NovoPedido <= tamanhoGrid * tamanhoGrid - 1:
-            #     listaPedidos.append(NovoPedido)
-            #     quantidateEntregas = len(listaPedidos)
-            # elif NovoPedido == -2 and len(listaPedidos) >= 1:
-            #     listaPedidos.pop()
-            #     quantidateEntregas = len(listaPedidos)
-            #     if quantidateEntregas == 0:
-            #         quantidateEntregas = 1
+                listaParesOrdenados = listaPontosOriginais
+                teste = Bresenham(inicioMatriz, fimMatriz)
+
+            elif adicionarReta == 4:
+                projecao = Projecao(inicioMatriz, fimMatriz)
+                teste = projecao.cabinet(listaParesOrdenados, listaArestas)
+                listaParesOrdenados = projecao.listaParesOrdenados
+
+                tela.limparTela()
+                teste.matrizAtual()
+                print("Pontos:", listaParesOrdenados)
+                print("ARESTAS:", listaArestas)
+                sair = input("sair")
+                
+                listaParesOrdenados = listaPontosOriginais
+                teste = Bresenham(inicioMatriz, fimMatriz)
+                
+            else:
+                break
 
     elif opc == 5:
         
@@ -144,6 +191,7 @@ while opc != 10:
                 eixoY = int(input("translação em y:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 teste = transfor.fazerTranslacao(listaParesOrdenados, eixoX, eixoY)
+                listaParesOrdenados = transfor.listaParesOrdenados
                 
             elif adicionarReta == 3:
                 tela.limparTela()
@@ -162,6 +210,7 @@ while opc != 10:
                 pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 teste = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey, pontoFixo)
+                listaParesOrdenados = transfor.listaParesOrdenados
 
             else:
                 break
