@@ -9,8 +9,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -14
-fimMatriz = 12
+inicioMatriz = -15
+fimMatriz = 15
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -63,7 +63,7 @@ while opc != 10:
             elif adicionarReta == 2:
                 projecao = Projecao(inicioMatriz, fimMatriz)
 
-                teste = projecao.cabinet(listaParesOrdenados)
+                teste = projecao.ortogonal(listaParesOrdenados)
                 
                 listaParesOrdenados = projecao.listaParesOrdenados
                 
