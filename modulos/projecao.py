@@ -16,7 +16,7 @@ class Projecao:
         self.matrizOrtogonal = []
         self.matrizOrtogonalVezesPontos3d = []
 
-    def cabinet(self, listaParesOrdenados):
+    def cabinet(self, listaParesOrdenados, listaArestas):
         self.quantidadePontos = len(listaParesOrdenados)
         self.criarMatrizCabinet()
         self.criarMatrizPontos3d(listaParesOrdenados)
@@ -37,9 +37,9 @@ class Projecao:
         
         listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizCabinetVezesPontos3d)
 
-        return self.escreverPontos(listaParesOrdenados)
+        return self.escreverPontos(listaParesOrdenados, listaArestas)
     
-    def ortogonal(self, listaParesOrdenados):
+    def ortogonal(self, listaParesOrdenados, listaArestas):
         self.quantidadePontos = len(listaParesOrdenados)
         self.criarMatrizOrtogonal()
         self.criarMatrizPontos3d(listaParesOrdenados)
@@ -60,8 +60,7 @@ class Projecao:
         for i in range(4):
             print(self.matrizOrtogonalVezesPontos3d[i])
 
-        s = input("DEBUG")
-        return self.escreverPontosOrtogonais(listaParesOrdenados)
+        return self.escreverPontos(listaParesOrdenados, listaArestas)
         
 
     def criarMatrizOrtogonal(self):
@@ -78,6 +77,9 @@ class Projecao:
         self.matrizOrtogonal.append(linha)    
 
     def criarMatrizPontos3d(self, listaParesOrdenados):
+
+        print("DEBUGGGGGG::::::",listaParesOrdenados)
+
        
         #cria matriz de Pontos X,Y,Z
         for linha in range(4):
@@ -128,14 +130,14 @@ class Projecao:
 
         return listaPontos
     
-    def pegarSolido3d(self):
+    def pegarSolido3d(self, listaPares):
      
-        listaParesOrdenados = []
+        listaParesOrdenados = listaPares
         while True:
             self.tela.limparTela()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("Adicionar pares ordenados")
-            print("!!!!    para cancelar apenas de ENTER no X e Y     !!!!")
+            print("!!!!    para cancelar apenas de ENTER no X, Y e Z     !!!!")
             x = input("\nX:")
             y = input("\nY:")
             z = input("\nZ:")
@@ -144,90 +146,55 @@ class Projecao:
             par = [int(x), int(y), int(z)]        
             listaParesOrdenados.append(par)
         
-        self.listaParesOrdenados = listaParesOrdenados
-           
-        return self.listaParesOrdenados
+        return listaParesOrdenados
 
-    def escreverPontos(self, listaParesOrdenados: list):
+    def criarArestas(self, listaParesOrdenados):
+        arestas = []
+
+        while True:
+            self.tela.limparTela()
+            self.planoCartesiano.matrizAtual()
+            print("Indicies")
+            print(end="     ")
+            for indice in range(len(listaParesOrdenados)):
+                print(indice, end="           ")
+            print("\n")
+            for indice in range(len(listaParesOrdenados)):
+                print(listaParesOrdenados[indice], end=" ")
+            print("\n")
+            
+            print("Arestas")
+            if len(arestas) == 0:
+                    print("nenhuma aresta cadastrada", end=" ")
+            else:
+                for i in range(len(arestas)):
+                    print(arestas[i], end=" ")
+            print("\n")
+
+            print("!!!!    para cancelar apenas de ENTER no Ponto1 ou Ponto2     !!!!")
+            inicio = input("Ponto1(indice):")
+            fim = input("Ponto2(indice):")
+            if inicio == "" or fim == "":
+                break
+            pontos = [int(inicio), int(fim)]
+            arestas.append(pontos)
+
+            self.planoCartesiano = self.escreverPontos(listaParesOrdenados, arestas)
+
+        return arestas
+
+
+    def escreverPontos(self, listaParesOrdenados: list, listaArestas:list):
 
         print(listaParesOrdenados)
 
         self.listaParesOrdenados = listaParesOrdenados
 
-        # translação
-        for i in range(len(self.listaParesOrdenados)):
-            self.listaParesOrdenados[i][0] = self.listaParesOrdenados[i][0] + (0) 
-            self.listaParesOrdenados[i][1] = self.listaParesOrdenados[i][1] + (-17) 
-
-        s = input("sdsdsdsdsds")
+        for i in range(len(listaArestas)):
+            self.planoCartesiano.reta(listaParesOrdenados[listaArestas[i][0]][0], listaParesOrdenados[listaArestas[i][0]][1],
+                                    listaParesOrdenados[listaArestas[i][1]][0], listaParesOrdenados[listaArestas[i][1]][1])
+       
         
-        # # A B
-        # self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1],
-        #                           listaParesOrdenados[1][0], listaParesOrdenados[1][1])
-        # # A D
-        # self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1],
-        #                           listaParesOrdenados[3][0], listaParesOrdenados[3][1])
-        # A E
-        # self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1],
-        #                           listaParesOrdenados[4][0], listaParesOrdenados[4][1])
-        # B C
-        self.planoCartesiano.reta(listaParesOrdenados[1][0], listaParesOrdenados[1][1],
-                                  listaParesOrdenados[2][0], listaParesOrdenados[2][1])
-        # B F
-        self.planoCartesiano.reta(listaParesOrdenados[1][0], listaParesOrdenados[1][1],
-                                  listaParesOrdenados[5][0], listaParesOrdenados[5][1])
-        # C D
-        self.planoCartesiano.reta(listaParesOrdenados[2][0], listaParesOrdenados[2][1],
-                                  listaParesOrdenados[3][0], listaParesOrdenados[3][1])
-        
-        # C G
-        self.planoCartesiano.reta(listaParesOrdenados[2][0], listaParesOrdenados[2][1],
-                                  listaParesOrdenados[6][0], listaParesOrdenados[6][1])
-        # D H
-        self.planoCartesiano.reta(listaParesOrdenados[3][0], listaParesOrdenados[3][1],
-                                  listaParesOrdenados[7][0], listaParesOrdenados[7][1])
-        
-        # H E
-        self.planoCartesiano.reta(listaParesOrdenados[7][0], listaParesOrdenados[7][1],
-                                  listaParesOrdenados[4][0], listaParesOrdenados[4][1])
-        # H G
-        self.planoCartesiano.reta(listaParesOrdenados[7][0], listaParesOrdenados[7][1],
-                                  listaParesOrdenados[6][0], listaParesOrdenados[6][1])
-        # F G
-        self.planoCartesiano.reta(listaParesOrdenados[5][0], listaParesOrdenados[5][1],
-                                  listaParesOrdenados[6][0], listaParesOrdenados[6][1])
-        # F E
-        self.planoCartesiano.reta(listaParesOrdenados[5][0], listaParesOrdenados[5][1],
-                                  listaParesOrdenados[4][0], listaParesOrdenados[4][1])
-        
-        return self.planoCartesiano
-
-    def escreverPontosOrtogonais(self, listaParesOrdenados: list):
-        
-        print(listaParesOrdenados)
-
-        self.listaParesOrdenados = listaParesOrdenados
-        
-        # translação
-        for i in range(len(self.listaParesOrdenados)):
-            self.listaParesOrdenados[i][0] = self.listaParesOrdenados[i][0] + (0) 
-            self.listaParesOrdenados[i][1] = self.listaParesOrdenados[i][1] + (-17) 
-
-        s = input("sdsdsdsdsds")
-
-        # H E
-        self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1],
-                                  listaParesOrdenados[3][0], listaParesOrdenados[3][1])
-        # H G
-        self.planoCartesiano.reta(listaParesOrdenados[3][0], listaParesOrdenados[3][1],
-                                  listaParesOrdenados[6][0], listaParesOrdenados[6][1])
-        # F G
-        self.planoCartesiano.reta(listaParesOrdenados[6][0], listaParesOrdenados[6][1],
-                                  listaParesOrdenados[1][0], listaParesOrdenados[1][1])
-        # F E
-        self.planoCartesiano.reta(listaParesOrdenados[1][0], listaParesOrdenados[1][1],
-                                  listaParesOrdenados[0][0], listaParesOrdenados[0][1])
-    
         return self.planoCartesiano
         
 

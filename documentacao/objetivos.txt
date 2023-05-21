@@ -39,7 +39,7 @@ recorte 2/2 __ok__
     fora da janela ou tenha parte fora, será recortado.
 }
 
--Projeções Orto . [0.25] e Perspec . [0.25]).
+-Projeções Orto . [0.25] e Perspec . [0.25])  __ok__
 Entrada: especificar(vértices) um sólido (3D)
 qualquer, especificar a projeção a ser utilizada,
 rasterizar o resultado com bresenham
