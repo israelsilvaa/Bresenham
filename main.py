@@ -9,8 +9,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -20
-fimMatriz = 20
+inicioMatriz = -14
+fimMatriz = 12
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -38,21 +38,21 @@ while opc != 10:
         #                        [2,0,0],
         #                        [2,2,0],
         #                        [0,2,0]]
-        listaParesOrdenados = [[0,0,10],
-                               [10,0,10],
-                               [10,10,10],
-                               [0,10,10],
-                               [0,0,0],
-                               [10,0,0],
-                               [10,10,0],
-                               [0,10,0]]
+        listaParesOrdenados = [[-5,10,0],
+                               [5,10,0],
+                               [5,20,0],
+                               [-5,20,0],
+                               [-5,10,-10],
+                               [5,10,-10],
+                               [5,20,-10],
+                               [-5,20,-10]]
 
         while True:
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("[1]adicionar Solido 3D - [2]Ortografica - [3]Perspectiva(cabinet) - [5]Sair")
+            print("[1]adicionar Solido 3D - [2]Ortogonal - [3]Perspectiva(cabinet 30°) - [5]Sair")
             adicionarReta = int(input("opção:"))
 
             if adicionarReta == 1:
@@ -62,7 +62,9 @@ while opc != 10:
                 
             elif adicionarReta == 2:
                 projecao = Projecao(inicioMatriz, fimMatriz)
+
                 teste = projecao.cabinet(listaParesOrdenados)
+                
                 listaParesOrdenados = projecao.listaParesOrdenados
                 
             elif adicionarReta == 3:
