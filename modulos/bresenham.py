@@ -53,7 +53,7 @@ class Bresenham:
                                 self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1)) # -x > -10
                # X
                 elif self.matriz[x][y][1] == 0:
-                    self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                    self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
 
                     if self.matriz[x][y][0] > 0:
                         if self.matriz[x][y][0] > 9:
@@ -63,9 +63,9 @@ class Bresenham:
                     else:
                         if self.matriz[x][y][0] < 0:
                             if self.matriz[x][y][0] > -9:
-                                self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0]*(-1)) # -y
+                                self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0]*(-1)) # -y
                             else:
-                                self.matrizDePontos[x][y] = "  "+ str(eixo) # -y
+                                self.matrizDePontos[x][y] = "   "+ str(eixo) # -y
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
