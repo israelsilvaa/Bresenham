@@ -3,6 +3,7 @@ from modulos.transformacoes import Transformacoes
 from modulos.bresenham import Bresenham
 from modulos.circulo import Circulo
 from modulos.projecao import Projecao
+from modulos.varreduraPreenchimento import VarreduraPreenchimento
 from modulos.recorte import Recorte
 from modulos.tela import Tela
 import time
@@ -91,6 +92,40 @@ while opc != 10:
                 listaParesOrdenados = listaPontosOriginais
                 teste = Bresenham(inicioMatriz, fimMatriz)
                 
+            else:
+                break
+
+    elif opc == 6:
+        teste = Bresenham(inicioMatriz,fimMatriz)
+        tela.painelConfigRapida()
+        listaParesOrdenados = []
+
+        while True:
+            tela.painelConfigRapida()
+            tela.limparTela()
+            teste.matrizAtual()
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("[1]adicionar nova Reta - [2]Varredura - [3]Preenchimento - [5]Sair")
+            adicionarReta = int(input("opção:"))
+
+            if adicionarReta == 1:
+                varredura = VarreduraPreenchimento(inicioMatriz, fimMatriz)
+                listaParesOrdenados = varredura.pegarRetas()
+                teste = varredura.planoCartesiano
+    
+            elif adicionarReta == 2:
+                varredura.tabelaVarredura()
+                
+                s = input("poximo passo?")
+
+                
+            elif adicionarReta == 3:
+                tela.limparTela()
+                teste.matrizAtual()
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
+                indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
+                angulo = int(input("Angulo:"))
+
             else:
                 break
 
@@ -326,5 +361,3 @@ tela.limparTela()
 print("       Obrigado por usar nosso paint <3\n\n\n\n\n\n")
 time.sleep(3)
 
-# teste.tabelaVarredura()
-# teste.matrizCoordenada()

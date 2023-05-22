@@ -1,4 +1,5 @@
 import os
+from enums.icone import Icone
 class Tela():
 
    def limparTela(self):
@@ -10,7 +11,7 @@ class Tela():
       print("              Opções\n")
       print("[10] - Sair")
       print("[7] - Projeções(Ortografica, Persquectiva)")
-      print("[6] - ")
+      print(str(Icone.COR_VERDE.value)+"[6] - Preenchimento"+str(Icone.FIM_COR.value))
       print("[5] - Recorde de linha e poligonos")
       print("[4] - Transformações(Rotação, Translação, Escala)")
       print("[3] - Circulo")

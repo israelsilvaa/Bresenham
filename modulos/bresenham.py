@@ -12,7 +12,6 @@ class Bresenham:
         self.trocay = False
         self.listaY = []
         self.listaX = []
-        self.listaDeRetas = []
         self.criarMatriz()
             
     def criarMatriz(self):
@@ -22,7 +21,8 @@ class Bresenham:
         1 == COR DA BORDA(VERMELHO)
         2 == COR DO PREENCEMENTO
         """
-        eixo = "."
+        numeroEixoResumido = "."
+
         for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
             linhapontos = []
@@ -41,14 +41,14 @@ class Bresenham:
                 elif self.matriz[x][y][0] == 0:
                     if self.matriz[x][y][1] > 0:
                         if self.matriz[x][y][1] > 9:
-                            self.matrizDePontos[x][y] = "   "+ str(eixo)
+                            self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido)
                         else:
                             self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
                     else:
                         # self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1))
                         if self.matriz[x][y][1] < 0:
                             if self.matriz[x][y][1] < -9:
-                                self.matrizDePontos[x][y] = "   "+ str(eixo) # -x
+                                self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # -x
                             else:
                                 self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1)) # -x > -10
                # X
@@ -57,7 +57,7 @@ class Bresenham:
 
                     if self.matriz[x][y][0] > 0:
                         if self.matriz[x][y][0] > 9:
-                            self.matrizDePontos[x][y] = "   "+ str(eixo) # y > 9
+                            self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # y > 9
                         else:
                             self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0]) # 10 > y > 0  
                     else:
@@ -65,7 +65,7 @@ class Bresenham:
                             if self.matriz[x][y][0] > -9:
                                 self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0]*(-1)) # -y
                             else:
-                                self.matrizDePontos[x][y] = "   "+ str(eixo) # -y
+                                self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # -y
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
@@ -181,10 +181,6 @@ class Bresenham:
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
-
-        #out varredura
-        reta = [x_ini, x_fin, y_ini, y_fin, 0, 0, 0]
-        self.listaDeRetas.append(reta)
        
         if self.x != self.xf: 
             #out: branch Quadrante
@@ -244,13 +240,3 @@ class Bresenham:
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = "  \033[31m X\033[m"
-
-    def tabelaVarredura(self):
-        print("Lista de retas do poligono acima:\n", self.listaDeRetas, "\n")
-                
-        print("          Min_x  |  Max_y  |  Min_X  |  Max_Y | Delta_Y | Delta_X | M ")
-        for i in range(len(self.listaDeRetas)):
-            print("Reta ", i,"     ", self.listaDeRetas[i][0], "      ",self.listaDeRetas[i][1],"      ", self.listaDeRetas[i][2],"      ", self.listaDeRetas[i][3],"      ", self.listaDeRetas[i][4],"      ", self.listaDeRetas[i][5],"      ", self.listaDeRetas[i][6])
-            # print[self.listaDeRetas[i][0], self.listaDeRetas[i][1], self.listaDeRetas[i][2], self.listaDeRetas[i][3]]
-
-    
