@@ -32,6 +32,7 @@ class Bresenham:
                 linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
+            
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #print eixo x,y

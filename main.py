@@ -10,8 +10,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -10
-fimMatriz = 10
+inicioMatriz = -6
+fimMatriz = 6
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -27,6 +27,14 @@ while opc != 10:
         tela.painelConfigRapida()
         opc = int(input("\nOpção:"))
 
+    if opc == 9:
+        tela.sobre()
+    
+    if opc == 8:
+        tela.limparTela()  
+        print("curva de berzier\n aperte ENTER para sair")
+        s = input()
+        
     if opc == 7:
         teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
@@ -293,8 +301,7 @@ while opc != 10:
                         xFinal = listaParesOrdenados[i+1][0]
                         yFinal = listaParesOrdenados[i+1][1]
                         teste.reta(xInicial, yInicial, xFinal, yFinal)
-                # teste.reta(listaParesOrdenados[-1][0], listaParesOrdenados[-1][1], listaParesOrdenados[0][0], listaParesOrdenados[0][1])
-                
+              
                 tela.painelConfigRapida()
                 teste.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
@@ -360,4 +367,3 @@ while opc != 10:
 tela.limparTela()
 print("       Obrigado por usar nosso paint <3\n\n\n\n\n\n")
 time.sleep(3)
-
