@@ -109,6 +109,7 @@ while opc != 10:
         listaParesOrdenados = []
 
         while True:
+            listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
@@ -120,13 +121,13 @@ while opc != 10:
                 varredura = VarreduraPreenchimento(inicioMatriz, fimMatriz)
                 listaParesOrdenados = varredura.pegarRetas()
                 teste = varredura.planoCartesiano
-    
-            elif adicionarReta == 2:
-                varredura.tabelaVarredura()
-                
-                s = input("poximo passo?")
 
+            # 08 31 56 91 1010 
+            elif adicionarReta == 2:
+                varredura.tabelaVarredura(listaParesOrdenados)
                 
+                s = input("continuar...")
+
             elif adicionarReta == 3:
                 tela.limparTela()
                 teste.matrizAtual()
