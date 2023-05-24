@@ -1,4 +1,5 @@
 from modulos.bresenham import Bresenham
+from enums.icone import Icone
 from modulos.tela import Tela
 
 class VarreduraPreenchimento:
@@ -10,7 +11,8 @@ class VarreduraPreenchimento:
         self.arestasVarredura = []
         self.listaInterseccoes = []
     
-    def tabelaVarredura(self, listaParesOrdenados):  
+    def criaTabelaVarredura(self, listaParesOrdenados):  
+        #pega os valores ymin, ymax, X_ymin e M p/ aresta
         if len(listaParesOrdenados) > 1:
                 for i in range(0, len(listaParesOrdenados)-1):
                     if i < len(listaParesOrdenados):
@@ -23,11 +25,13 @@ class VarreduraPreenchimento:
                             y_maximo = listaParesOrdenados[i][1]
                             x_yminimo = listaParesOrdenados[i+1][0]
                             
+                        #calcula o M
                         m =  (listaParesOrdenados[i+1][1]-listaParesOrdenados[i][1]) / (listaParesOrdenados[i+1][0]-listaParesOrdenados[i][0])
                         m = round(1 / m, 2)
                       
                         self.arestasVarredura.append([ y_minimo, y_maximo, x_yminimo, m])
 
+                # exceção para a ultima reta( ult ponto p/ primei)
                 if listaParesOrdenados[-1][1] < listaParesOrdenados[0][1]:
                     y_minimo = listaParesOrdenados[-1][1]
                     y_maximo = listaParesOrdenados[0][1]
@@ -44,18 +48,20 @@ class VarreduraPreenchimento:
 
     
     def printTabelaVarredura(self):
-        print("              y_min  |  y_max  |  x_Ymin  |     M      |   Intersecção")
-        for i in range(len(self.arestasVarredura)):
-            print("Reta ", i,"|      ", self.arestasVarredura[i][0], "        ",self.arestasVarredura[i][1],"        ", self.arestasVarredura[i][2],"      ", self.arestasVarredura[i][3])
+        if len(self.arestasVarredura) > 0:
+            print("              y_min  |  y_max  |  x_Ymin  |     M      |   Intersecção")
+            for i in range(len(self.arestasVarredura)):
+                print("Reta ", i,"|      ", self.arestasVarredura[i][0], "        ",self.arestasVarredura[i][1],"        ", self.arestasVarredura[i][2],"      ", self.arestasVarredura[i][3])
     
     def printTabelaInterseccoes(self):
-        print("              y_varredura  |  lista Intersecção")
-        for i in range(len(self.listaInterseccoes)):
-            print("Y_varredura |      ", self.listaInterseccoes[i][0],"        ", self.listaInterseccoes[i][1])
-            # print("Reta ", i,"|      ", self.listaInterseccoes[i][0])
+        if len(self.listaInterseccoes) > 0:
+            print("              y_varredura  |  lista Intersecção")
+            for i in range(len(self.listaInterseccoes)):
+                print("Y_varredura |      ", self.listaInterseccoes[i][0],"        ", self.listaInterseccoes[i][1])
+                # print("Reta ", i,"|      ", self.listaInterseccoes[i][0])
 
     def fazerVarredura(self):
-        #pegando a altura maxima e minima do poligono
+        #pegando a altura maxima e minima de uma aresta
         alturaMinPoligono = self.arestasVarredura[0][0] 
         alturaMAxPoligono = self.arestasVarredura[0][1]
         for i in range(len(self.arestasVarredura)):
@@ -65,6 +71,8 @@ class VarreduraPreenchimento:
             if self.arestasVarredura[i][1] > alturaMAxPoligono: 
                 alturaMAxPoligono = self.arestasVarredura[i][1]
         
+        # faz a verredura para todos os Y(entre alturaMAx e alturaMin)
+        #e pega os pares de interseção em X
         for Y_varredura in range(alturaMinPoligono, alturaMAxPoligono+1):
             interseccoesX = []
             
@@ -92,16 +100,12 @@ class VarreduraPreenchimento:
 
                 for x in range( 0, len(self.listaInterseccoes[i][1]), 2):
                     if x+1 < len(self.listaInterseccoes[i][1]):
-                        self.planoCartesiano.reta(self.listaInterseccoes[i][1][x], self.listaInterseccoes[i][0], self.listaInterseccoes[i][1][x+1], self.listaInterseccoes[i][0])
+                        self.planoCartesiano.reta(self.listaInterseccoes[i][1][x], self.listaInterseccoes[i][0], self.listaInterseccoes[i][1][x+1], self.listaInterseccoes[i][0],  Icone.COR_ROXO.value)
                         print("x:", self.listaInterseccoes[i][1][x],"y:", self.listaInterseccoes[i][0],"xf:", self.listaInterseccoes[i][1][x+1],"yf:", self.listaInterseccoes[i][0])
 
         # self.planoCartesiano.matrizAtual()
         self.printTabelaVarredura()
         self.printTabelaInterseccoes()
-        s = input("continuar...")
-
-
-
 
         return self.planoCartesiano
 
@@ -134,11 +138,11 @@ class VarreduraPreenchimento:
                         yInicial = listaParesOrdenados[i][1]
                         xFinal = listaParesOrdenados[i+1][0]
                         yFinal = listaParesOrdenados[i+1][1]
-                        self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+                        self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal ,Icone.COR_ROXO.value)
 
                 xFinal = listaParesOrdenados[-1][0]
                 yFinal = listaParesOrdenados[-1][1]
-                self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
+                self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal, Icone.COR_ROXO.value)
 
         return listaParesOrdenados   
 

@@ -11,7 +11,7 @@ import time
 tela = Tela()
 
 inicioMatriz = -1
-fimMatriz = 10
+fimMatriz = 12
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -108,27 +108,38 @@ while opc != 10:
         tela.painelConfigRapida()
         listaParesOrdenados = []
 
+        varredura = VarreduraPreenchimento(inicioMatriz, fimMatriz)
+        y = 0
         while True:
+
             listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
             # listaParesOrdenados = [ [1,1], [8, 5], [2, 7] ]
-            # listaParesOrdenados = [ [0,0], [5, 5], [0, 5] ]
+            # listaParesOrdenados = [ [1,2], [2, 3], [3, 5] , [2, 4]]
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("[1]adicionar nova Reta - [2]Varredura - [3]Preenchimento - [5]Sair")
+            varredura.printTabelaVarredura()
+            varredura.printTabelaInterseccoes()
+
+            if y == 1:
+                print("DEBUG",teste.matriz[5][1])
+                print("DEBUG",teste.matriz[1][1])
+                print("DEBUG",teste.matriz[4][3])
+            y = 1
             adicionarReta = int(input("opção:"))
 
             if adicionarReta == 1:
-                varredura = VarreduraPreenchimento(inicioMatriz, fimMatriz)
                 listaParesOrdenados = varredura.pegarRetas()
                 teste = varredura.planoCartesiano
 
             # 08 31 56 91 1010 
             elif adicionarReta == 2:
-                varredura.tabelaVarredura(listaParesOrdenados)
-                varredura.fazerVarredura()
-                teste = varredura.planoCartesiano
+                varredura.criaTabelaVarredura(listaParesOrdenados)
+                teste = varredura.fazerVarredura()
+                
+                s = input("continuar...")
 
             elif adicionarReta == 3:
                 tela.limparTela()

@@ -1,3 +1,4 @@
+from enums.icone import Icone
 class Bresenham:
     def __init__(self, inicioMatriz, fimMatriz):
         self.matriz = []
@@ -178,7 +179,7 @@ class Bresenham:
             self.xf=self.yf; self.yf=aux
             self.trocaxy = False
 
-    def reta(self, x_ini, y_ini, x_fin, y_fin):
+    def reta(self, x_ini, y_ini, x_fin, y_fin, cor=Icone.COR_VERMELHO.value):
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
@@ -206,14 +207,15 @@ class Bresenham:
             
             self.reflexao_inversa()
             self.xyParaOrigemInversa()
-
+            
             for x in range(len(self.matriz)):
                 for y in range(len(self.matriz)):
                     #   x , y
                     #  x = indice_1, y = indice_0
                     for i in range(len(self.listaY)):
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
-                            self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                            # self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                            self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
                             self.matriz[x][y][2] = 1
                             """
                             0 == COR DO FUNDO
@@ -231,7 +233,9 @@ class Bresenham:
                     for y in range(len(self.matriz)):
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
-                                self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                                self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                self.matriz[x][y][2] = 1
+
             else:
                 for i in range(self.y, self.yf-1, -1):
                     lista.append(i)
@@ -240,4 +244,5 @@ class Bresenham:
                     for y in range(len(self.matriz)):
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
-                                self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                                self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                self.matriz[x][y][2] = 1
