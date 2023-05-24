@@ -10,8 +10,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -6
-fimMatriz = 6
+inicioMatriz = -1
+fimMatriz = 10
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -110,6 +110,8 @@ while opc != 10:
 
         while True:
             listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
+            # listaParesOrdenados = [ [1,1], [8, 5], [2, 7] ]
+            # listaParesOrdenados = [ [0,0], [5, 5], [0, 5] ]
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
@@ -125,8 +127,8 @@ while opc != 10:
             # 08 31 56 91 1010 
             elif adicionarReta == 2:
                 varredura.tabelaVarredura(listaParesOrdenados)
-                
-                s = input("continuar...")
+                varredura.fazerVarredura()
+                teste = varredura.planoCartesiano
 
             elif adicionarReta == 3:
                 tela.limparTela()
