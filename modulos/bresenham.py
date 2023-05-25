@@ -255,3 +255,4 @@ class Bresenham:
                                     self.matriz[x][y][2] = 1
                                 else:
                                     self.matriz[x][y][2] = 2
+                                

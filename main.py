@@ -135,7 +135,9 @@ while opc != 10:
                 s = input("continuar...")
 
             elif adicionarReta == 3:
-                varredura.fazerPreenchimento(listaParesOrdenados)
+                x = int(input("x:"))
+                y = int(input("y:"))
+                varredura.preenchimento(x, y,1, teste)
                 s = input("continuar...")
 
             else:

@@ -89,8 +89,6 @@ class VarreduraPreenchimento:
             if len(interseccoesX) == 0:
                 interseccoesX = ["não possui"]
 
-            if len(interseccoesX) == 3:
-                interseccoesX.pop(1)
 
             self.listaInterseccoes.append([Y_varredura, interseccoesX])
         
@@ -171,5 +169,38 @@ class VarreduraPreenchimento:
     1 == COR DA BORDA(VERMELHO)
     2 == COR DO PREENCEMENTO(AZUL)
     """
-    def fazerPreenchimento(self, listaParesOrdenados):
-        print("teste")
+
+    def preenchimento(self, x, y, corBorda, planoCartesiano):
+        # p [x, y, cor]
+        pixel = self.lerPixel(x, y, planoCartesiano)
+        print("PIXELL",pixel)
+
+        if pixel[2] != corBorda and pixel[2] != 2:
+            planoCartesiano = self.pintarPixel(x, y, planoCartesiano)
+            self.preenchimento(x+1, y,  corBorda, planoCartesiano)
+            self.preenchimento(x, y+1, corBorda, planoCartesiano)
+            self.preenchimento(x-1, y, corBorda, planoCartesiano)
+            self.preenchimento(x, y-1, corBorda, planoCartesiano)
+    
+    def lerPixel(self, x, y, planoCartesiano):
+        pixel = [None]
+        for linha in range(len(planoCartesiano.matriz)):
+            for coluna in range(len(planoCartesiano.matriz)):
+                #   x , y                    x = indice_1     y = indice_0
+                if planoCartesiano.matriz[linha][coluna][1] == x and planoCartesiano.matriz[linha][coluna][0] == y:
+                    pixel = planoCartesiano.matriz[linha][coluna]
+        
+        return pixel
+    
+    def pintarPixel(self, x, y, planoCartesiano):
+        cor = Icone.COR_VERDE.value
+       
+        for linha in range(len(planoCartesiano.matriz)):
+            for coluna in range(len(planoCartesiano.matriz)):
+                #   x , y                    x = indice_1     y = indice_0
+                if planoCartesiano.matriz[linha][coluna][1] == x and planoCartesiano.matriz[linha][coluna][0] == y:
+                    planoCartesiano.matrizDePontos[linha][coluna] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                    planoCartesiano.matriz[linha][coluna][2] = 2
+        
+        return planoCartesiano
+        
