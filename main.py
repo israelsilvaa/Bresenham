@@ -10,7 +10,7 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -5
+inicioMatriz = -10
 fimMatriz = 10
 teste = Bresenham(inicioMatriz,fimMatriz)
 
@@ -115,6 +115,11 @@ while opc != 10:
             # listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
             # listaParesOrdenados = [[-3, -4], [7, -1], [9, 7], [2, 5]]
             # listaParesOrdenados = [ [1,1], [8, 5], [2, 7] ]
+
+            # listaParesOrdenados = [[-5, -5], [6, -3], [10, 1], [2, 9], [-5, 4], [0, 0]]  #ex 1
+            # listaParesOrdenados = [[-8, -1], [2, 2], [-1, 7], [-6, 3], [-4, -6], [5, 0], [10, 4], [-2, 10], [-10, 5]]  #ex 2
+            # listaParesOrdenados =  [[0, 5], [6, -8], [10, 0], [6, 7], [0, -5], [-7, 7], [-10, 0], [-7, -8]]  #ex 3
+
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
