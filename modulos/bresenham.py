@@ -216,7 +216,10 @@ class Bresenham:
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                             # self.matrizDePontos[x][y] = "  \033[31m X\033[m"
                             self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
-                            self.matriz[x][y][2] = 1
+                            if cor == Icone.COR_VERMELHO.value:
+                                self.matriz[x][y][2] = 1
+                            else:
+                                self.matriz[x][y][2] = 2
                             """
                             0 == COR DO FUNDO
                             1 == COR DA BORDA(VERMELHO)
@@ -234,7 +237,10 @@ class Bresenham:
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
-                                self.matriz[x][y][2] = 1
+                                if cor == Icone.COR_VERMELHO.value:
+                                    self.matriz[x][y][2] = 1
+                                else:
+                                    self.matriz[x][y][2] = 2
 
             else:
                 for i in range(self.y, self.yf-1, -1):
@@ -245,4 +251,7 @@ class Bresenham:
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
-                                self.matriz[x][y][2] = 1
+                                if cor == Icone.COR_VERMELHO.value:
+                                    self.matriz[x][y][2] = 1
+                                else:
+                                    self.matriz[x][y][2] = 2

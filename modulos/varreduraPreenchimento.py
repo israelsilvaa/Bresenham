@@ -89,7 +89,8 @@ class VarreduraPreenchimento:
             if len(interseccoesX) == 0:
                 interseccoesX = ["não possui"]
 
-            interseccoesX.reverse()
+            if len(interseccoesX) == 3:
+                interseccoesX.pop(1)
 
             self.listaInterseccoes.append([Y_varredura, interseccoesX])
         
@@ -109,9 +110,28 @@ class VarreduraPreenchimento:
 
         return self.planoCartesiano
 
+    def pintarBordas(self, listaParesOrdenados, planoCartesiano):
+
+        if len(listaParesOrdenados) > 1:
+            for i in range(0, len(listaParesOrdenados)-1):
+                if i < len(listaParesOrdenados):
+                    xInicial = listaParesOrdenados[i][0]
+                    yInicial = listaParesOrdenados[i][1]
+                    xFinal = listaParesOrdenados[i+1][0]
+                    yFinal = listaParesOrdenados[i+1][1]
+                    planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+
+            xFinal = listaParesOrdenados[-1][0]
+            yFinal = listaParesOrdenados[-1][1]
+            planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
+        return planoCartesiano
+
+
     def pegarRetas(self):
         tela = Tela()
         listaParesOrdenados = []
+
+        
 
         while True:
             tela.limparTela()
@@ -138,17 +158,18 @@ class VarreduraPreenchimento:
                         yInicial = listaParesOrdenados[i][1]
                         xFinal = listaParesOrdenados[i+1][0]
                         yFinal = listaParesOrdenados[i+1][1]
-                        self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal ,Icone.COR_ROXO.value)
+                        self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
 
                 xFinal = listaParesOrdenados[-1][0]
                 yFinal = listaParesOrdenados[-1][1]
-                self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal, Icone.COR_ROXO.value)
+                self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
 
         return listaParesOrdenados   
 
     """     OBS:
-    
     0 == COR DO FUNDO
     1 == COR DA BORDA(VERMELHO)
     2 == COR DO PREENCEMENTO(AZUL)
     """
+    def fazerPreenchimento(self, listaParesOrdenados):
+        print("teste")

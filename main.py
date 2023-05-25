@@ -10,8 +10,8 @@ import time
 
 tela = Tela()
 
-inicioMatriz = -1
-fimMatriz = 12
+inicioMatriz = -5
+fimMatriz = 10
 teste = Bresenham(inicioMatriz,fimMatriz)
 
 tela.limparTela()
@@ -112,41 +112,31 @@ while opc != 10:
         y = 0
         while True:
 
-            listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
+            # listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]]
+            # listaParesOrdenados = [[-3, -4], [7, -1], [9, 7], [2, 5]]
             # listaParesOrdenados = [ [1,1], [8, 5], [2, 7] ]
-            # listaParesOrdenados = [ [1,2], [2, 3], [3, 5] , [2, 4]]
             tela.painelConfigRapida()
             tela.limparTela()
             teste.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("[1]adicionar nova Reta - [2]Varredura - [3]Preenchimento - [5]Sair")
+            print("[1]adic Aresta - [2]Varredura(Poli. Irregular) - [3]Preenchimento(Poli. Regular) - [5]Sair")
             varredura.printTabelaVarredura()
             varredura.printTabelaInterseccoes()
-
-            if y == 1:
-                print("DEBUG",teste.matriz[5][1])
-                print("DEBUG",teste.matriz[1][1])
-                print("DEBUG",teste.matriz[4][3])
-            y = 1
+            
             adicionarReta = int(input("opção:"))
-
             if adicionarReta == 1:
                 listaParesOrdenados = varredura.pegarRetas()
                 teste = varredura.planoCartesiano
 
-            # 08 31 56 91 1010 
             elif adicionarReta == 2:
                 varredura.criaTabelaVarredura(listaParesOrdenados)
                 teste = varredura.fazerVarredura()
-                
+                teste = varredura.pintarBordas(listaParesOrdenados, teste)
                 s = input("continuar...")
 
             elif adicionarReta == 3:
-                tela.limparTela()
-                teste.matrizAtual()
-                print("\nLista de pares Ordenados:", listaParesOrdenados)
-                indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
-                angulo = int(input("Angulo:"))
+                varredura.fazerPreenchimento(listaParesOrdenados)
+                s = input("continuar...")
 
             else:
                 break
