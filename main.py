@@ -137,7 +137,7 @@ while opc != 10:
             elif adicionarReta == 3:
                 x = int(input("x:"))
                 y = int(input("y:"))
-                varredura.preenchimento(x, y,1, teste)
+                teste = varredura.preenchimento(x, y,1, teste)
                 s = input("continuar...")
 
             else:
@@ -265,6 +265,7 @@ while opc != 10:
                 break
 
     elif opc == 3:
+        varredura = VarreduraPreenchimento(inicioMatriz, fimMatriz)
         tela.limparTela()
         teste = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()

@@ -173,7 +173,6 @@ class VarreduraPreenchimento:
     def preenchimento(self, x, y, corBorda, planoCartesiano):
         # p [x, y, cor]
         pixel = self.lerPixel(x, y, planoCartesiano)
-        print("PIXELL",pixel)
 
         if pixel[2] != corBorda and pixel[2] != 2:
             planoCartesiano = self.pintarPixel(x, y, planoCartesiano)
@@ -181,6 +180,8 @@ class VarreduraPreenchimento:
             self.preenchimento(x, y+1, corBorda, planoCartesiano)
             self.preenchimento(x-1, y, corBorda, planoCartesiano)
             self.preenchimento(x, y-1, corBorda, planoCartesiano)
+        
+        return planoCartesiano
     
     def lerPixel(self, x, y, planoCartesiano):
         pixel = [None]
