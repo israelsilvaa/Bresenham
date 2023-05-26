@@ -1,3 +1,4 @@
+from enums.icone import Icone
 class Bresenham:
     def __init__(self, inicioMatriz, fimMatriz):
         self.matriz = []
@@ -16,55 +17,76 @@ class Bresenham:
             
     def criarMatriz(self):
         #cria matriz de coordenadas e de de pontos
+        """
+        0 == COR DO FUNDO
+        1 == COR DA BORDA(VERMELHO)
+        2 == COR DO PREENCEMENTO
+        """
+        numeroEixoResumido = "."
+
         for x in range(self.fimM, self.inicioM-1, -1):
             linha = []
             linhapontos = []
             for y in range(self.inicioM, self.fimM+1):
-                coordenada = [x, y]   
-                linha.append(coordenada)
+                x_y_cor = [x, y, 0]   
+                linha.append(x_y_cor)
                 linhapontos.append("    ")
             self.matriz.append(linha)
             self.matrizDePontos.append(linhapontos)
+            
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #print eixo x,y
                 if self.matriz[x][y][0] == 0 and self.matriz[x][y][1] == 0:
-                    self.matrizDePontos[x][y] = "  0,0"
-                # X
+                    self.matrizDePontos[x][y] = "   0"
+                # Y
                 elif self.matriz[x][y][0] == 0:
                     if self.matriz[x][y][1] > 0:
-                        self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
+                        if self.matriz[x][y][1] > 9:
+                            self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido)
+                        else:
+                            self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1])
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][1])
+                        # self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1))
+                        if self.matriz[x][y][1] < 0:
+                            if self.matriz[x][y][1] < -9:
+                                self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # -x
+                            else:
+                                self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][1]*(-1)) # -x > -10
+               # X
                 elif self.matriz[x][y][1] == 0:
-                    self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                    self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
 
                     if self.matriz[x][y][0] > 0:
-                        self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0])
+                        if self.matriz[x][y][0] > 9:
+                            self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # y > 9
+                        else:
+                            self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0]) # 10 > y > 0  
                     else:
-                        self.matrizDePontos[x][y] = "  "+ str(self.matriz[x][y][0])
+                        if self.matriz[x][y][0] < 0:
+                            if self.matriz[x][y][0] > -9:
+                                self.matrizDePontos[x][y] = "   "+ str(self.matriz[x][y][0]*(-1)) # -y
+                            else:
+                                self.matrizDePontos[x][y] = "   "+ str(numeroEixoResumido) # -y
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #   x , y
-                print("(",self.matriz[x][y][0],self.matriz[x][y][1],") ", end=" ")
+                print("(",self.matriz[x][y][0],self.matriz[x][y][1],self.matriz[x][y][2],") ", end=" ")
             print("\n")
-        print("\n Fim matrz de coordenadas\n\n")
+        print("\n Fim matrz de coordenadas (X, Y, cor)\n\n")
     
     def matrizAtual(self):
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 # print dos pontos vazios(onde não há retas)
-                print(self.matrizDePontos[x][y], end=" ")
+                print(self.matrizDePontos[x][y], end="  ")
             print("\n")
-        print("\nFim matriz atual                                   \n", end="")
-        
-    #x = 0; y = 3; xf = 3; yf = 9
+       
     def xyParaOrigem(self):
         #leva o X para a origem(x == 0)
-
         if self.x > 0:
             while self.x != 0:
                 self.xContadorOrigem = self.xContadorOrigem + 1
@@ -89,31 +111,21 @@ class Bresenham:
 
     def xyParaOrigemInversa(self):
         #levando X para seu lugar original
-            print("xcont:" , self.xContadorOrigem, self.yContadorOrigem)
-
+           
             if self.xContadorOrigem != 0:
-                print("teste")
                 for i in range(len(self.listaX)):
                     self.listaX[i] = self.listaX[i] + self.xContadorOrigem
                 self.xContadorOrigem = 0
          
             if self.yContadorOrigem != 0:
-                print("teste y")
-
+           
                 for i in range(len(self.listaY)):
                     self.listaY[i] = self.listaY[i] + self.yContadorOrigem
                 self.yContadorOrigem = 0
             
-            print("origem inversa:")
-            for i in range(len(self.listaY)):
-                print("(", self.listaX[i], " ," , self.listaY[i], ")")
-            
-          
-           
     #out: branch Quadrante       
     def reflexao(self):
         self.m = (self.yf-self.y) / (self.xf-self.x)
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
         if self.m > 1 or self.m < -1:
             aux = self.x
             self.x = self.y; self.y=aux
@@ -121,7 +133,6 @@ class Bresenham:
             aux = self.xf
             self.xf=self.yf; self.yf=aux
             self.trocaxy = True
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")")
 
         if self.x > self.xf:
             self.x = self.x - self.x * 2
@@ -134,7 +145,6 @@ class Bresenham:
             self.trocay = True
 
         self.m = round((self.yf-self.y) / (self.xf-self.x), 1)
-        print("(", self.x, self.y,")    (", self.xf, self.yf,")", self.m)
        
 
     #out: branch Quadrante        
@@ -169,25 +179,15 @@ class Bresenham:
             self.xf=self.yf; self.yf=aux
             self.trocaxy = False
 
-    def reta(self, x_ini, y_ini, x_fin, y_fin):
+    def reta(self, x_ini, y_ini, x_fin, y_fin, cor=Icone.COR_VERMELHO.value):
         #calcula os pontos da reta e a desenha na matriz de pontos
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
        
-        # print pontos iniciais e finais dados para fazer a reta 
-        for x in range(len(self.matriz)):
-            for y in range(len(self.matriz)):
-                if self.matriz[x][y][0] == self.y and self.matriz[x][y][1] == self.x:
-                    self.matrizDePontos[x][y] = "  \033[32m i\033[m"
-                # elif self.matriz[x][y][0] == self.yf and self.matriz[x][y][1] == self.xf:
-                #     #print("x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf)
-                #     self.matrizDePontos[x][y] = "  \033[32m f\033[m"
-        
         if self.x != self.xf: 
             #out: branch Quadrante
             self.xyParaOrigem()
-            print("-----retorno para origem-------(", self.x, self.y,")    (", self.xf, self.yf,")")
-
+            
             self.reflexao()
 
             # calculando pontos da reta
@@ -201,74 +201,58 @@ class Bresenham:
                     #anterior = i
                 else:
                     anterior = anterior + self.m
-                    #print("TESTE: ",anterior)
-                    self.listaY.append(round(anterior + 0.1))
+                    #print("planoCartesiano: ",anterior)
+                    self.listaY.append(round(anterior))
                     self.listaX.append(i)
-            
-            print("Pontos calculados:")
-            for i in range(len(self.listaY)):
-                print("(", self.listaX[i], " ," , self.listaY[i], ")")
             
             self.reflexao_inversa()
             self.xyParaOrigemInversa()
             
-        
-        # print("passo 2:")
-        # for i in range(len(self.listaY)):
-        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
-
-        # print("tt  x:", self.x," y:", self.y," xf:", self.xf," yf:", self.yf, "\n")
-      
-
-        # print("DEPOIS da inversa\n( x  , y )")
-        # for i in range(len(self.listaY)):
-        #     print("(", self.listaX[i], " ," , self.listaY[i], ")")
-
             for x in range(len(self.matriz)):
                 for y in range(len(self.matriz)):
                     #   x , y
                     #  x = indice_1, y = indice_0
-                    for i in range(1, len(self.listaY)-1):
+                    for i in range(len(self.listaY)):
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
-                            self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                            # self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                            self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                            if cor == Icone.COR_VERMELHO.value:
+                                self.matriz[x][y][2] = 1
+                            else:
+                                self.matriz[x][y][2] = 2
+                            """
+                            0 == COR DO FUNDO
+                            1 == COR DA BORDA(VERMELHO)
+                            2 == COR DO PREENCEMENTO
+                            """
         else:
             lista = []
            
             if self.y < self.yf:
                 for i in range(self.y, self.yf+1):
                     lista.append(i)
-                print("Pontos calculados:", lista)
-                
             
                 for x in range(len(self.matriz)):
                     for y in range(len(self.matriz)):
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
-                                self.matrizDePontos[x][y] = "  \033[31m X\033[m"
+                                self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                if cor == Icone.COR_VERMELHO.value:
+                                    self.matriz[x][y][2] = 1
+                                else:
+                                    self.matriz[x][y][2] = 2
+
             else:
                 for i in range(self.y, self.yf-1, -1):
                     lista.append(i)
-                print("Pontos calculados:", lista)
 
-                
                 for x in range(len(self.matriz)):
                     for y in range(len(self.matriz)):
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
-                                self.matrizDePontos[x][y] = "  \033[31m X\033[m"
-
-                            
-
-
-        # print("\n Fim matrz de coordenadas\n\n")
-        # for x in range(self.x, self.xf+1):
-        #     for y in range(self.x, self.xf+1):
-        #         var_x = self.matriz[x][y][0]
-        #         var_y = self.matriz[x][y][1]
-
-        #         #print("comparando com", var_x, var_y)
-        #         for i in range(len(listaY)):
-        #             if var_x == listaX[i] and var_y == listaY[i]:
-        #                 self.matrizDePontos[x][y] = " x"
-                
-            
+                                self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                if cor == Icone.COR_VERMELHO.value:
+                                    self.matriz[x][y][2] = 1
+                                else:
+                                    self.matriz[x][y][2] = 2
+                                
