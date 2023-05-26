@@ -90,17 +90,17 @@ class VarreduraPreenchimento:
                 interseccoesX = ["não possui"]
 
                 
-            # if len(interseccoesX) == 3:
-            #     a = interseccoesX.count(interseccoesX[0])
-            #     a1 = interseccoesX.count(interseccoesX[1])
-            #     a2 = interseccoesX.count(interseccoesX[2])
+            if len(interseccoesX) == 3:
+                a = interseccoesX.count(interseccoesX[0])
+                a1 = interseccoesX.count(interseccoesX[1])
+                a2 = interseccoesX.count(interseccoesX[2])
 
-            #     if a > 1:
-            #         interseccoesX.pop(0)
-            #     elif a1 > 1:
-            #         interseccoesX.pop(1)
-            #     else:
-            #         interseccoesX.pop(2)
+                if a > 1:
+                    interseccoesX.pop(0)
+                elif a1 > 1:
+                    interseccoesX.pop(1)
+                else:
+                    interseccoesX.pop(2)
 
 
             self.listaInterseccoes.append([Y_varredura, interseccoesX])

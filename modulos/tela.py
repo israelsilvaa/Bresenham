@@ -9,7 +9,7 @@ class Tela():
       self.limparTela()
       print("------------"*4)
       print("              Opções\n")
-      print("[10] - Sair")
+      print("[10] - Tamanho do plano cartesiano")
       print(str(Icone.COR_VERDE.value)+"[9] - Sobre"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_ROXO.value)+"[8] - Curva de Bézier"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[7] - Projeções(Ortografica, Persquectiva)"+str(Icone.FIM_COR.value))
@@ -19,7 +19,7 @@ class Tela():
       print(str(Icone.COR_VERDE.value)+"[3] - Circulo"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[2] - Polilinhas"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[1] - Bresenham"+str(Icone.FIM_COR.value))
-      print("[0] - Tamanho do plano cartesiano")
+      print("[0] - Sair")
    
    def miniEnquandramento(self, inicioMatriz, fimMatriz):
       print("-enquadramento atual: X1:", inicioMatriz, "  X2:", fimMatriz)

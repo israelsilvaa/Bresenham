@@ -201,7 +201,7 @@ class Bresenham:
                     #anterior = i
                 else:
                     anterior = anterior + self.m
-                    #print("TESTE: ",anterior)
+                    #print("planoCartesiano: ",anterior)
                     self.listaY.append(round(anterior))
                     self.listaX.append(i)
             
