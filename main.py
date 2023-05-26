@@ -265,15 +265,22 @@ while opc != 0:
                 planoCartesiano.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
+                print("Angulos disponiveis(tambem negativo): 30°, 45°, 60°, 90° \n")
                 angulo = int(input("Angulo:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 planoCartesiano = transfor.fazerRotacao(angulo, indicePivo, listaParesOrdenados)
                 listaParesOrdenados = transfor.listaParesOrdenados
 
             elif adicionarReta == 4:
+                tela.limparTela()
                 print("Escala")
+                planoCartesiano.matrizAtual()
+                print("E > 1:      Ampliação da imagem")
+                print("0 < E < 1:  redução da imagem")
+                print("E < 0:      Espelhamento\n")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
                 pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 planoCartesiano = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey, pontoFixo)
