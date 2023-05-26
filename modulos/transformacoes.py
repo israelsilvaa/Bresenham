@@ -69,10 +69,8 @@ class Transformacoes:
             linhaCabinetPontos = []
             for coluna in range(p):
                 linhaCabinetPontos.append(0)
-
             matrizR.append(linhaCabinetPontos)
-        
-        # matrizCabinet x matrizPontos        
+              
         for linha in range(m):
             for coluna in range(p):
                 for k in range(3):
@@ -146,6 +144,7 @@ class Transformacoes:
         # Pivo inverso
         self.matrizPivo[0][2] = self.pivo[0] 
         self.matrizPivo[1][2] = self.pivo[1] 
+        
         # matrizPivoInverso x matrizPontosRotacionados 
         self.multiplicaMatriz(self.matrizPivo, self.matrizPontosRotacionada, self.matrizFinal)
 
@@ -159,12 +158,15 @@ class Transformacoes:
         self.pivo = listaParesOrdenados[pontoFixo].copy()
         
         #cria matriz de Pivo
-        linhaPivo = [1, 0, self.pivo[0]*(-1)]
-        self.matrizPivo.append(linhaPivo)
-        linhaPivo = [0, 1, self.pivo[1]*(-1)]
+        linhaPivo = [1, 0, self.pivo[0]*(-1)]    
+        self.matrizPivo.append(linhaPivo)        
+        linhaPivo = [0, 1, self.pivo[1]*(-1)]    
         self.matrizPivo.append(linhaPivo)
         linhaPivo = [0, 0, 1]
         self.matrizPivo.append(linhaPivo)
+            #                   1  0  px
+            # MatrizPonto =     0  1  py
+            #                   0  0  1
 
     def criaMatrizAngulo(self, angulo): 
         self.getSenCos(angulo)
@@ -176,6 +178,9 @@ class Transformacoes:
         self.matrizAngulo.append(linhaMatriz)
         linhaMatriz = [0, 0, 1]
         self.matrizAngulo.append(linhaMatriz)
+        #                   2  5  sen
+        # Ang   =           3  7  cos
+        #                   1  1  1
 
     def criarMatrizPonto(self, listaParesOrdenados): 
         #cria matriz de Pontos X e Y
@@ -187,7 +192,10 @@ class Transformacoes:
                 else:
                     linhaPontos.append(1)
             self.matrizPontos.append(linhaPontos)
-
+            # a(2,3)   b(5,7)  c(0,3)
+            #                   2  5  0
+            # MatrizPonto =     3  7  3
+            #                   1  1  1
     def pegarPontosMultiplicados(self, matriz):
         listaPontos = []
 
@@ -273,6 +281,10 @@ class Transformacoes:
         elif angulo == -90:
             self.senAng = -0.89
             self.cosAng = -1
+        
+        else : # 30°
+            self.senAng = 0.50 
+            self.cosAng = 0.87
 
         senCos = [self.senAng,  self.cosAng, self.angulo]
         return senCos
