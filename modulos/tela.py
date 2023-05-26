@@ -11,7 +11,7 @@ class Tela():
       print("              Opções\n")
       print("[10] - Tamanho do plano cartesiano")
       print(str(Icone.COR_VERDE.value)+"[9] - Sobre"+str(Icone.FIM_COR.value))
-      print(str(Icone.COR_ROXO.value)+"[8] - Curva de Bézier"+str(Icone.FIM_COR.value))
+      print(str(Icone.COR_VERMELHO.value)+"[8] - Curva de Bézier"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[7] - Projeções(Ortografica, Persquectiva)"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[6] - Preenchimento("+str(Icone.FIM_COR.value)+str(Icone.COR_AMARELO.value)+"varredura"+str(Icone.FIM_COR.value)+str(Icone.COR_VERDE.value)+", recursivo)"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[5] - Recorde de linha e poligonos"+str(Icone.FIM_COR.value))
