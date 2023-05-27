@@ -255,4 +255,22 @@ class Bresenham:
                                     self.matriz[x][y][2] = 1
                                 else:
                                     self.matriz[x][y][2] = 2
-                                
+    
+    def marcaPonto(self, x, y, cor=1):
+        if cor == 1:
+            cor = Icone.COR_VERMELHO.value
+        elif cor == 2:
+            cor = Icone.COR_VERDE.value
+        elif cor == 3:
+            cor = Icone.COR_AMARELO.value
+        else:
+            cor = Icone.COR_ROXO.value
+
+        for linha in range(len(self.matriz)):
+                for coluna in range(len(self.matriz)):
+                    if self.matriz[linha][coluna][1] == x and self.matriz[linha][coluna][0] == y:
+                        self.matrizDePontos[linha][coluna] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                        self.matriz[linha][coluna][2] = 1
+        
+   
+                       

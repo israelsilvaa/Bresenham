@@ -1,14 +1,15 @@
 # import random
+from modulos.varreduraPreenchimento import VarreduraPreenchimento
 from modulos.transformacoes import Transformacoes
 from modulos.bresenham import Bresenham
-from modulos.circulo import Circulo
 from modulos.projecao import Projecao
-from modulos.varreduraPreenchimento import VarreduraPreenchimento
+from modulos.circulo import Circulo
 from modulos.recorte import Recorte
+from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -10
+inicioMatriz = -1
 fimMatriz = 10
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
@@ -45,9 +46,18 @@ while opc != 0:
         tela.sobre()
     
     elif opc == 8:
-        tela.limparTela()  
-        print("curva de berzier\n aperte ENTER para sair")
-        s = input()
+        bezier = Bezier(inicioMatriz, fimMatriz)
+        pontosInicialFinal = bezier.pegarPontosIncialFinal()
+        planoCartesiano = bezier.planoCartesiano
+
+        pontosDeControle = bezier.pegarPontosDecontrole()
+        planoCartesiano = bezier.planoCartesiano
+
+        planoCartesiano = bezier.fazerCurva(pontosInicialFinal, pontosDeControle)
+
+        planoCartesiano.matrizAtual()
+
+        s = input("DEBUG: tudo certo")
         
     elif opc == 7:
         planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
@@ -301,8 +311,7 @@ while opc != 0:
         raio = int(input("\nRaio(R>1):"))
         
         circulo = Circulo(xc, yc, raio, planoCartesiano)
-        circulo.calcPontosCirculo()
-        circulo.desenhaCirculo()
+        planoCartesiano = circulo.calcPontosCirculo()
         
         tela.limparTela()
         planoCartesiano.matrizAtual()
