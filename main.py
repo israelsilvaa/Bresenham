@@ -9,8 +9,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -1
-fimMatriz = 10
+inicioMatriz = -5
+fimMatriz = 20
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -47,16 +47,12 @@ while opc != 0:
     
     elif opc == 8:
         bezier = Bezier(inicioMatriz, fimMatriz)
-        pontosInicialFinal = bezier.pegarPontosIncialFinal()
+        pontosInicialFinal = bezier.pegarPontosIncialFinalControle()
         planoCartesiano = bezier.planoCartesiano
 
-        pontosDeControle = bezier.pegarPontosDecontrole()
-        planoCartesiano = bezier.planoCartesiano
-
-        planoCartesiano = bezier.fazerCurva(pontosInicialFinal, pontosDeControle)
+        planoCartesiano = bezier.fazerCurva(pontosInicialFinal)
 
         planoCartesiano.matrizAtual()
-
         s = input("DEBUG: tudo certo")
         
     elif opc == 7:
