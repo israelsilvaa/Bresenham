@@ -1,6 +1,7 @@
 # import random
 from modulos.varreduraPreenchimento import VarreduraPreenchimento
 from modulos.transformacoes import Transformacoes
+from modulos.polilinhas import Polilinhas
 from modulos.bresenham import Bresenham
 from modulos.projecao import Projecao
 from modulos.circulo import Circulo
@@ -9,8 +10,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -2
-fimMatriz = 2
+inicioMatriz = -4
+fimMatriz = 4
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -316,92 +317,16 @@ while opc != 0:
                 break
 
     elif opc == 3:
-        tela.limparTela()
-        planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
-        print("Circulo\n")
-
-        planoCartesiano.matrizAtual()
-        
-        xc = int(input("\nXc inicial:"))
-        yc = int(input("\nYc inicial:"))
-        raio = int(input("\nRaio(R>1):"))
-        
-        circulo = Circulo(xc, yc, raio, planoCartesiano)
-        planoCartesiano = circulo.calcPontosCirculo()
-        
-        tela.limparTela()
-        planoCartesiano.matrizAtual()
-        sair = input("aperte enter para sair.")
+        circulo = Circulo(inicioMatriz, fimMatriz)
+        circulo.execute()
 
     elif opc == 2:
-        planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
-        listaParesOrdenados = []
-
-        while True:
-            tela.limparTela()
-            print("Polilinhas\n")
-            planoCartesiano.matrizAtual()
-            print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("Serão traçadas retas de ponto a ponto considerando a lista acima")
-            x = int(input("\nX:"))
-            y = int(input("\nY:"))
-            par = [x, y]        
-            listaParesOrdenados.append(par)
-
-            planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
-            if len(listaParesOrdenados) > 1:
-                for i in range(len(listaParesOrdenados)):
-                    if i < len(listaParesOrdenados)-1:
-                        xInicial = listaParesOrdenados[i][0]
-                        yInicial = listaParesOrdenados[i][1]
-                        xFinal = listaParesOrdenados[i+1][0]
-                        yFinal = listaParesOrdenados[i+1][1]
-                        planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
-              
-                planoCartesiano.matrizAtual()
-                print("\nLista de pares Ordenados:", listaParesOrdenados)
-                print("[0]Sair  -  [1]adicionar novo Ponto   ")
-                adicionarReta = int(input("opção:"))
-            
-                if adicionarReta == 0:
-                    break
+        polilinhas = Polilinhas(inicioMatriz,fimMatriz)
+        polilinhas.execute()
             
     elif opc == 1:
         planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
-        tela.painelConfigRapida()
-        adicionarReta = 0
-        listaParesOrdenados = []
-        while True:
-            tela.painelConfigRapida()
-            if len(listaParesOrdenados) > 1:
-                for i in range(0, len(listaParesOrdenados), 2):
-                    xInicial = listaParesOrdenados[i][0]
-                    yInicial = listaParesOrdenados[i][1]
-                    xFinal = listaParesOrdenados[i+1][0]
-                    yFinal = listaParesOrdenados[i+1][1]
-                    planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
-                planoCartesiano.matrizAtual()
-            tela.limparTela()
-            print("Bresenham\n")
-            planoCartesiano.matrizAtual()
-            print("\nLista de pares Ordenados:", listaParesOrdenados)
-            print("[0]Sair - [1]adicionar nova Reta - [2]remover")
-            adicionarReta = int(input("opção:"))
-            if adicionarReta == 1:
-                x = int(input("\nX Inicial:"))
-                y = int(input("\nY Inicial:"))
-                x_f = int(input("\nX Final:"))
-                y_f = int(input("\nY Final:"))
-                parInicial = [x, y]        
-                parFinal = [x_f, y_f]        
-                listaParesOrdenados.append(parInicial)
-                listaParesOrdenados.append(parFinal)
-            elif adicionarReta == 2:
-                listaParesOrdenados.pop(-1)
-                listaParesOrdenados.pop(-1)
-                planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
-            else:
-                break
+        planoCartesiano.execute()
 
 tela.limparTela()
 print("       Obrigado por usar nosso paint <3\n\n\n\n\n\n")
