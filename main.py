@@ -9,8 +9,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -5
-fimMatriz = 20
+inicioMatriz = -2
+fimMatriz = 2
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -25,19 +25,26 @@ while opc != 0:
         tela.painelConfigRapida()
         opc = int(input("\nOpção:"))
 
-
     if opc == 10:       
         while True:
             tela.limparTela()
-            print("Enquadramento do plano Cartesiano\n")
+
             planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
+            planoCartesiano.reta(-20,-21, 20, 19, 3)
+            print("Plano cartesiano\n")
             planoCartesiano.matrizAtual()
+
+            print("Matriz de coordenadas do plano cartesiano\n")
+            planoCartesiano.matrizCoordenada()
+
+            print("Enquadramento do plano Cartesiano\n")
             tela.miniEnquandramento(inicioMatriz,fimMatriz)
             print("[0]Sair    [1]Novo enquadramento")
             tamanhoMatriz = int(input("opção:"))
+
             if tamanhoMatriz == 1:
-                inicioMatriz = int(input("\nX1(negativo):"))
-                fimMatriz = int(input("\nX2(positivo):"))
+                inicioMatriz = int(input("\nX1(menor que x2):"))
+                fimMatriz = int(input("\nX2(maior que x1):"))
             elif tamanhoMatriz == 0:
                 break
         opc = 1
@@ -46,15 +53,28 @@ while opc != 0:
         tela.sobre()
     
     elif opc == 8:
-        bezier = Bezier(inicioMatriz, fimMatriz)
-        pontosInicialFinal = bezier.pegarPontosIncialFinalControle()
-        planoCartesiano = bezier.planoCartesiano
+        while True:
+            planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
+            bezier = Bezier(inicioMatriz, fimMatriz)
+            tela.limparTela()
+            print("Curva de Bézier")
+            planoCartesiano.matrizAtual()
+            print("[0]Sair     [1]Adicionar Curva de Bézier")
+            escolha = int(input("opção:"))
 
-        planoCartesiano = bezier.fazerCurva(pontosInicialFinal)
-
-        planoCartesiano.matrizAtual()
-        s = input("DEBUG: tudo certo")
+            if escolha == 1:
+                tela.limparTela()
+                pontosInicialFinal = bezier.pegarPontosIncialFinalControle()
+                planoCartesiano = bezier.planoCartesiano
         
+                planoCartesiano = bezier.fazerCurva(pontosInicialFinal)
+        
+                tela.limparTela()
+                planoCartesiano.matrizAtual()
+                s = input("pressione enter para continuar")
+            else:
+                break
+
     elif opc == 7:
         planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
@@ -320,7 +340,6 @@ while opc != 0:
         while True:
             tela.limparTela()
             print("Polilinhas\n")
-            tela.painelConfigRapida()
             planoCartesiano.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("Serão traçadas retas de ponto a ponto considerando a lista acima")
@@ -339,7 +358,6 @@ while opc != 0:
                         yFinal = listaParesOrdenados[i+1][1]
                         planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
               
-                tela.painelConfigRapida()
                 planoCartesiano.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 print("[0]Sair  -  [1]adicionar novo Ponto   ")

@@ -17,11 +17,6 @@ class Bresenham:
             
     def criarMatriz(self):
         #cria matriz de coordenadas e de de pontos
-        """
-        0 == COR DO FUNDO
-        1 == COR DA BORDA(VERMELHO)
-        2 == COR DO PREENCEMENTO
-        """
         numeroEixoResumido = "."
 
         for x in range(self.fimM, self.inicioM-1, -1):
@@ -71,12 +66,21 @@ class Bresenham:
                 
     def matrizCoordenada(self):
         #matriz com todas as coordenadas dos pontos 
+        corX = Icone.COR_VERMELHO.value
+        corY = Icone.COR_VERDE.value
+        fim = Icone.FIM_COR.value
+
+        print("0 == Fundo(Transparente)")
+        print("1 == Borda(Vermelho)")
+        print("2 == Verde")
+        print("3 == Amarelo")
+        print("4 == Roxo")
+        print("\nMatriz de coordenadas (X, Y, cor)")
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz)):
                 #   x , y
-                print("(",self.matriz[x][y][0],self.matriz[x][y][1],self.matriz[x][y][2],") ", end=" ")
+                print("("+corX+str(self.matriz[x][y][0])+fim+corY+str(self.matriz[x][y][1])+fim ,str(self.matriz[x][y][2]),") ", end=" ")
             print("\n")
-        print("\n Fim matrz de coordenadas (X, Y, cor)\n\n")
     
     def matrizAtual(self):
         for x in range(len(self.matriz)):
@@ -184,14 +188,26 @@ class Bresenham:
         #tendo como base a matriz de coordenadas
         self.x=x_ini ; self.y=y_ini; self.xf=x_fin; self.yf=y_fin
 
+        """
+        0 == COR FUNDO(transparente)
+        1 == BORDA(VERMELHO)
+        2 == COR verde
+        3 == COR amarelo
+        4 == COR roxo
+        """
+        pixelCor = 1
         if cor == 1:
             cor = Icone.COR_VERMELHO.value
+            pixelCor = 1
         elif cor == 2:
             cor = Icone.COR_VERDE.value
+            pixelCor = 2
         elif cor == 3:
             cor = Icone.COR_AMARELO.value
-        else:
+            pixelCor = 3
+        elif cor == 4:
             cor = Icone.COR_ROXO.value
+            pixelCor = 4
        
         if self.x != self.xf: 
             #out: branch Quadrante
@@ -225,6 +241,8 @@ class Bresenham:
                         if self.matriz[x][y][1] == self.listaX[i] and self.matriz[x][y][0] == self.listaY[i]:
                             # self.matrizDePontos[x][y] = "  \033[31m X\033[m"
                             self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                            self.matriz[x][y][2] = pixelCor
+
                            
         else:
             lista = []
@@ -238,6 +256,7 @@ class Bresenham:
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                self.matriz[x][y][2] = pixelCor
 
             else:
                 for i in range(self.y, self.yf-1, -1):
@@ -248,27 +267,36 @@ class Bresenham:
                         for i in range(len(lista)):
                             if self.matriz[x][y][1] == self.x and self.matriz[x][y][0] == lista[i]:
                                 self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
+                                self.matriz[x][y][2] = pixelCor
+
     
     def marcaPonto(self, x, y, cor=1):
         """
-        0 == COR DO FUNDO
-        1 == COR DA BORDA(VERMELHO)
-        2 == COR DO PREENCEMENTO
+        0 == COR FUNDO(transparente)
+        1 == BORDA(VERMELHO)
+        2 == COR verde
+        3 == COR amarelo
+        4 == COR roxo
         """
+        pixelCor = 1
         if cor == 1:
             cor = Icone.COR_VERMELHO.value
+            pixelCor = 1
         elif cor == 2:
             cor = Icone.COR_VERDE.value
+            pixelCor = 2
         elif cor == 3:
             cor = Icone.COR_AMARELO.value
-        else:
+            pixelCor = 3
+        elif cor == 4:
             cor = Icone.COR_ROXO.value
+            pixelCor = 4
 
         for linha in range(len(self.matriz)):
                 for coluna in range(len(self.matriz)):
                     if self.matriz[linha][coluna][1] == x and self.matriz[linha][coluna][0] == y:
                         self.matrizDePontos[linha][coluna] = str(cor)+"   X"+str(Icone.FIM_COR.value)
-                        self.matriz[linha][coluna][2] = 1
+                        self.matriz[linha][coluna][2] = pixelCor
         
    
                        
