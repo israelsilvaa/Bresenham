@@ -1,15 +1,16 @@
 # import random
+from modulos.varreduraPreenchimento import VarreduraPreenchimento
 from modulos.transformacoes import Transformacoes
 from modulos.bresenham import Bresenham
-from modulos.circulo import Circulo
 from modulos.projecao import Projecao
-from modulos.varreduraPreenchimento import VarreduraPreenchimento
+from modulos.circulo import Circulo
 from modulos.recorte import Recorte
+from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -10
-fimMatriz = 10
+inicioMatriz = -2
+fimMatriz = 2
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -24,19 +25,26 @@ while opc != 0:
         tela.painelConfigRapida()
         opc = int(input("\nOpção:"))
 
-
     if opc == 10:       
         while True:
             tela.limparTela()
-            print("Enquadramento do plano Cartesiano\n")
+
             planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
+            planoCartesiano.reta(-20,-21, 20, 19, 3)
+            print("Plano cartesiano\n")
             planoCartesiano.matrizAtual()
+
+            print("Matriz de coordenadas do plano cartesiano\n")
+            planoCartesiano.matrizCoordenada()
+
+            print("Enquadramento do plano Cartesiano\n")
             tela.miniEnquandramento(inicioMatriz,fimMatriz)
             print("[0]Sair    [1]Novo enquadramento")
             tamanhoMatriz = int(input("opção:"))
+
             if tamanhoMatriz == 1:
-                inicioMatriz = int(input("\nX1(negativo):"))
-                fimMatriz = int(input("\nX2(positivo):"))
+                inicioMatriz = int(input("\nX1(menor que x2):"))
+                fimMatriz = int(input("\nX2(maior que x1):"))
             elif tamanhoMatriz == 0:
                 break
         opc = 1
@@ -45,10 +53,28 @@ while opc != 0:
         tela.sobre()
     
     elif opc == 8:
-        tela.limparTela()  
-        print("curva de berzier\n aperte ENTER para sair")
-        s = input()
+        while True:
+            planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
+            bezier = Bezier(inicioMatriz, fimMatriz)
+            tela.limparTela()
+            print("Curva de Bézier")
+            planoCartesiano.matrizAtual()
+            print("[0]Sair     [1]Adicionar Curva de Bézier")
+            escolha = int(input("opção:"))
+
+            if escolha == 1:
+                tela.limparTela()
+                pontosInicialFinal = bezier.pegarPontosIncialFinalControle()
+                planoCartesiano = bezier.planoCartesiano
         
+                planoCartesiano = bezier.fazerCurva(pontosInicialFinal)
+        
+                tela.limparTela()
+                planoCartesiano.matrizAtual()
+                s = input("pressione enter para continuar")
+            else:
+                break
+
     elif opc == 7:
         planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
         tela.painelConfigRapida()
@@ -265,15 +291,22 @@ while opc != 0:
                 planoCartesiano.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
+                print("Angulos disponiveis(tambem negativo): 30°, 45°, 60°, 90° \n")
                 angulo = int(input("Angulo:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 planoCartesiano = transfor.fazerRotacao(angulo, indicePivo, listaParesOrdenados)
                 listaParesOrdenados = transfor.listaParesOrdenados
 
             elif adicionarReta == 4:
+                tela.limparTela()
                 print("Escala")
+                planoCartesiano.matrizAtual()
+                print("E > 1:      Ampliação da imagem")
+                print("0 < E < 1:  redução da imagem")
+                print("E < 0:      Espelhamento\n")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
+                print("\nLista de pares Ordenados:", listaParesOrdenados)
                 pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 planoCartesiano = transfor.atualizarEscala(listaParesOrdenados, Ex, Ey, pontoFixo)
@@ -294,8 +327,7 @@ while opc != 0:
         raio = int(input("\nRaio(R>1):"))
         
         circulo = Circulo(xc, yc, raio, planoCartesiano)
-        circulo.calcPontosCirculo()
-        circulo.desenhaCirculo()
+        planoCartesiano = circulo.calcPontosCirculo()
         
         tela.limparTela()
         planoCartesiano.matrizAtual()
@@ -308,7 +340,6 @@ while opc != 0:
         while True:
             tela.limparTela()
             print("Polilinhas\n")
-            tela.painelConfigRapida()
             planoCartesiano.matrizAtual()
             print("\nLista de pares Ordenados:", listaParesOrdenados)
             print("Serão traçadas retas de ponto a ponto considerando a lista acima")
@@ -327,7 +358,6 @@ while opc != 0:
                         yFinal = listaParesOrdenados[i+1][1]
                         planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
               
-                tela.painelConfigRapida()
                 planoCartesiano.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 print("[0]Sair  -  [1]adicionar novo Ponto   ")
