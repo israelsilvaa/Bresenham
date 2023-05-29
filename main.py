@@ -10,8 +10,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -4
-fimMatriz = 4
+inicioMatriz = -10
+fimMatriz = 10
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -309,7 +309,7 @@ while opc != 0:
                 print("E < 0:      Espelhamento\n")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
-                
+
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)

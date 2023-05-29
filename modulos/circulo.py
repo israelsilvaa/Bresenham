@@ -29,21 +29,21 @@ class Circulo:
         return self.planoCartesiano
     
     def desenha8(self, x, y, xc, yc):
-        self.planoCartesiano.marcaPonto(x + xc, y + yc)
-        self.planoCartesiano.marcaPonto(y + xc, x + yc)
-        self.planoCartesiano.marcaPonto(y + xc, -x + yc)
-        self.planoCartesiano.marcaPonto(x + xc, -y + yc)
-        self.planoCartesiano.marcaPonto(-x + xc, -y + yc)
-        self.planoCartesiano.marcaPonto(-y + xc, -x + yc)
-        self.planoCartesiano.marcaPonto(-y + xc, x + yc)
-        self.planoCartesiano.marcaPonto(-x + xc, y + yc)
+        self.planoCartesiano.marcaPonto(y + xc, x + yc)   # 1
+        self.planoCartesiano.marcaPonto(x + xc, y + yc)   # 2
+        self.planoCartesiano.marcaPonto(-x + xc, y + yc)  # 3
+        self.planoCartesiano.marcaPonto(-y + xc, x + yc)  # 4
+        self.planoCartesiano.marcaPonto(-y + xc, -x + yc) # 5
+        self.planoCartesiano.marcaPonto(-x + xc, -y + yc) # 6
+        self.planoCartesiano.marcaPonto(x + xc, -y + yc)  # 7
+        self.planoCartesiano.marcaPonto(y + xc, -x + yc)  # 8
 
-        self.planoCartesiano.marcaPonto(self.xcirculo, self.raio + self.ycirculo)
-        self.planoCartesiano.marcaPonto(self.raio + self.xcirculo, self.ycirculo)
-        self.planoCartesiano.marcaPonto(self.xcirculo , self.raio*(-1) + self.ycirculo )
-        self.planoCartesiano.marcaPonto(self.raio*(-1) + self.xcirculo, self.ycirculo)
+        self.planoCartesiano.marcaPonto(self.xcirculo, self.raio + self.ycirculo    )      # cima
+        self.planoCartesiano.marcaPonto(self.xcirculo , self.raio*(-1) + self.ycirculo )   # baixo
+        self.planoCartesiano.marcaPonto(self.raio + self.xcirculo, self.ycirculo)          # direita
+        self.planoCartesiano.marcaPonto(self.raio*(-1) + self.xcirculo, self.ycirculo)     # esquerda
 
-        self.planoCartesiano.marcaPonto(self.xcirculo, self.ycirculo, 2)
+        self.planoCartesiano.marcaPonto(self.xcirculo, self.ycirculo, 2) # centro
 
     def execute(self):
         # xCirculo, yCirculo, raio, matriz:Bresenham
@@ -51,7 +51,8 @@ class Circulo:
             self.tela.limparTela()
             print("Circulo\n")
             self.planoCartesiano.matrizAtual()
-            
+
+            print("!!!!    para cancelar de ENTER vazio no X e Y     !!!!")
             xc = input("\nXc inicial:")
             yc = input("\nYc inicial:")
             r = input("\nRaio(R>1):")
