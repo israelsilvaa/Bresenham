@@ -26,6 +26,7 @@ class Transformacoes:
         self.listaParesOrdenados = None
 
     def fazerTranslacao(self, listaParesOrdenados:list, eixoX, eixoY):
+       
         for i in range(len(listaParesOrdenados)):
             listaParesOrdenados[i][0] = listaParesOrdenados[i][0] + eixoX 
             listaParesOrdenados[i][1] = listaParesOrdenados[i][1] + eixoY 
@@ -40,7 +41,6 @@ class Transformacoes:
         self.quantidadePontos = len(listaParesOrdenados)
 
         self.criarMatrizPivo(listaParesOrdenados, pontoFixo)
-
         self.criarMatrizPonto(listaParesOrdenados)
 
         self.matrizPivoVezesPontos = self.multiplicaMatriz(self.matrizPivo, self.matrizPontos, self.matrizPivoVezesPontos)
@@ -55,11 +55,13 @@ class Transformacoes:
             listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] + self.pivo[0]) 
             listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] + self.pivo[1])
 
-        for i in range(len(self.matrizPivo)):
-            print(self.matrizPivo[i])
+        # for i in range(len(self.matrizPivo)):
+        #     print(self.matrizPivo[i])
 
         self.listaParesOrdenados = listaParesOrdenados
         self.escreverPontos(listaParesOrdenados)
+
+        # self.printMatrizAnguloPonto()
         return self.planoCartesiano
     
     def multiplicaMatriz(self, matrizA, matrizB, matrizR):
@@ -119,6 +121,7 @@ class Transformacoes:
                         xFinal = listaParesOrdenados[i+1][0]
                         yFinal = listaParesOrdenados[i+1][1]
                         self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+
                 xFinal = listaParesOrdenados[-1][0]
                 yFinal = listaParesOrdenados[-1][1]
                 self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
@@ -130,9 +133,7 @@ class Transformacoes:
         self.quantidadePontos = len(listaParesOrdenados)
         
         self.criarMatrizPivo(listaParesOrdenados, indicePivo)
-
         self.criaMatrizAngulo(angulo)
-
         self.criarMatrizPonto(listaParesOrdenados)
         
         # matrizPivo x matrizPontos 
@@ -148,9 +149,9 @@ class Transformacoes:
         # matrizPivoInverso x matrizPontosRotacionados 
         self.multiplicaMatriz(self.matrizPivo, self.matrizPontosRotacionada, self.matrizFinal)
 
-        self.listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizFinal)
-        
         self.escreverPontos(self.listaParesOrdenados)
+        
+        self.listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizFinal)
 
         return self.planoCartesiano
     
@@ -178,9 +179,10 @@ class Transformacoes:
         self.matrizAngulo.append(linhaMatriz)
         linhaMatriz = [0, 0, 1]
         self.matrizAngulo.append(linhaMatriz)
-        #                   2  5  sen
-        # Ang   =           3  7  cos
-        #                   1  1  1
+
+        #                   cos  -sen  0
+        # Ang   =           sen  cos   0
+        #                   1    1    1
 
     def criarMatrizPonto(self, listaParesOrdenados): 
         #cria matriz de Pontos X e Y
@@ -250,6 +252,8 @@ class Transformacoes:
             for x in range(self.quantidadePontos):
                 print(Icone.COR_AMARELO.value + f"{self.matrizFinal[i][x]}" + Icone.FIM_COR.value, end="    ")
             print("\n")
+        
+        s = input("debug")
 
     def getSenCos(self, angulo):
         self.angulo = angulo
@@ -287,4 +291,5 @@ class Transformacoes:
             self.cosAng = 0.87
 
         senCos = [self.senAng,  self.cosAng, self.angulo]
+
         return senCos
