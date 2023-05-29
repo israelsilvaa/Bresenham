@@ -25,7 +25,8 @@ class Polilinhas:
             y = input("\nY:")
             if x == "" or y == "":
                 break
-            par = [int(x), int(y)]        
+
+            par = [int(x), int(y)]       
             self.listaParesOrdenados.append(par)
 
             if len(self.listaParesOrdenados) > 1:
@@ -35,5 +36,6 @@ class Polilinhas:
                         yInicial = self.listaParesOrdenados[i][1]
                         xFinal = self.listaParesOrdenados[i+1][0]
                         yFinal = self.listaParesOrdenados[i+1][1]
+
                         self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
               

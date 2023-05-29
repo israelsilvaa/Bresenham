@@ -22,9 +22,8 @@ opc = 1
 while opc != 0:
     
     # perguntar qual a proxima opc sempre que o laço é (RE)iniciado, 
-    if opc != 0:
-        tela.painelConfigRapida()
-        opc = int(input("\nOpção:"))
+    tela.painelConfigRapida()
+    opc = int(input("\nOpção:"))
 
     if opc == 10:       
         while True:
@@ -284,16 +283,19 @@ while opc != 0:
                 eixoX = int(input("translação em X:"))
                 eixoY = int(input("translação em y:"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
+               
                 planoCartesiano = transfor.fazerTranslacao(listaParesOrdenados, eixoX, eixoY)
                 listaParesOrdenados = transfor.listaParesOrdenados
                 
             elif adicionarReta == 3:
                 tela.limparTela()
+
                 planoCartesiano.matrizAtual()
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 indicePivo = int(input("Selecione o Pivo na lista de Pontos acima(atraves de seu indice na lista):"))
                 print("Angulos disponiveis(tambem negativo): 30°, 45°, 60°, 90° \n")
                 angulo = int(input("Angulo:"))
+                
                 transfor = Transformacoes(inicioMatriz, fimMatriz)
                 planoCartesiano = transfor.fazerRotacao(angulo, indicePivo, listaParesOrdenados)
                 listaParesOrdenados = transfor.listaParesOrdenados
@@ -307,6 +309,7 @@ while opc != 0:
                 print("E < 0:      Espelhamento\n")
                 Ex = float(input("fator de escala para X:"))
                 Ey = float(input("fator de escala para Y:"))
+                
                 print("\nLista de pares Ordenados:", listaParesOrdenados)
                 pontoFixo = int(input("Ponto fixo(indice na lista de pontos):"))
                 transfor = Transformacoes(inicioMatriz, fimMatriz)

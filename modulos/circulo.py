@@ -11,14 +11,6 @@ class Circulo:
         self.xcirculo = None
         self.ycirculo = None
         self.raio = None
-        self.listaQ1 = []
-        self.listaQ2 = []
-        self.listaQ3 = []
-        self.listaQ4 = []
-        self.listaQ5 = []
-        self.listaQ6 = []
-        self.listaQ7 = []
-        self.listaQ8 = []
 
     def calcPontosCirculo(self):
         print("X:", self.xcirculo,"Y:", self.ycirculo," -- Raio:", self.raio,)
