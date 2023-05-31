@@ -10,8 +10,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -20
-fimMatriz = 20
+inicioMatriz = -15
+fimMatriz = 15
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -71,6 +71,7 @@ while opc != 0:
         
                 tela.limparTela()
                 planoCartesiano.matrizAtual()
+                bezier.printPontosCurva(bezier.listaPontosCurva)
                 s = input("pressione enter para continuar")
             else:
                 break
