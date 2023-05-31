@@ -14,12 +14,12 @@ class Bezier:
 
 
     def fazerCurva(self, pontosIncialFinalControle):
-        t = 0.0001
+        t = 0.001
         listaPontosCurva = []
         
         while t <= 1 :
             listaPontosCurva.append( self.pontoBezier(pontosIncialFinalControle, t))
-            t += t
+            t = t + 0.005
         
         self.completaCurva(listaPontosCurva, pontosIncialFinalControle)
         self.marcarPontosCurva(listaPontosCurva)
@@ -75,11 +75,15 @@ class Bezier:
             self.planoCartesiano.marcaPonto(listaPontosCurva[i][0], listaPontosCurva[i][1], 3)
     
     def completaCurva(self, pontosNT:list, pontosIncialFinalControle:list):
-        for i in range(len(pontosNT)):
-            if i < len(pontosNT)-1:
-                self.planoCartesiano.reta(pontosNT[i][0], pontosNT[i][1], pontosNT[i+1][0], pontosNT[i+1][1], 4)
-            else:
-                self.planoCartesiano.reta(pontosNT[-1][0], pontosNT[-1][1], pontosIncialFinalControle[-1][0]-1, pontosIncialFinalControle[-1][1], 4)
+        # for i in range(len(pontosNT)):
+        #     if i < len(pontosNT)-1:
+        #         self.planoCartesiano.reta(pontosNT[i][0], pontosNT[i][1], pontosNT[i+1][0], pontosNT[i+1][1], 4)
+        #     else:
+        #         self.planoCartesiano.reta(pontosNT[-1][0], pontosNT[-1][1], pontosIncialFinalControle[-1][0]-1, pontosIncialFinalControle[-1][1], 4)
+        self.planoCartesiano.reta(pontosIncialFinalControle[0][0], pontosIncialFinalControle[0][1], pontosIncialFinalControle[1][0], pontosIncialFinalControle[1][1], 4)
+        self.planoCartesiano.reta(pontosIncialFinalControle[1][0], pontosIncialFinalControle[1][1], pontosIncialFinalControle[2][0], pontosIncialFinalControle[2][1], 4)
+
+
 
     def printPontosCurva(self, listaPontosCurva:list):
         for i in range(len(listaPontosCurva)):

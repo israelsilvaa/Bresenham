@@ -10,8 +10,8 @@ from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
 
-inicioMatriz = -10
-fimMatriz = 10
+inicioMatriz = -20
+fimMatriz = 20
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
