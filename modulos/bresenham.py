@@ -1,3 +1,4 @@
+from modulos.tela import Tela
 from enums.icone import Icone
 class Bresenham:
     def __init__(self, inicioMatriz, fimMatriz):
@@ -13,6 +14,7 @@ class Bresenham:
         self.trocay = False
         self.listaY = []
         self.listaX = []
+        self.tela = Tela()
         self.criarMatriz()
             
     def criarMatriz(self):
@@ -115,19 +117,16 @@ class Bresenham:
 
     def xyParaOrigemInversa(self):
         #levando X para seu lugar original
-           
             if self.xContadorOrigem != 0:
                 for i in range(len(self.listaX)):
                     self.listaX[i] = self.listaX[i] + self.xContadorOrigem
                 self.xContadorOrigem = 0
          
             if self.yContadorOrigem != 0:
-           
                 for i in range(len(self.listaY)):
                     self.listaY[i] = self.listaY[i] + self.yContadorOrigem
                 self.yContadorOrigem = 0
             
-    #out: branch Quadrante       
     def reflexao(self):
         self.m = (self.yf-self.y) / (self.xf-self.x)
         if self.m > 1 or self.m < -1:
@@ -149,9 +148,7 @@ class Bresenham:
             self.trocay = True
 
         self.m = round((self.yf-self.y) / (self.xf-self.x), 1)
-       
-
-    #out: branch Quadrante        
+              
     def reflexao_inversa(self):
         
         if self.trocay == True:
@@ -242,7 +239,6 @@ class Bresenham:
                             # self.matrizDePontos[x][y] = "  \033[31m X\033[m"
                             self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
                             self.matriz[x][y][2] = pixelCor
-
                            
         else:
             lista = []
@@ -269,7 +265,6 @@ class Bresenham:
                                 self.matrizDePontos[x][y] = str(cor)+"   X"+str(Icone.FIM_COR.value)
                                 self.matriz[x][y][2] = pixelCor
 
-    
     def marcaPonto(self, x, y, cor=1):
         """
         0 == COR FUNDO(transparente)
@@ -298,5 +293,43 @@ class Bresenham:
                         self.matrizDePontos[linha][coluna] = str(cor)+"   X"+str(Icone.FIM_COR.value)
                         self.matriz[linha][coluna][2] = pixelCor
         
-   
-                       
+    def execute(self):
+        adicionarReta = 0
+        listaParesOrdenados = []
+        while True:
+            
+            self.tela.limparTela()
+            print("Bresenham\n")
+            self.matrizAtual()
+            print("\nLista de pares Ordenados:", listaParesOrdenados)
+            print("[0]Sair - [1]adicionar retas")
+            adicionarReta = int(input("opção:"))
+            
+            if adicionarReta == 1:
+                while True:    
+                    self.tela.limparTela()
+                    print("Bresenham\n")
+                    self.matrizAtual()
+                    print("\nLista de pares Ordenados:", listaParesOrdenados)        
+                    print("!!   de enter vazio para cancelar   !!")
+                    x = input("\nX Inicial:")
+                    y = input("\nY Inicial:")
+                    x_f = input("\nX Final:")
+                    y_f = input("\nY Final:")
+                    if x == "" or y == "" or x_f == "" or y_f == "":
+                        break
+                    parInicial = [int(x), int(y)]        
+                    parFinal = [int(x_f), int(y_f)]        
+                    listaParesOrdenados.append(parInicial)
+                    listaParesOrdenados.append(parFinal)
+                    
+                    if len(listaParesOrdenados) > 1:
+                        for i in range(0, len(listaParesOrdenados), 2):
+                            xInicial = listaParesOrdenados[i][0]
+                            yInicial = listaParesOrdenados[i][1]
+                            xFinal = listaParesOrdenados[i+1][0]
+                            yFinal = listaParesOrdenados[i+1][1]
+                            self.reta(xInicial, yInicial, xFinal, yFinal)
+            else:
+                break
+            

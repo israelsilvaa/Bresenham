@@ -26,9 +26,15 @@ class Transformacoes:
         self.listaParesOrdenados = None
 
     def fazerTranslacao(self, listaParesOrdenados:list, eixoX, eixoY):
+       
+        print("Pontos:",listaParesOrdenados)
         for i in range(len(listaParesOrdenados)):
             listaParesOrdenados[i][0] = listaParesOrdenados[i][0] + eixoX 
             listaParesOrdenados[i][1] = listaParesOrdenados[i][1] + eixoY 
+       
+        print("Pontos transladados:", listaParesOrdenados)
+
+        pause = input("DEBUG...")
 
         self.escreverPontos(listaParesOrdenados)
         self.listaParesOrdenados = listaParesOrdenados
@@ -40,26 +46,33 @@ class Transformacoes:
         self.quantidadePontos = len(listaParesOrdenados)
 
         self.criarMatrizPivo(listaParesOrdenados, pontoFixo)
-
         self.criarMatrizPonto(listaParesOrdenados)
 
+        self.printMatrizPivo()
+        self.printMatrizPontos()
+
         self.matrizPivoVezesPontos = self.multiplicaMatriz(self.matrizPivo, self.matrizPontos, self.matrizPivoVezesPontos)
+        self.printMatrizPivoVezesPontos()
 
         listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizPivoVezesPontos)
 
         for i in range(len(listaParesOrdenados)):
             listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] * Ex) 
             listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] * Ey)
+        
+        print("Pontos escalados(x * Ex  e  y *Ey):\n",listaParesOrdenados)
 
         for i in range(len(listaParesOrdenados)):
             listaParesOrdenados[i][0] = int(listaParesOrdenados[i][0] + self.pivo[0]) 
             listaParesOrdenados[i][1] = int(listaParesOrdenados[i][1] + self.pivo[1])
-
-        for i in range(len(self.matrizPivo)):
-            print(self.matrizPivo[i])
+       
+        print("\nPontos escalados + pivo(voltar poligono p/ o pivo):\n", listaParesOrdenados)
+       
+        pause = input("DEBUG...")
 
         self.listaParesOrdenados = listaParesOrdenados
         self.escreverPontos(listaParesOrdenados)
+
         return self.planoCartesiano
     
     def multiplicaMatriz(self, matrizA, matrizB, matrizR):
@@ -119,6 +132,7 @@ class Transformacoes:
                         xFinal = listaParesOrdenados[i+1][0]
                         yFinal = listaParesOrdenados[i+1][1]
                         self.planoCartesiano.reta(xInicial, yInicial, xFinal, yFinal)
+
                 xFinal = listaParesOrdenados[-1][0]
                 yFinal = listaParesOrdenados[-1][1]
                 self.planoCartesiano.reta(listaParesOrdenados[0][0], listaParesOrdenados[0][1], xFinal, yFinal)
@@ -130,28 +144,35 @@ class Transformacoes:
         self.quantidadePontos = len(listaParesOrdenados)
         
         self.criarMatrizPivo(listaParesOrdenados, indicePivo)
-
         self.criaMatrizAngulo(angulo)
-
         self.criarMatrizPonto(listaParesOrdenados)
+        
+        self.printMatrizPivo()
+        self.printMatrizAngulo()
+        self.printMatrizPontos()
         
         # matrizPivo x matrizPontos 
         self.multiplicaMatriz(self.matrizPivo, self.matrizPontos, self.matrizPivoVezesPontos)
+        self.printMatrizPivoVezesPontos()
 
         # matrizAngulo x matrizPontos 
         self.multiplicaMatriz(self.matrizAngulo, self.matrizPivoVezesPontos, self.matrizPontosRotacionada)
+        self.printMatrizAnguloVezesPontos()
         
         # Pivo inverso
         self.matrizPivo[0][2] = self.pivo[0] 
         self.matrizPivo[1][2] = self.pivo[1] 
+        self.printMatrizPivo()
         
         # matrizPivoInverso x matrizPontosRotacionados 
         self.multiplicaMatriz(self.matrizPivo, self.matrizPontosRotacionada, self.matrizFinal)
+        self.printMatrizFinal()
 
         self.listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizFinal)
         
         self.escreverPontos(self.listaParesOrdenados)
 
+        pause = input("DEBUG...")
         return self.planoCartesiano
     
     def criarMatrizPivo(self, listaParesOrdenados, pontoFixo):
@@ -164,8 +185,8 @@ class Transformacoes:
         self.matrizPivo.append(linhaPivo)
         linhaPivo = [0, 0, 1]
         self.matrizPivo.append(linhaPivo)
-            #                   1  0  px
-            # MatrizPonto =     0  1  py
+            #                   1  0  -px
+            # MatrizPonto =     0  1  -py
             #                   0  0  1
 
     def criaMatrizAngulo(self, angulo): 
@@ -178,9 +199,10 @@ class Transformacoes:
         self.matrizAngulo.append(linhaMatriz)
         linhaMatriz = [0, 0, 1]
         self.matrizAngulo.append(linhaMatriz)
-        #                   2  5  sen
-        # Ang   =           3  7  cos
-        #                   1  1  1
+
+        #                   cos  -sen  0
+        # Ang   =           sen  cos   0
+        #                   0    0    1
 
     def criarMatrizPonto(self, listaParesOrdenados): 
         #cria matriz de Pontos X e Y
@@ -207,16 +229,15 @@ class Transformacoes:
 
         return listaPontos
     
-    def printMatrizAnguloPonto(self):
-       
-        print("\nAngulo:"+str(self.angulo)+"°" ," ____  Sen:", self.senAng, "     Cos:", self.cosAng)
-
+    def printMatrizPivo(self):
         print(Icone.COR_VERDE.value +"\n      Matriz de Pivo"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(3):
                 print(Icone.COR_VERDE.value + f"{self.matrizPivo[i][x]}" + Icone.FIM_COR.value, end="          ") 
             print("\n")
-
+       
+    def printMatrizAngulo(self):
+        print("\nAngulo:"+str(self.angulo)+"°" ," ____  Sen:", self.senAng, "     Cos:", self.cosAng)
         print(Icone.COR_VERMELHO.value +"\n      Matriz de angulos"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(3):
@@ -226,30 +247,34 @@ class Transformacoes:
                     print(Icone.COR_VERMELHO.value + f"{self.matrizAngulo[i][x]}" + Icone.FIM_COR.value, end="            ")
             print("\n")
 
+    def printMatrizPontos(self):
         print(Icone.COR_AMARELO.value +"\n      Matriz de pontos"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(self.quantidadePontos):
                 print(Icone.COR_AMARELO.value + f"{self.matrizPontos[i][x]}" + Icone.FIM_COR.value, end="    ")
             print("\n")
 
-        print(Icone.COR_AMARELO.value +"\n      p x pontos"+ Icone.FIM_COR.value)
+    def printMatrizPivoVezesPontos(self):
+        print(Icone.COR_AMARELO.value +"\n      pivo x pontos"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(self.quantidadePontos):
                 print(Icone.COR_AMARELO.value + f"{self.matrizPivoVezesPontos[i][x]}" + Icone.FIM_COR.value, end="    ")
             print("\n")
        
-        print(Icone.COR_AMARELO.value +"\n      A x pontos"+ Icone.FIM_COR.value)
+    def printMatrizAnguloVezesPontos(self):
+        print(Icone.COR_AMARELO.value +"\n      Angulo x pontos(rotacionada)"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(self.quantidadePontos):
-                print(Icone.COR_AMARELO.value + f"{self.matrizAnguloVezesPontos[i][x]}" + Icone.FIM_COR.value, end="    ")
+                print(Icone.COR_AMARELO.value + f"{self.matrizPontosRotacionada[i][x]}" + Icone.FIM_COR.value, end="    ")
             print("\n")
 
-       
+    def printMatrizFinal(self):
         print(Icone.COR_AMARELO.value +"\n      Matriz de final"+ Icone.FIM_COR.value)
         for i in range(3):
             for x in range(self.quantidadePontos):
                 print(Icone.COR_AMARELO.value + f"{self.matrizFinal[i][x]}" + Icone.FIM_COR.value, end="    ")
             print("\n")
+
 
     def getSenCos(self, angulo):
         self.angulo = angulo
@@ -279,12 +304,13 @@ class Transformacoes:
             self.senAng = 1
             self.cosAng = 0
         elif angulo == -90:
-            self.senAng = -0.89
-            self.cosAng = -1
+            self.senAng = -1
+            self.cosAng = 0
         
         else : # 30°
             self.senAng = 0.50 
             self.cosAng = 0.87
 
         senCos = [self.senAng,  self.cosAng, self.angulo]
+
         return senCos
