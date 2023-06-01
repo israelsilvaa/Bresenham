@@ -95,6 +95,7 @@ class VarreduraPreenchimento:
                 a1 = interseccoesX.count(interseccoesX[1])
                 a2 = interseccoesX.count(interseccoesX[2])
 
+                # tratamento p/ evitar pontos de interseção repetidos
                 if a > 1:
                     interseccoesX.pop(0)
                 elif a1 > 1:
@@ -108,14 +109,10 @@ class VarreduraPreenchimento:
         for i in range(len(self.listaInterseccoes)):
             if len(self.listaInterseccoes[i][1]) > 1:
 
-                print("Y:", self.listaInterseccoes[i][0], "lista:",self.listaInterseccoes[i][1])
-
                 for x in range( 0, len(self.listaInterseccoes[i][1]), 2):
                     if x+1 < len(self.listaInterseccoes[i][1]):
                         self.planoCartesiano.reta(self.listaInterseccoes[i][1][x], self.listaInterseccoes[i][0], self.listaInterseccoes[i][1][x+1], self.listaInterseccoes[i][0],  Icone.COR_ROXO.value)
-                        print("x:", self.listaInterseccoes[i][1][x],"y:", self.listaInterseccoes[i][0],"xf:", self.listaInterseccoes[i][1][x+1],"yf:", self.listaInterseccoes[i][0])
-
-        # self.planoCartesiano.matrizAtual()
+                        
         self.printTabelaVarredura()
         self.printTabelaInterseccoes()
 
@@ -141,8 +138,6 @@ class VarreduraPreenchimento:
     def pegarRetas(self):
         tela = Tela()
         listaParesOrdenados = []
-
-        
 
         while True:
             tela.limparTela()

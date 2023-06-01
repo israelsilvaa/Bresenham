@@ -28,12 +28,15 @@ class Projecao:
         print("\npontos3d")
         for i in range(4):
             print(self.matrizPontos3d[i])
+        s = input("enter para continuar")
+
 
         self.matrizCabinetVezesPontos3d = self.multiplicaMatriz(self.matrizCabinet, self.matrizPontos3d, self.matrizCabinetVezesPontos3d)
 
         print("\nCabinet x Pontos3d")
         for i in range(4):
             print(self.matrizCabinetVezesPontos3d[i])
+        s = input("enter para continuar")
         
         listaParesOrdenados = self.pegarPontosMultiplicados(self.matrizCabinetVezesPontos3d)
 
@@ -51,6 +54,7 @@ class Projecao:
         print("\npontos3d")
         for i in range(4):
             print(self.matrizPontos3d[i])
+        s = input("enter para continuar")
 
         self.matrizOrtogonalVezesPontos3d = self.multiplicaMatriz(self.matrizOrtogonal, self.matrizPontos3d, self.matrizOrtogonalVezesPontos3d)
 
@@ -59,6 +63,7 @@ class Projecao:
         print("\nOrtogonal x Pontos3d")
         for i in range(4):
             print(self.matrizOrtogonalVezesPontos3d[i])
+        s = input("enter para continuar")
 
         return self.escreverPontos(listaParesOrdenados, listaArestas)
         
@@ -78,9 +83,6 @@ class Projecao:
 
     def criarMatrizPontos3d(self, listaParesOrdenados):
 
-        print("DEBUGGGGGG::::::",listaParesOrdenados)
-
-       
         #cria matriz de Pontos X,Y,Z
         for linha in range(4):
             linhaPontos = []
