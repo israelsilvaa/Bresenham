@@ -9,9 +9,10 @@ from modulos.recorte import Recorte
 from modulos.bezier import Bezier
 from modulos.tela import Tela
 import time
-
-inicioMatriz = -15
-fimMatriz = 15
+# -15 5 projeção
+# -6 10 varredura
+inicioMatriz = -5
+fimMatriz = 10
 
 planoCartesiano = Bresenham(inicioMatriz,fimMatriz)
 tela = Tela()
@@ -83,18 +84,10 @@ while opc != 0:
         listaArestas = []
         listaPontosOriginais = listaParesOrdenados
         
-        # listaParesOrdenados = [[-5,-7,0],
-        #                        [5,-7,0],
-        #                        [5,3,0],
-        #                        [-5,3,0],
-        #                        [-5,-7,-10], 
-        #                        [5,-7,-10],
-        #                        [5,3,-10],
-        #                        [-5,3,-10]]
-        
+        # cubo
+        # listaParesOrdenados = [[-5,-7,0],[5,-7,0],[5,3,0],[-5,3,0],[-5,-7,-10],[5,-7,-10],[5,3,-10],[-5,3,-10]]
         # listaArestas = [ [0,1],[0,3],[0,4],[1,2],[1,5],[2,3],[2,6],[3,7],[7,4],[7,6],[5,6],[5,4]]
-        
-        
+
         while True:
             tela.painelConfigRapida()
             tela.limparTela()
@@ -123,7 +116,7 @@ while opc != 0:
                 planoCartesiano.matrizAtual()
                 print("Pontos:", listaParesOrdenados)
                 print("ARESTAS:", listaArestas)
-                sair = input("sair")
+                sair = input("enter para continuar")
 
                 listaParesOrdenados = listaPontosOriginais
                 planoCartesiano = Bresenham(inicioMatriz, fimMatriz)
@@ -137,7 +130,7 @@ while opc != 0:
                 planoCartesiano.matrizAtual()
                 print("Pontos:", listaParesOrdenados)
                 print("ARESTAS:", listaArestas)
-                sair = input("sair")
+                sair = input("enter para continuar")
                 
                 listaParesOrdenados = listaPontosOriginais
                 planoCartesiano = Bresenham(inicioMatriz, fimMatriz)
@@ -153,9 +146,6 @@ while opc != 0:
         while True:
 
             # listaParesOrdenados = [ [0,8], [3, 1], [5, 6], [9, 1], [10, 10]] #ex slide
-            # listaParesOrdenados = [[-3, -4], [7, -1], [9, 7], [2, 5]]
-            # listaParesOrdenados = [ [1,1], [8, 5], [2, 7] ]
-            # listaParesOrdenados =  [[-4, 0], [0, -3], [7, 1], [3, 8]]
 
             # listaParesOrdenados = [[-5, -5], [6, -3], [10, 1], [2, 9], [-5, 4], [0, 0]]  #ex 1
             # listaParesOrdenados = [[-8, -1], [2, 2], [-1, 7], [-6, 3], [-4, -6], [5, 0], [10, 4], [-2, 10], [-10, 5]]  #ex 2
