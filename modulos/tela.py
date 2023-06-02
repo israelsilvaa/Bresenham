@@ -1,8 +1,12 @@
 import os
+import platform
 from enums.icone import Icone
 class Tela():
 
    def limparTela(self):
+      if platform.system() != 'Windows':
+         os.system('clear')
+         return
       os.system('cls')
 
    def painelConfigRapida(self):
