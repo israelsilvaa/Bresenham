@@ -1,0 +1,40 @@
+# Bresenham
+projeto de computação grafica
+
+
+Dentro da pasta "Documentação" dese projeto você pode encontrar imagens para ajudar na configuração do ambiente.
+
+Opções para rodar o projeto:
+
+    -Github:
+        requisitos minimos:
+            -ter instalado Visual Studio code<https://code.visualstudio.com/>
+
+            -ter instalado python 3.10 ou superior<https://www.python.org/downloads/>
+                *para facilitar recomendamos instalar o python diretamante pela aba de extensões do VS code
+                *clique em extensões e pesquise por python, selecionone a opção fornecida pela Microsoft.(imagem: vscode_1.png)
+
+        passos:
+        1_ clonar o projeto ou baixar pasta do projeto em <https://github.com/israelsilvaa/Bresenham.git>.
+
+        2_ com o Visual Studio code aberto, no canto superior esquerdo clique em "Arquivo", selecione a opção de abrir uma pasta,
+        localize a pasta do projeto no seu computador.(imagem: github_1.png)
+
+            -2.1 Certifique-se de configurar a versão do python a ser utilizada, no canto inferior direito(imagem: github_2.png) se pode 
+            configurar um interpretador python especificando o caminho de um python ja instalado ou se não instalar pelo proprio
+            Visual Studio code(mais recomendável), apos instalar ou configurar o caminho do interpretador sera mostrado a versão do mesmo(imagem: github_3.png)
+
+        3_ Na pasta raiz do projeto, selecione/clique no arquivo "main.py".(imagem: github_4.png)
+
+        4_ apos selecionar o arquivo main, clicar no canto superior direito no dropdown com icone de "executar" e selecionar a opção 
+        "executar arquivo do python". (imagem: github_5.png)
+    
+
+    -Compilador online Replit:
+
+        passos:
+        1_ acessar em qualquer navegador o link do projeto na plataforma <https://replit.com/@IsraelSilvaSilv/bresenham> 
+
+        2_ Para rodar basta clicar em "run" ou "executar". (imagem: replit_1.png)
+
+        3_ para exibir o codigo fonte basta clicar em "show code" (imagem: replit_2.png e replit_3.png)
