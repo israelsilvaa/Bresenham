@@ -42,8 +42,8 @@ class Tela():
         print(Icone.COR_VERDE.value,"             SISTEMAS DE INFORMAÇÃO\n\n", Icone.FIM_COR.value)
         print(Icone.COR_AMARELO.value,"Disciplina: ",Icone.FIM_COR.value ,"Computação Grafica")
         print(Icone.COR_AMARELO.value,"Docente:",Icone.FIM_COR.value ,"Prof. Dr. Bianchi Serique Meiguins\n")
-        print(Icone.COR_AMARELO.value,"Discentes:",Icone.FIM_COR.value ," Israel Pinheiro da Silva")
-        print("              Weslei Marcelo Amorin Dos Santos")
+        print(Icone.COR_AMARELO.value,"Discentes:",Icone.FIM_COR.value ," Israel Pinheiro da Silva - Matricula:201911140005")
+        print("              Weslei Marcelo Amorin Dos Santos - Matricula:201911140018")
   
         print(Icone.COR_VERDE.value,"\n\n\n                Pressione ENTER para sair. '-'", Icone.FIM_COR.value)
         s = input()
