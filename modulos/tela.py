@@ -14,7 +14,7 @@ class Tela():
       print("------------"*4)
       print("              Opções\n")
       print("[10] - Tamanho do plano cartesiano")
-      print("[9] - Sobre")
+      print("[9] - Alunos")
       print(str(Icone.COR_VERDE.value)+"[8] - Curva de Bézier"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[7] - Projeções(Ortografica, Persquectiva)"+str(Icone.FIM_COR.value))
       print(str(Icone.COR_VERDE.value)+"[6] - Preenchimento("+str(Icone.FIM_COR.value)+str(Icone.COR_AMARELO.value)+"varredura"+str(Icone.FIM_COR.value)+str(Icone.COR_VERDE.value)+", recursivo)"+str(Icone.FIM_COR.value))
